@@ -1,0 +1,17 @@
+version: 2.1
+orbs:
+  architect: giantswarm/architect@4.26.0
+
+workflows:
+  package-and-push-chart-on-tag:
+    jobs:
+      - architect/push-to-app-catalog:
+          context: "architect"
+          executor: "app-build-suite"
+          app_catalog: "control-plane-catalog"
+          app_catalog_test: "control-plane-test-catalog"
+          chart: "slos-poc"
+          # Trigger job on git tag.
+          filters:
+            tags:
+              only: /^v.*/
