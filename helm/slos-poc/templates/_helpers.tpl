@@ -18,18 +18,5 @@ Common labels
 */}}
 {{- define "labels.common" -}}
 app: {{ include "name" . | quote }}
-{{ include "labels.selector" . }}
-app.giantswarm.io/branch: {{ .Values.project.branch | quote }}
-app.giantswarm.io/commit: {{ .Values.project.commit | quote }}
-app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-helm.sh/chart: {{ include "chart" . | quote }}
-{{- end -}}
-
-{{/*
-Selector labels
-*/}}
-{{- define "labels.selector" -}}
-app.kubernetes.io/name: {{ include "name" . | quote }}
-app.kubernetes.io/instance: {{ .Release.Name | quote }}
+application.giantswarm.io/team: phoenix
 {{- end -}}
