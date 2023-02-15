@@ -1,0 +1,7 @@
+{{ $currentScope := .}}
+{{ range $path, $_ :=  .Files.Glob  "**.yaml" }}
+---
+  {{- with $currentScope}}
+    {{ .Files.Get $path }}
+  {{- end }}
+{{ end }}
