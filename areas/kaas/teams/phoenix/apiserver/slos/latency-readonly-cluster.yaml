@@ -1,0 +1,6 @@
+---
+description: "Read-only cluster level API calls latency SLO based on https://github.com/kubernetes/community/blob/master/sig-scalability/slos/api_call_latency.md"
+alertName: "ApiServerReadonlyLatencyTooHigh"
+objective: 99
+errorQuery: sum(rate(apiserver_request_duration_seconds_count{verb=~"GET|LIST", scope!="resource"}[{{.window}}])) by (cluster_id) - sum(rate(apiserver_request_duration_seconds_bucket{le="30", verb=~"GET|LIST", scope!="resource"}[{{.window}}])) by (cluster_id)
+totalQuery: sum(rate(apiserver_request_duration_seconds_count{ verb=~"GET|LIST", scope!="resource" }[{{.window}}])) by (cluster_id)

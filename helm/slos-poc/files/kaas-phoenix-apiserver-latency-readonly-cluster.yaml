@@ -3,7 +3,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-apiserver-latency-readonly
+  name: kaas-phoenix-apiserver-latency-readonly-cluster
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,15 +12,15 @@ spec:
   labels:
     owner: "phoenix"
   slos:
-    - name: "latency-readonly"
+    - name: "latency-readonly-cluster"
       objective: 99
-      description: Read-only API calls latency SLO based on https://github.com/kubernetes/community/blob/master/sig-scalability/slos/api_call_latency.md
+      description: Read-only cluster level API calls latency SLO based on https://github.com/kubernetes/community/blob/master/sig-scalability/slos/api_call_latency.md
       sli:
         events:
           errorQuery: |-
-            sum(rate(apiserver_request_duration_seconds_count{verb=~"GET|LIST"}[{{.window}}])) by (cluster_id) - sum(rate(apiserver_request_duration_seconds_bucket{le="1", verb=~"GET|LIST"}[{{.window}}])) by (cluster_id)
+            sum(rate(apiserver_request_duration_seconds_count{verb=~"GET|LIST", scope!="resource"}[{{.window}}])) by (cluster_id) - sum(rate(apiserver_request_duration_seconds_bucket{le="30", verb=~"GET|LIST", scope!="resource"}[{{.window}}])) by (cluster_id)
           totalQuery: |-
-            sum(rate(apiserver_request_duration_seconds_count{ verb=~"GET|LIST" }[{{.window}}])) by (cluster_id)
+            sum(rate(apiserver_request_duration_seconds_count{ verb=~"GET|LIST", scope!="resource" }[{{.window}}])) by (cluster_id)
       alerting:
         name: ApiServerReadonlyLatencyTooHigh
         labels:
