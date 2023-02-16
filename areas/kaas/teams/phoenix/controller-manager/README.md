@@ -11,7 +11,7 @@ When the reconciliation speed is too slow, the cluster might become slow respond
 
 |Category | SLI                                                                                                                                                                                      |SLO |
 |---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---:|
-| Latency | The proportion of sufficiently fast reconciliation loops, as measured from controller managers pods's metrics.<br>“Sufficiently fast” is any reconciliation taking less than one second. | 99% success  |
+| Latency | The proportion of sufficiently fast reconciliation loops, as measured from controller managers pods's metrics.<br>“Sufficiently fast” is any reconciliation taking less than 10 seconds. | 99% success  |
 
 ## Clarifications and Caveats
 

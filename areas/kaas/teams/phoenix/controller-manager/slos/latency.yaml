@@ -2,5 +2,5 @@
 description: "Reconciliation time for each resource controller by controller manager"
 alertName: "ControllerManagerReonciliationLatencyTooHigh"
 objective: 99
-errorQuery: clamp_min(sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id) - sum(rate(workqueue_queue_duration_seconds_bucket{le="1"}[{{.window}}])) by (cluster_id), 0)
+errorQuery: clamp_min(sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id) - sum(rate(workqueue_queue_duration_seconds_bucket{le="10"}[{{.window}}])) by (cluster_id), 0)
 totalQuery: sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id)
