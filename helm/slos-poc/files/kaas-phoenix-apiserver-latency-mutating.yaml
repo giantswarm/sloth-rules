@@ -18,7 +18,7 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(apiserver_request_duration_seconds_count{verb=~"POST|PUT|DELETE|PATCH"}[{{.window}}])) by (cluster_id) - sum(rate(apiserver_request_duration_seconds_bucket{le="1", verb=~"POST|PUT|DELETE|PATCH"}[{{.window}}])) by (cluster_id)
+            clamp_min(sum(rate(apiserver_request_duration_seconds_count{verb=~"POST|PUT|DELETE|PATCH"}[{{.window}}])) by (cluster_id) - sum(rate(apiserver_request_duration_seconds_bucket{le="1", verb=~"POST|PUT|DELETE|PATCH"}[{{.window}}])) by (cluster_id), 0)
           totalQuery: |-
             sum(rate(apiserver_request_duration_seconds_count{ verb=~"POST|PUT|DELETE|PATCH" }[{{.window}}])) by (cluster_id)
       alerting:
