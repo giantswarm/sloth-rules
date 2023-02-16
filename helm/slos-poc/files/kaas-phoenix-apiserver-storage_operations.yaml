@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id)
+            sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id, volume_plugin)
           totalQuery: |-
-            sum(rate(storage_operation_duration_seconds_count{status=~"success"}[{{.window}}])) by (cluster_id)
+            sum(rate(storage_operation_duration_seconds_count{status=~"success"}[{{.window}}])) by (cluster_id, volume_plugin)
       alerting:
         name: StorageOperationsErrorRateTooHigh
         labels:
