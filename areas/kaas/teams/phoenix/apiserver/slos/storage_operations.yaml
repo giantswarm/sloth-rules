@@ -2,5 +2,5 @@
 description: "Storage Operations SLO"
 alertName: "StorageOperationsErrorRateTooHigh"
 objective: 99
-errorQuery: sum(rate(storage_operation_errors_total[{{.window}}])) by (cluster_id)
-totalQuery: sum(rate(storage_operation_total[{{.window}}])) by (cluster_id)
+errorQuery: sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id)
+totalQuery: sum(rate(storage_operation_duration_seconds_count{status=~"success"}[{{.window}}])) by (cluster_id)
