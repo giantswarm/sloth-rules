@@ -1,0 +1,6 @@
+---
+description: "Pod scheduling duration"
+alertName: "PodSchedulingDurationTooHigh"
+objective: 99
+errorQuery: clamp_min(sum(rate(scheduler_pod_scheduling_duration_seconds_count{}[{{.window}}])) by (cluster_id) - sum(rate(scheduler_pod_scheduling_duration_seconds_bucket{le="327.68"}[{{.window}}])) by (cluster_id), 0)
+totalQuery: sum(rate(scheduler_pod_scheduling_duration_seconds_count{}[{{.window}}])) by (cluster_id)
