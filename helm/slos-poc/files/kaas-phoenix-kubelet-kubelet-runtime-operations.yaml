@@ -3,26 +3,26 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-apiserver-kubelet-runtime-duration
+  name: kaas-phoenix-kubelet-kubelet-runtime-operations
   namespace: monitoring
   labels:
     release: prometheus
 spec:
-  service: "apiserver"
+  service: "kubelet"
   labels:
     owner: "phoenix"
   slos:
-    - name: "kubelet-runtime-duration"
+    - name: "kubelet-runtime-operations"
       objective: 99
-      description: Kubelet Operations Duration SLO
+      description: Kubelet Runtime Operations SLO
       sli:
         events:
           errorQuery: |-
-            sum(rate(kubelet_pod_worker_duration_seconds_count{operation_type=~"create|update"}[{{.window}}])) by (cluster_id) - sum(rate(kubelet_pod_worker_duration_seconds_bucket{le="1",operation_type=~"create|update"}[{{.window}}])) by (cluster_id)
+            sum(rate(kubelet_runtime_operations_errors_total[{{.window}}])) by (operation_type, cluster_id)
           totalQuery: |-
-            sum(rate(kubelet_pod_worker_duration_seconds_count{operation_type=~"create|update"}[{{.window}}])) by (cluster_id)
+            sum(rate(kubelet_runtime_operations_total[{{.window}}])) by (operation_type, cluster_id)
       alerting:
-        name: KubeletRuntimeDurationTooHigh
+        name: KubeletRuntimeErrorRateTooHigh
         labels:
           team: phoenix
           area: kaas

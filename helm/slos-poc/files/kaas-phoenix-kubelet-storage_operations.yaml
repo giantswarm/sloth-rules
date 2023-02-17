@@ -3,26 +3,26 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-apiserver-kubelet-started-pods
+  name: kaas-phoenix-kubelet-storage_operations
   namespace: monitoring
   labels:
     release: prometheus
 spec:
-  service: "apiserver"
+  service: "kubelet"
   labels:
     owner: "phoenix"
   slos:
-    - name: "kubelet-started-pods"
+    - name: "storage_operations"
       objective: 99
-      description: Kubelet Started Pods SLO
+      description: Storage Operations SLO
       sli:
         events:
           errorQuery: |-
-            sum(rate(kubelet_started_pods_errors_total[{{.window}}])) by (cluster_id)
+            sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id, volume_plugin)
           totalQuery: |-
-            sum(rate(kubelet_started_pods_total[{{.window}}])) by (cluster_id)
+            sum(rate(storage_operation_duration_seconds_count{status=~"success"}[{{.window}}])) by (cluster_id, volume_plugin)
       alerting:
-        name: KubeletStartedPodsErrorRateTooHigh
+        name: StorageOperationsErrorRateTooHigh
         labels:
           team: phoenix
           area: kaas

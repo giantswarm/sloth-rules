@@ -3,12 +3,12 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-apiserver-kubelet-pleg-duration
+  name: kaas-phoenix-kubelet-kubelet-pleg-duration
   namespace: monitoring
   labels:
     release: prometheus
 spec:
-  service: "apiserver"
+  service: "kubelet"
   labels:
     owner: "phoenix"
   slos:
