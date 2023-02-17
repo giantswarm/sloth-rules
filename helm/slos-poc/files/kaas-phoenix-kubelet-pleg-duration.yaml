@@ -3,7 +3,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-kubelet-kubelet-started-pods
+  name: kaas-phoenix-kubelet-pleg-duration
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,17 +12,17 @@ spec:
   labels:
     owner: "phoenix"
   slos:
-    - name: "kubelet-started-pods"
+    - name: "pleg-duration"
       objective: 99
-      description: Kubelet Started Pods SLO
+      description: Kubelet PLEG Duration SLO
       sli:
         events:
           errorQuery: |-
-            sum(rate(kubelet_started_pods_errors_total[{{.window}}])) by (cluster_id)
+            sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"worker|master"}[{{.window}}])) by (cluster_id,le) > 10
           totalQuery: |-
-            sum(rate(kubelet_started_pods_total[{{.window}}])) by (cluster_id)
+            sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"worker|master"}[{{.window}}])) by (cluster_id,le) <= 10
       alerting:
-        name: KubeletStartedPodsErrorRateTooHigh
+        name: KubeletPLEGDurationTooHigh
         labels:
           team: phoenix
           area: kaas

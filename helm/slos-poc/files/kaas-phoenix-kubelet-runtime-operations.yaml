@@ -3,7 +3,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-kubelet-kubelet-started-containers
+  name: kaas-phoenix-kubelet-runtime-operations
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,17 +12,17 @@ spec:
   labels:
     owner: "phoenix"
   slos:
-    - name: "kubelet-started-containers"
+    - name: "runtime-operations"
       objective: 99
-      description: Kubelet Started Containers SLO
+      description: Kubelet Runtime Operations SLO
       sli:
         events:
           errorQuery: |-
-            sum(rate(kubelet_started_containers_errors_total[{{.window}}])) by (cluster_id)
+            sum(rate(kubelet_runtime_operations_errors_total[{{.window}}])) by (operation_type, cluster_id)
           totalQuery: |-
-            sum(rate(kubelet_started_containers_total[{{.window}}])) by (cluster_id)
+            sum(rate(kubelet_runtime_operations_total[{{.window}}])) by (operation_type, cluster_id)
       alerting:
-        name: KubeletStartedContainersErrorRateTooHigh
+        name: KubeletRuntimeErrorRateTooHigh
         labels:
           team: phoenix
           area: kaas

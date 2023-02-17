@@ -3,7 +3,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-kubelet-kubelet-runtime-operations
+  name: kaas-phoenix-kubelet-storage-operations
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,17 +12,17 @@ spec:
   labels:
     owner: "phoenix"
   slos:
-    - name: "kubelet-runtime-operations"
+    - name: "storage-operations"
       objective: 99
-      description: Kubelet Runtime Operations SLO
+      description: Storage Operations SLO
       sli:
         events:
           errorQuery: |-
-            sum(rate(kubelet_runtime_operations_errors_total[{{.window}}])) by (operation_type, cluster_id)
+            sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id, volume_plugin)
           totalQuery: |-
-            sum(rate(kubelet_runtime_operations_total[{{.window}}])) by (operation_type, cluster_id)
+            sum(rate(storage_operation_duration_seconds_count{status=~"success"}[{{.window}}])) by (cluster_id, volume_plugin)
       alerting:
-        name: KubeletRuntimeErrorRateTooHigh
+        name: StorageOperationsErrorRateTooHigh
         labels:
           team: phoenix
           area: kaas

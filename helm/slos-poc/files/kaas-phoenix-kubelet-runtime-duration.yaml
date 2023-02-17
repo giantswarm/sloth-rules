@@ -3,7 +3,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-kubelet-kubelet-runtime-duration
+  name: kaas-phoenix-kubelet-runtime-duration
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,7 +12,7 @@ spec:
   labels:
     owner: "phoenix"
   slos:
-    - name: "kubelet-runtime-duration"
+    - name: "runtime-duration"
       objective: 99
       description: Kubelet Operations Duration SLO
       sli:
