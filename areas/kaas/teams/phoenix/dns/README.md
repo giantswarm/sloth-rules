@@ -1,6 +1,6 @@
-## DNS Server
+## DNS Service
 
-This document describes the SLO for `DNS Server` on both Giant Swarm's Management Clusters and Workload Clusters. CoreDNS and Node Local DNS are used as the implementation in all Giant Swarm clusters.
+This document describes the SLO for `DNS Service` on both Giant Swarm's Management Clusters and Workload Clusters. CoreDNS and Node Local DNS are used as the implementation in all Giant Swarm clusters.
 
 ## Service Overview
 
