@@ -1,0 +1,6 @@
+---
+description: "DNS resolution not available"
+alertName: "DNSResolutionUnavailable"
+objective: 99
+errorQuery: avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id) - avg(sum_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id)
+totalQuery: avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id)
