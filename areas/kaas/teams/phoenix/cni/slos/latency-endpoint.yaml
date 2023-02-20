@@ -1,0 +1,6 @@
+---
+description: "Cilium endpoint regeneration latency"
+alertName: "CiliumEndpointRegenerationLatencyTooHigh"
+objective: 99
+errorQuery: sum(rate(cilium_endpoint_regeneration_time_stats_seconds_count{scope="total"}[{{.window}}])) by (cluster_id) - sum(rate(cilium_endpoint_regeneration_time_stats_seconds_bucket{scope="total", le="0.05"}[{{.window}}])) by (cluster_id)
+totalQuery: sum(rate(cilium_endpoint_regeneration_time_stats_seconds_count{scope="total"}[{{.window}}])) by (cluster_id)
