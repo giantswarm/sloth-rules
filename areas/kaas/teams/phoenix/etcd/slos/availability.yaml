@@ -2,5 +2,5 @@
 description: "ETCD availability error rate is too high"
 alertName: "ETCDAvailabilityErrorRateTooHigh"
 objective: 99
-errorQuery: sum(rate(grpc_client_handled_total{grpc_code!="OK"}[{{.window}}])) by (cluster_id)
-totalQuery: sum(rate(grpc_client_handled_total[{{.window}}])) by (cluster_id)
+errorQuery: sum(rate(grpc_client_handled_total{app="etcd",grpc_code!="OK"}[{{.window}}])) by (cluster_id)
+totalQuery: sum(rate(grpc_client_handled_total{app="etcd"}[{{.window}}])) by (cluster_id)
