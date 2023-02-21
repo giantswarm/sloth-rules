@@ -1,20 +1,25 @@
-## Cloud Authentication
+## Cloud Authentication for Pods
 
-This document describes the SLO for `Container Network Interface` on both Giant Swarm's Management Clusters and Workload Clusters.
+This document describes the SLO for `Cloud Authentication for Pods` on both Giant Swarm's Management Clusters and Workload Clusters.
 
 ## Service Overview
 
-The Container Network Interface is the component responsible for setting up networking on pods and enforce networking policies. Pod networking is a critical service for workloads to work properly. Cilium is used as the implementation in all Giant Swarm clusters.
+The Cloud Authentication for Pods is responsible for providing credentials to Pods in order to be able to manage resources in a cloud provider.
+
+IAM Roles for Service Accounts (IRSA) is used on AWS.
 
 ## SLIs and SLOs
 
 |Category | SLI                                                                                                                                                                                      |SLO |
 |---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---:|
-| Endpoint Regeneration Latency | The proportion of sufficiently fast endpoint regeneration loops, as measured from cilium agent pods's metrics.<br>“Sufficiently fast” is any reconciliation taking less than 0.05 seconds. | 99% success  |
-| Node Connectivity Latency | The proportion of sufficiently fast connectivity latency between cilium agents in other nodes, as measured from cilium agent pods's metrics.<br>“Sufficiently fast” is latency should be less than 0.001 seconds. | 99% success  |
+| Availability | The proportion of successful calls against the mutating webhooks (code 200) against the amount of unsuccsefull calls (code !=200). | 99% success  |
+| Latency | The proportion of sufficiently fast mutation calls, as measured from the webhook pods's metrics.<br>“Sufficiently fast” is any reconciliation taking less than 0.25 seconds. | 99% success  |
+
 
 ## Clarifications and Caveats
 
-- Endpoint regeneration: This metric measures how long it takes for an endpoint to regenerate. Cilium utilizes a portion of a cluster’s available resources to operate, and a high value could indicate that a cluster is churning more pods than Cilium can process.
+- Metrics are lacking in the webhook itself.
 
-- The SLO was set arbitrarily for now, will need to be tested in the real environments and adjusted to a reasonable value.
+- There is very little traffic in an empty cluster and SLO can be skewed pretty fast.
+
+- Even if a role does not exist, the webhook return a 200 http code.
