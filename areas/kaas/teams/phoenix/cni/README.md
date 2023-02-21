@@ -10,7 +10,7 @@ The Container Network Interface is the component responsible for setting up netw
 
 |Category | SLI                                                                                                                                                                                      |SLO |
 |---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---:|
-| Endpoint Regeneration Latency | The proportion of sufficiently fast endpoint regeneration loops, as measured from cilium agent pods's metrics.<br>“Sufficiently fast” is any reconciliation taking less than 0.05 seconds. | 99% success  |
+| Endpoint Regeneration Latency | The proportion of sufficiently fast endpoint regeneration loops, as measured from cilium agent pods's metrics.<br>“Sufficiently fast” is any reconciliation taking less than 0.1 seconds. | 99% success  |
 | Node Connectivity Latency | The proportion of sufficiently fast connectivity latency between cilium agents in other nodes, as measured from cilium agent pods's metrics.<br>“Sufficiently fast” is latency should be less than 0.001 seconds. | 99% success  |
 
 ## Clarifications and Caveats
