@@ -2,9 +2,20 @@ version: 2.1
 orbs:
   architect: giantswarm/architect@4.26.0
 
+jobs:
+  check-generated:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - run:
+          command: |
+            make generate
+            git diff --exit-code helm
 workflows:
   package-and-push-chart-on-tag:
     jobs:
+      - check-generated
       - architect/push-to-app-catalog:
           context: "architect"
           app_catalog: "control-plane-catalog"
