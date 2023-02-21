@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/slos-poc/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/slos-poc/tree/main)
+
 # SLO
 
 WARNING: this is a POC run by team phoenix. Do not use for production reasons.
