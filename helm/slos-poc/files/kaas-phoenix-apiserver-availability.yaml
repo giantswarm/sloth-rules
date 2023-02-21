@@ -6,7 +6,7 @@ metadata:
   name: kaas-phoenix-apiserver-availability
   namespace: monitoring
   labels:
-    release: prometheus
+    release: prometheusss
 spec:
   service: "apiserver"
   labels:
