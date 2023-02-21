@@ -2,5 +2,5 @@
 description: "ETCD availability error rate is too high"
 alertName: "ETCDAvailabilityErrorRateTooHigh"
 objective: 99
-errorQuery: CHANGEMEavg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id) - avg(sum_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id)
-totalQuery: CHANGEMEavg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id)
+errorQuery: sum(rate(grpc_client_handled_total{grpc_code!="OK"}[{{.window}}])) by (cluster_id)
+totalQuery: sum(rate(grpc_client_handled_total[{{.window}}])) by (cluster_id)

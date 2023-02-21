@@ -10,7 +10,7 @@ The ETCD service is the persistence layer of the Kubernetes cluster.
 
 |Category | SLI                                                                                                                                                  |SLO |
 |---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|---:|
-| Availability |                                                                                                                                                      | 99% success |
+| Availability | The proportion of GRPC calls that have a successfull status code ("OK") as seen by etcd pods themselves.                                             | 99% success |
 | Latency | The proportion of sufficiently quickly responded requests, as seen by etcd process itself. Any request is considered fast enough if it takes < 0.5s. | 99% success  |
 
 ## Clarifications and Caveats
