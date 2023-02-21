@@ -10,7 +10,7 @@ jobs:
       - run:
           command: |
             make generate
-            git diff --exit-code helm || (echo 'Detected changes in generated files. Please run "make generate" and push again' && exit 1)
+            git diff --output /dev/null --exit-code helm/ || (echo 'Detected changes in generated files. Please run "make generate" and push again' && exit 1)
 workflows:
   package-and-push-chart-on-tag:
     jobs:
