@@ -12,7 +12,7 @@ IAM Roles for Service Accounts (IRSA) is used on AWS.
 
 |Category | SLI                                                                                                                                                                                      |SLO |
 |---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---:|
-| Availability | The proportion of successful calls against the mutating webhooks (code 200) against the amount of unsuccsefull calls (code !=200). | 99% success  |
+| Availability | The proportion of successful calls against the mutating webhooks (code 200) against the amount of unsuccessful calls (code !=200). | 99% success  |
 | Latency | The proportion of sufficiently fast mutation calls, as measured from the webhook pods's metrics.<br>“Sufficiently fast” is any reconciliation taking less than 0.25 seconds. | 99% success  |
 
 
