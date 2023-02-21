@@ -4,8 +4,7 @@ orbs:
 
 jobs:
   check-generated:
-    machine:
-      resource_class: small
+    machine: true
     steps:
       - checkout
       - run:
