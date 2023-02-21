@@ -22,7 +22,7 @@ spec:
           totalQuery: |-
             sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id)
       alerting:
-        name: ControllerManagerReonciliationLatencyTooHigh
+        name: ControllerManagerReconciliationLatencyTooHigh
         labels:
           team: phoenix
           area: kaas
