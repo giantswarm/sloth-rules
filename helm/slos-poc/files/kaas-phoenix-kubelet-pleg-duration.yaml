@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"worker|master"}[{{.window}}])) by (cluster_id,le) > 10
+            clamp_min(sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"master|worker"}[{{.window}}])) by (cluster_id) - sum(rate(kubelet_pleg_relist_interval_seconds_bucket{le="2.5",role=~"master|worker"}[{{.window}}])) by (cluster_id), 0)
           totalQuery: |-
-            sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"worker|master"}[{{.window}}])) by (cluster_id,le) <= 10
+            sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"worker|master"}[{{.window}}])) by (cluster_id)
       alerting:
         name: KubeletPLEGDurationTooHigh
         labels:
@@ -29,6 +29,8 @@ spec:
         annotations: {}
         pageAlert:
           labels:
+            cancel_if_cluster_status_creating: "true"
+            cancel_if_cluster_status_deleting: "true"
             severity: page
             team: phoenix
         ticketAlert:

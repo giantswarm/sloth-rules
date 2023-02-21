@@ -18,7 +18,7 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(kubelet_pod_worker_duration_seconds_count{operation_type=~"create|update"}[{{.window}}])) by (cluster_id) - sum(rate(kubelet_pod_worker_duration_seconds_bucket{le="1",operation_type=~"create|update"}[{{.window}}])) by (cluster_id)
+            clamp_min(sum(rate(kubelet_pod_worker_duration_seconds_count{operation_type=~"create|update"}[{{.window}}])) by (cluster_id) - sum(rate(kubelet_pod_worker_duration_seconds_bucket{le="1",operation_type=~"create|update"}[{{.window}}])) by (cluster_id), 0)
           totalQuery: |-
             sum(rate(kubelet_pod_worker_duration_seconds_count{operation_type=~"create|update"}[{{.window}}])) by (cluster_id)
       alerting:
@@ -29,6 +29,8 @@ spec:
         annotations: {}
         pageAlert:
           labels:
+            cancel_if_cluster_status_creating: "true"
+            cancel_if_cluster_status_deleting: "true"
             severity: page
             team: phoenix
         ticketAlert:
