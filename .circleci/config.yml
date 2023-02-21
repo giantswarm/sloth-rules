@@ -14,7 +14,10 @@ jobs:
 workflows:
   package-and-push-chart-on-tag:
     jobs:
-      - check-generated
+      - check-generated:
+          filters:
+            tags:
+              only: /^v.*/
       - architect/push-to-app-catalog:
           context: "architect"
           app_catalog: "control-plane-catalog"
