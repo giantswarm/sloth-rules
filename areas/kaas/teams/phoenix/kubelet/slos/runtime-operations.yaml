@@ -1,0 +1,6 @@
+---
+description: "Kubelet Runtime Operations SLO"
+alertName: "KubeletRuntimeErrorRateTooHigh"
+objective: 99
+errorQuery: sum(rate(kubelet_runtime_operations_errors_total[{{.window}}])) by (operation_type, cluster_id)
+totalQuery: sum(rate(kubelet_runtime_operations_total[{{.window}}])) by (operation_type, cluster_id)
