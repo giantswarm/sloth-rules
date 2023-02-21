@@ -5,7 +5,7 @@ orbs:
 jobs:
   check-generated:
     machine:
-      image: ubuntu-2004:202010-01
+      image: ubuntu-2204
     steps:
       - checkout
       - run:
@@ -21,6 +21,8 @@ workflows:
           app_catalog: "control-plane-catalog"
           app_catalog_test: "control-plane-test-catalog"
           chart: "slos-poc"
+          requires:
+            - check-generated
           # Trigger job on git tag.
           filters:
             tags:
