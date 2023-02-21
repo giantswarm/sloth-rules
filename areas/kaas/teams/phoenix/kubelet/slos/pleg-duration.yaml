@@ -2,5 +2,5 @@
 description: "Kubelet PLEG Duration SLO"
 alertName: "KubeletPLEGDurationTooHigh"
 objective: 99
-errorQuery: sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"worker|master"}[{{.window}}])) by (cluster_id,le) > 10
-totalQuery: sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"worker|master"}[{{.window}}])) by (cluster_id,le) <= 10
+errorQuery: clamp_min(sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"master|worker"}[{{.window}}])) by (cluster_id) - sum(rate(kubelet_pleg_relist_interval_seconds_bucket{le="2.5",role=~"master|worker"}[{{.window}}])) by (cluster_id), 0)
+totalQuery: sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"worker|master"}[{{.window}}])) by (cluster_id)

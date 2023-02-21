@@ -2,5 +2,5 @@
 description: "Kubelet Operations Duration SLO"
 alertName: "KubeletRuntimeDurationTooHigh"
 objective: 99
-errorQuery: sum(rate(kubelet_pod_worker_duration_seconds_count{operation_type=~"create|update"}[{{.window}}])) by (cluster_id) - sum(rate(kubelet_pod_worker_duration_seconds_bucket{le="1",operation_type=~"create|update"}[{{.window}}])) by (cluster_id)
+errorQuery: clamp_min(sum(rate(kubelet_pod_worker_duration_seconds_count{operation_type=~"create|update"}[{{.window}}])) by (cluster_id) - sum(rate(kubelet_pod_worker_duration_seconds_bucket{le="1",operation_type=~"create|update"}[{{.window}}])) by (cluster_id), 0)
 totalQuery: sum(rate(kubelet_pod_worker_duration_seconds_count{operation_type=~"create|update"}[{{.window}}])) by (cluster_id)
