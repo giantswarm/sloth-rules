@@ -2,14 +2,26 @@ version: 2.1
 orbs:
   architect: giantswarm/architect@4.26.0
 
+jobs:
+  check-generated:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          command: |
+            make generate
+            git diff --output /dev/null --exit-code helm/ || (echo 'Detected changes in generated files. Please run "make generate" and push again' && exit 1)
 workflows:
   package-and-push-chart-on-tag:
     jobs:
+      - check-generated
       - architect/push-to-app-catalog:
           context: "architect"
           app_catalog: "control-plane-catalog"
           app_catalog_test: "control-plane-test-catalog"
           chart: "slos-poc"
+          requires:
+            - check-generated
           # Trigger job on git tag.
           filters:
             tags:
