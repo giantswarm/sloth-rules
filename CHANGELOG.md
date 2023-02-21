@@ -7,8 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+## [0.1.0] - 2023-02-20
 
-- Initial release.
+### Added
 
-[Unreleased]: https://github.com/giantswarm/cilium-app/compare/v0.0.0...HEAD
+- Add API server SLO.
+- Add CNI SLO.
+- Add Controller-manager SLO.
+- Add DNS SLO.
+- Add Scheduler SLO.
+
+[Unreleased]: https://github.com/giantswarm/slos-poc/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/giantswarm/slos-poc/compare/v0.0.0...v0.1.0
