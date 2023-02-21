@@ -5,7 +5,8 @@ orbs:
 jobs:
   check-generated:
     machine:
-      image: ubuntu-2204
+      image: ubuntu-2204:2022.10.2
+      resource_class: small
     steps:
       - checkout
       - run:
