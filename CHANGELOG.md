@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Silence alerts when cluster is creating or deleting.
 
+### Fixed
+
+- Fix typo in alert name.
+
 ## [0.1.0] - 2023-02-20
 
 ### Added
