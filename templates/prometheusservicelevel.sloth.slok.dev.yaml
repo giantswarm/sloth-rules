@@ -35,5 +35,4 @@ spec:
             team: {{ .team }}
         ticketAlert:
           labels:
-            severity: "slack"
-            slack_channel: "#team-{{ .team }}"
+            severity: "notify"

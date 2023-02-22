@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Change severity of ticket alerts to 'notify' to get those alerts to the team alert's slack channels.
+
 ## [0.2.0] - 2023-02-21
 
 ### Added

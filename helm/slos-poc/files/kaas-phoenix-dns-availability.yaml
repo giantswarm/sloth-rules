@@ -35,5 +35,4 @@ spec:
             team: phoenix
         ticketAlert:
           labels:
-            severity: "slack"
-            slack_channel: "#team-phoenix"
+            severity: "notify"
