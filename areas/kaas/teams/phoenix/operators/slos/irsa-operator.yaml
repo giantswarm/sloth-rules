@@ -1,0 +1,6 @@
+---
+description: "IRSA Operator SLO"
+alertName: "IRSAOperatorErrorRateTooHigh"
+objective: 99
+errorQuery: sum(rate(controller_runtime_reconcile_errors_total{app="irsa-operator"}[{{.window}}]))
+totalQuery: sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}]))
