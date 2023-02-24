@@ -1,0 +1,6 @@
+---
+description: "AWS Admission Controller Latency"
+alertName: "AWSAdmissionControllerLatencyTooHigh"
+objective: 99
+errorQuery: clamp_min(sum(rate(apiserver_admission_webhook_admission_duration_seconds_count{name=~".+aws-admission-controller.giantswarm.io"}[{{.window}}])) by (cluster_id) - sum(rate(apiserver_admission_webhook_admission_duration_seconds_bucket{le="0.5",name=~".+aws-admission-controller.giantswarm.io"}[{{.window}}])) by (cluster_id), 0)
+totalQuery: sum(rate(apiserver_admission_webhook_admission_duration_seconds_count{name=~".+aws-admission-controller.giantswarm.io"}[{{.window}}])) by (cluster_id)
