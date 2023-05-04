@@ -1,4 +1,4 @@
-module github.com/giantswarm/slos-poc
+module github.com/giantswarm/sloth-rules
 
 go 1.20
 
