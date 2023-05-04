@@ -24,7 +24,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	outputDir := path.Join(currentDirectory, "helm", "slos-poc", "files")
+	outputDir := path.Join(currentDirectory, "helm", "sloth-rules", "files")
 
 	// Cleanup previously generated files.
 	files, err := filepath.Glob(path.Join(outputDir, "*.yaml"))
