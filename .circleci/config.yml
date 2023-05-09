@@ -36,7 +36,7 @@ workflows:
           name: aws-app-collection
           context: "architect"
           app_catalog: control-plane-catalog
-          app_name: "sloth"
+          app_name: "sloth-rules"
           app_namespace: monitoring
           app_collection_repo: "aws-app-collection"
           requires:
@@ -51,7 +51,7 @@ workflows:
           name: azure-app-collection
           context: "architect"
           app_catalog: control-plane-catalog
-          app_name: "sloth"
+          app_name: "sloth-rules"
           app_namespace: monitoring
           app_collection_repo: "azure-app-collection"
           requires:
@@ -66,7 +66,7 @@ workflows:
           name: vsphere-app-collection
           context: "architect"
           app_catalog: control-plane-catalog
-          app_name: "sloth"
+          app_name: "sloth-rules"
           app_namespace: monitoring
           app_collection_repo: "vsphere-app-collection"
           requires:
@@ -81,7 +81,7 @@ workflows:
           context: architect
           name: push-to-cloud-director-app-collection
           app_catalog: control-plane-catalog
-          app_name: "sloth"
+          app_name: "sloth-rules"
           app_namespace: monitoring
           app_collection_repo: "cloud-director-app-collection"
           requires:
@@ -96,7 +96,7 @@ workflows:
           context: architect
           name: push-to-capa-app-collection
           app_catalog: control-plane-catalog
-          app_name: "sloth"
+          app_name: "sloth-rules"
           app_namespace: monitoring
           app_collection_repo: "capa-app-collection"
           requires:
@@ -111,7 +111,7 @@ workflows:
           context: architect
           name: push-to-gcp-app-collection
           app_catalog: control-plane-catalog
-          app_name: "sloth"
+          app_name: "sloth-rules"
           app_namespace: monitoring
           app_collection_repo: "gcp-app-collection"
           requires:
