@@ -1,6 +1,0 @@
----
-description: "The vpa's recommender has restarted several times in the last 30minO"
-alertName: "VpaRecommenderTooManyRestarts"
-objective: 99
-errorQuery: sum(changes(kube_pod_container_status_restarts_total{container="recommender"}[{{.window}}])) by (container) > 3
-totalQuery: sum(changes(kube_pod_container_status_restarts_total{container="recommender"}[{{.window}}])) by (container)

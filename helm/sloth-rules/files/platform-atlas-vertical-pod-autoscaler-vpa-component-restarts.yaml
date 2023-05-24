@@ -3,7 +3,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: platform-atlas-vertical-pod-autoscaler-recommender-restarts
+  name: platform-atlas-vertical-pod-autoscaler-vpa-component-restarts
   namespace: monitoring
   labels:
     release: prometheus
@@ -13,17 +13,17 @@ spec:
   labels:
     owner: "atlas"
   slos:
-    - name: "recommender-restarts"
+    - name: "vpa-component-restarts"
       objective: 99
-      description: The vpa's recommender has restarted several times in the last 30minO
+      description: VPA's component(s) has restarted several times
       sli:
         events:
           errorQuery: |-
-            sum(changes(kube_pod_container_status_restarts_total{container="recommender"}[{{.window}}])) by (container) > 3
+            sum(changes(kube_pod_container_status_restarts_total{container=~"recommender|updater|admission-controller"}[{{.window}}])) by (container) > 3 or sum(changes(kube_pod_container_status_restarts_total{container="vertical-pod-autoscaler-app"}[{{.window}}])) by (container) > 3
           totalQuery: |-
-            sum(changes(kube_pod_container_status_restarts_total{container="recommender"}[{{.window}}])) by (container)
+            sum(changes(kube_pod_container_status_restarts_total{container=~"recommender|updater|admission-controller"}[{{.window}}])) by (container)
       alerting:
-        name: VpaRecommenderTooManyRestarts
+        name: VpaComponentTooManyRestarts
         labels:
           team: atlas
           area: platform
