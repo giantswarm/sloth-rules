@@ -2,5 +2,5 @@
 description: "VPA's component(s) has restarted several times"
 alertName: "VpaComponentTooManyRestarts"
 objective: 99
-errorQuery: count(kube_pod_container_status_ready{container=~"recommender|updater|admission-controller", pod=~"vertical-pod-autoscaler-app-recommender-.*|vertical-pod-autoscaler-app-updater-.*|vertical-pod-autoscaler-app-admission-controller-.*"} == 0) by (container)
+errorQuery: count(changes(kube_pod_container_status_ready{container=~"recommender|updater|admission-controller", pod=~"vertical-pod-autoscaler-app-recommender-.*|vertical-pod-autoscaler-app-updater-.*|vertical-pod-autoscaler-app-admission-controller-.*"}[{{.window}}])) by (container)
 totalQuery: count(kube_pod_container_status_ready{container=~"recommender|updater|admission-controller", pod=~"vertical-pod-autoscaler-app-recommender-.*|vertical-pod-autoscaler-app-updater-.*|vertical-pod-autoscaler-app-admission-controller-.*"}) by (container)

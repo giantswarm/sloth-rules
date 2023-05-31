@@ -19,7 +19,7 @@ spec:
       sli:
         events:
           errorQuery: |-
-            count(kube_pod_container_status_ready{container=~"recommender|updater|admission-controller", pod=~"vertical-pod-autoscaler-app-recommender-.*|vertical-pod-autoscaler-app-updater-.*|vertical-pod-autoscaler-app-admission-controller-.*"} == 0) by (container)
+            count(changes(kube_pod_container_status_ready{container=~"recommender|updater|admission-controller", pod=~"vertical-pod-autoscaler-app-recommender-.*|vertical-pod-autoscaler-app-updater-.*|vertical-pod-autoscaler-app-admission-controller-.*"}[{{.window}}])) by (container)
           totalQuery: |-
             count(kube_pod_container_status_ready{container=~"recommender|updater|admission-controller", pod=~"vertical-pod-autoscaler-app-recommender-.*|vertical-pod-autoscaler-app-updater-.*|vertical-pod-autoscaler-app-admission-controller-.*"}) by (container)
       alerting:
