@@ -1,0 +1,2 @@
+# This is only here to make CI pass until we have a valid value in values.yaml
+some: value
