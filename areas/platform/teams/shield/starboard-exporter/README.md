@@ -1,4 +1,4 @@
-## K8s API server
+## Starboard Exporter
 
 This document describes the SLO for `Starboard exporter` on both Giant Swarm's Management Clusters and Workload Clusters.
 
