@@ -1,0 +1,6 @@
+---
+description: "Starboard Exporter error rate measured by workqueue stats"
+alertName: "StarboardExporterErrorRate"
+objective: 99
+errorQuery: sum(rate(workqueue_retries_total{job="starboard-exporter",name="vulnerabilityreport"}[{{.window}}])) by (instance)
+totalQuery: sum(rate(workqueue_adds_total{job="starboard-exporter",name="vulnerabilityreport"}[{{.window}}])) by (instance)
