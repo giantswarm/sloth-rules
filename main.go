@@ -80,7 +80,7 @@ func main() {
 								log.Fatal(err)
 							}
 
-							data := map[string]string{}
+							data := map[string]any{}
 							err = yaml.Unmarshal(rawData, data)
 							if err != nil {
 								log.Fatal(err)
