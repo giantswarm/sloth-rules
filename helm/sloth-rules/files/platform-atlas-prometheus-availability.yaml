@@ -37,5 +37,5 @@ spec:
             team: atlas
         ticketAlert:
           labels:
-            severity: "slack"
+            severity: "notify"
             slack_channel: "#team-atlas"
