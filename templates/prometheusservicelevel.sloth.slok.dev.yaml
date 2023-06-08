@@ -27,7 +27,10 @@ spec:
         labels:
           team: {{ .team }}
           area: {{ .area }}
-        annotations: {}
+        annotations:
+          {{ range $key, $val := .annotations -}}
+          {{ $key }}: {{ $val }}
+          {{ end -}}
         pageAlert:
           labels:
             {{ range $key, $val := .alertLabels -}}
