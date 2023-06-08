@@ -36,5 +36,5 @@ spec:
             team: shield
         ticketAlert:
           labels:
-            severity: "slack"
+            severity: "notify"
             slack_channel: "#team-shield"
