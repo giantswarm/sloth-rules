@@ -29,7 +29,6 @@ spec:
           area: platform
         annotations:
           opsrecipe: vpa-component-too-many-restarts/
-          
         pageAlert:
           labels:
             cancel_if_cluster_status_creating: "true"
