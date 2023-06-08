@@ -27,7 +27,7 @@ spec:
         labels:
           team: phoenix
           area: kaas
-        annotations: {}
+        
         pageAlert:
           labels:
             cancel_if_cluster_status_creating: "true"

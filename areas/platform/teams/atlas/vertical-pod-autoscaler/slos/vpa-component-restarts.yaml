@@ -5,4 +5,4 @@ objective: 99
 errorQuery: 1 - sum(increase(kube_pod_container_status_restarts_total{container=~"recommender|updater|admission-controller"}[{{.window}}])) by (container)/100 or 1 - sum(increase(kube_pod_container_status_restarts_total{container="vertical-pod-autoscaler-app"}[{{.window}}])) by (container)/100
 totalQuery: sum(rate(kube_pod_container_info{container=~"recommender|updater|admission-controller"}[{{.window}}])) by (container) + 1 or sum(rate(kube_pod_container_info{container="vertical-pod-autoscaler-app"}[{{.window}}])) by (container) + 1
 annotations:
-  opsrecipe: vpa-component-too-many-restarts
+  opsrecipe: vpa-component-too-many-restarts/
