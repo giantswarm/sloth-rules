@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Rename ticket severity from slack to notify.
+
 ## [0.7.0] - 2023-06-08
 
 ### Added
