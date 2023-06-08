@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added support for annotation in slo definition.
+
 ## [0.6.0] - 2023-06-06
 
 ### Added

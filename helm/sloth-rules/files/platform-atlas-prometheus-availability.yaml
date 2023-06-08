@@ -27,7 +27,8 @@ spec:
         labels:
           team: atlas
           area: platform
-        annotations: {}
+        annotations:
+          opsrecipe: <no value>
         pageAlert:
           labels:
             cancel_if_cluster_status_creating: "true"
