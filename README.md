@@ -6,10 +6,10 @@ WARNING: this is a POC run by team phoenix. Do not use for production reasons.
 
 This repository contains the SLO definition for Giant Swarm services.
 
-## How to add a service
+## How to create a SLO
 
-- Locate your team's directory within the `areas` subfolders (if missing, please add it). Example: `area/kaas/teams/phoenix`.
-- Create a new directory to hold the SLO definitions for the service you want to monitor.
+- Locate your team's directory within the `areas` subfolders (if missing, please add it). Example: `areas/platform/teams/phoenix`.
+- Create a new directory to hold the SLO definitions for the service you want to monitor or use the existing one.
 - Create a README.md file in the new direcory describing your SLO. You can use https://github.com/dastergon/sreworkbook-templates-md/blob/master/slo-document.md and other services in this repo as a template.
 - Create an `slos` directory inside the service directory created in the previous step.
 - Add one or more `.yaml` files holding the following data:
@@ -21,6 +21,36 @@ alertName: "NameOfTheAlertAsItWillAppearInOpsgenie"
 objective: 99.5 # SLO value expressed as a percentage
 errorQuery: rate(vector(0)[{{..window}}]) by (cluster_id) # query that returns the number of error occourences. Always use the `by (cluster_id)` clause if this metric is related to k8s clusters and use `{{.window}}` placeholder for time intervals. 
 totalQuery: rate(vector(0)[{{..window}}]) by (cluster_id) # query that returns the total number of events (errors and successes). Always use the `by (cluster_id)` clause if this metric is related to k8s clusters and use `{{.window}}` placeholder for time intervals.
+alertLabels:
+  cancel_if_wathever: "true"
+annotations:
+  opsrecipe: whatever/
 ```
 
 Finally run `make generate` to generate your SLO CRs. Output will be in the `output` directory.
+
+## SLO definition guidelines
+
+- The resulting prometheusRules generated from your SLO will use the following query : `errorQuery/totalQuery` so keep in mind that **the result of your errorQuery divided by your totalQuery must be a decimal value comprised between 0 and 1**.
+- Both `errorQuery` and `totalQuery` must use the `[{{..window}}]` interval. This means that if you need your `totalQuery` to return a static value (e.g 1), you will have to create a query based on a metric returning a static value.
+Instead of having `vector(1)` you can for example use `sum(rate(kube_pod_container_info{container=~"whatever"}[{{.window}}]))`
+- You can and should **add an ops recipe annotation** to your SLO.
+- Always test your SLO on a testing installation before creating a new repo release to make sure it pages right when the conditions are met.
+
+## Architecture
+
+The following graph show how the SLOs are deployed and used in a MC :
+
+![image](images/sloth-architecture.png)
+
+`sloth-rules` is deployed as an app in the MC and generates the `prometheusservicelevel` (PSL) CRDs corresponding to the SLOs defined in the `areas` folder. From there, `sloth` deployed as a pod by the [sloth-app](https://github.com/giantswarm/sloth-app) app acts as an operator and generates `prometheusRules` from those PSL objects which are thus usable by prometheus.
+
+Whenever someone creates a SLO, the end result is a `prometheusRule` which defines several recording rules, all using the same query : `errorQuery/totalQuery` but evaluated on different intervals (5m, 30m, 1hr...). The object also defines 2 alerting rules, one with `severity: page` which will page the oncall person on OpsGenie and the other one with `severity: ticket` which will only send a message in the team's alert channel on Slack.
+
+For more details concerning `Sloth` architecture, please visit the [official website](https://sloth.dev/introduction/architecture/)
+
+## Sloth-rules repo functionning
+
+When using `Sloth` out of the box, you have to define the PSL files yourself, which is not that hard, but can be tedious. To ease your SLO definition process, the following process happens to allow you to define SLOs as shown in the first section of this README :
+
+![image](images/sloth-rules.png)
