@@ -19,8 +19,8 @@ This repository contains the SLO definition for Giant Swarm services.
 description: "Description of that this SLO is for"
 alertName: "NameOfTheAlertAsItWillAppearInOpsgenie"
 objective: 99.5 # SLO value expressed as a percentage
-errorQuery: rate(vector(0)[{{..window}}]) by (cluster_id) # query that returns the number of error occourences. Always use the `by (cluster_id)` clause if this metric is related to k8s clusters and use `{{.window}}` placeholder for time intervals. 
-totalQuery: rate(vector(0)[{{..window}}]) by (cluster_id) # query that returns the total number of events (errors and successes). Always use the `by (cluster_id)` clause if this metric is related to k8s clusters and use `{{.window}}` placeholder for time intervals.
+errorQuery: rate(vector(0)[{{.window}}]) by (cluster_id) # query that returns the number of error occourences. Always use the `by (cluster_id)` clause if this metric is related to k8s clusters and use `{{.window}}` placeholder for time intervals. 
+totalQuery: rate(vector(0)[{{.window}}]) by (cluster_id) # query that returns the total number of events (errors and successes). Always use the `by (cluster_id)` clause if this metric is related to k8s clusters and use `{{.window}}` placeholder for time intervals.
 alertLabels:
   cancel_if_wathever: "true"
 annotations:
@@ -32,9 +32,9 @@ Finally run `make generate` to generate your SLO CRs. Output will be in the `out
 ## SLO definition guidelines
 
 - The resulting prometheusRules generated from your SLO will use the following query : `errorQuery/totalQuery` so keep in mind that **the result of your errorQuery divided by your totalQuery must be a decimal value comprised between 0 and 1**.
-- Both `errorQuery` and `totalQuery` must use the `[{{..window}}]` interval. This means that if you need your `totalQuery` to return a static value (e.g 1), you will have to create a query based on a metric returning a static value.
+- Both `errorQuery` and `totalQuery` must use the `[{{.window}}]` interval. This means that if you need your `totalQuery` to return a static value (e.g 1), you will have to create a query based on a metric returning a static value.
 Instead of having `vector(1)` you can for example use `sum(rate(kube_pod_container_info{container=~"whatever"}[{{.window}}]))`
-- You can and should **add an ops recipe annotation** to your SLO.
+- You can and should **add an opsrecipe annotation** to your SLO.
 - Always test your SLO on a testing installation before creating a new repo release to make sure it pages right when the conditions are met.
 
 ## Architecture
@@ -49,7 +49,7 @@ Whenever someone creates a SLO, the end result is a `prometheusRule` which defin
 
 For more details concerning `Sloth` architecture, please visit the [official website](https://sloth.dev/introduction/architecture/)
 
-## Sloth-rules repo functionning
+## Sloth-rules repo logic
 
 When using `Sloth` out of the box, you have to define the PSL files yourself, which is not that hard, but can be tedious. To ease your SLO definition process, the following process happens to allow you to define SLOs as shown in the first section of this README :
 
