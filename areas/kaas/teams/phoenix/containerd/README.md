@@ -11,7 +11,7 @@ Containerd is a high-level container runtime that provides a platform for managi
 |Category |SLI |SLO |
 |---------|:---|---:|
 | Containerd |    |    |
-| Disk Usage | The percentage of containerd disk volume available | 90% |
+| Disk Usage | The percentage of containerd disk volume available | 10% |
 
 
 ## Clarifications and Caveats

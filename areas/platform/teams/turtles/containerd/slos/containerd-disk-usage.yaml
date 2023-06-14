@@ -1,8 +1,0 @@
----
-description: "Containerd Disk Usage"
-alertName: "ContainerdDiskUsage"
-objective: 90
-errorQuery: 1 - (node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"} / node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}) < 0.10
-totalQuery: 1 - (node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"} / node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"})
-annotations:
-  opsrecipe: containerd-disk-usage/
