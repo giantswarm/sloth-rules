@@ -3,7 +3,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-containerd-containerd-disk-usage
+  name: kaas-phoenix-containerd-disk-usage
   namespace: monitoring
   labels:
     release: prometheus
@@ -13,7 +13,7 @@ spec:
   labels:
     owner: "phoenix"
   slos:
-    - name: "containerd-disk-usage"
+    - name: "disk-usage"
       objective: 10
       description: Containerd Disk Usage
       sli:
