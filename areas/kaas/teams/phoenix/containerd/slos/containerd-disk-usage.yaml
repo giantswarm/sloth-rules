@@ -1,0 +1,8 @@
+---
+description: "Containerd Disk Usage"
+alertName: "ContainerdDiskUsage"
+objective: 10
+errorQuery: sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])
+totalQuery: sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])
+annotations:
+  opsrecipe: low-disk-space/#containerd-volume
