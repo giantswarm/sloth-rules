@@ -3,29 +3,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-etcd-availability
+  name: kaas-kaas-slo-scheduler-latency
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: phoenix
+    application.giantswarm.io/team: kaas-slo
 spec:
-  service: "etcd"
+  service: "scheduler"
   labels:
-    owner: "phoenix"
+    owner: "kaas-slo"
   slos:
-    - name: "availability"
+    - name: "latency"
       objective: 99
-      description: ETCD availability error rate is too high
+      description: Pod scheduling duration
       sli:
         events:
           errorQuery: |-
-            sum(rate(grpc_client_handled_total{app="etcd",grpc_code!="OK"}[{{.window}}])) by (cluster_id)
+            clamp_min(sum(rate(scheduler_pod_scheduling_duration_seconds_count{}[{{.window}}])) by (cluster_id) - sum(rate(scheduler_pod_scheduling_duration_seconds_bucket{le="327.68"}[{{.window}}])) by (cluster_id), 0)
           totalQuery: |-
-            sum(rate(grpc_client_handled_total{app="etcd"}[{{.window}}])) by (cluster_id)
+            sum(rate(scheduler_pod_scheduling_duration_seconds_count{}[{{.window}}])) by (cluster_id)
       alerting:
-        name: ETCDAvailabilityErrorRateTooHigh
+        name: PodSchedulingDurationTooHigh
         labels:
-          team: phoenix
+          team: kaas-slo
           area: kaas
         annotations:
           opsrecipe: <no value>
@@ -34,8 +34,8 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
+            team: kaas-slo
         ticketAlert:
           labels:
             severity: "notify"
-            slack_channel: "#team-phoenix"
+            slack_channel: "#team-kaas-slo"
