@@ -3,29 +3,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-kaas-slo-kubelet-started-containers
+  name: kaas-phoenix-apiserver-availability
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: kaas-slo
+    application.giantswarm.io/team: phoenix
 spec:
-  service: "kubelet"
+  service: "apiserver"
   labels:
-    owner: "kaas-slo"
+    owner: "phoenix"
   slos:
-    - name: "started-containers"
+    - name: "availability"
       objective: 99
-      description: Kubelet Started Containers SLO
+      description: API availability SLO
       sli:
         events:
           errorQuery: |-
-            sum(rate(kubelet_started_containers_errors_total[{{.window}}])) by (cluster_id)
+            sum(rate(apiserver_request_total{ code=~"(5..|429)" }[{{.window}}])) by (cluster_id)
           totalQuery: |-
-            sum(rate(kubelet_started_containers_total[{{.window}}])) by (cluster_id)
+            sum(rate(apiserver_request_total[{{.window}}])) by (cluster_id)
       alerting:
-        name: KubeletStartedContainersErrorRateTooHigh
+        name: ApiServerAvailabilityErrorRateTooHigh
         labels:
-          team: kaas-slo
+          team: phoenix
           area: kaas
         annotations:
           opsrecipe: <no value>
@@ -34,8 +34,8 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: kaas-slo
+            team: phoenix
         ticketAlert:
           labels:
             severity: "notify"
-            slack_channel: "#team-kaas-slo"
+            slack_channel: "#team-phoenix"

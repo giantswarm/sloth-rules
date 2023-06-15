@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- revert kaas-slo team for the SLOs investigations and adjustments
+
 ## [0.8.1] - 2023-06-15
 
 ### Changed

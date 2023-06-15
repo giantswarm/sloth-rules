@@ -3,29 +3,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-kaas-slo-kubelet-storage-operations
+  name: kaas-phoenix-cni-latency-intranode
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: kaas-slo
+    application.giantswarm.io/team: phoenix
 spec:
-  service: "kubelet"
+  service: "cni"
   labels:
-    owner: "kaas-slo"
+    owner: "phoenix"
   slos:
-    - name: "storage-operations"
+    - name: "latency-intranode"
       objective: 99
-      description: Storage Operations SLO
+      description: Cilium node connectivity latency
       sli:
         events:
           errorQuery: |-
-            sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id)
+            avg(quantile_over_time(0.99, cilium_node_connectivity_latency_seconds{target_node_type="remote_intra_cluster"}[{{.window}}])) by (cluster_id) > 0.001
           totalQuery: |-
-            sum(rate(storage_operation_duration_seconds_count{status=~"success"}[{{.window}}])) by (cluster_id)
+            avg(quantile_over_time(0.99, cilium_node_connectivity_latency_seconds{target_node_type="remote_intra_cluster"}[{{.window}}])) by (cluster_id)
       alerting:
-        name: StorageOperationsErrorRateTooHigh
+        name: CiliumNodeConnectivityLatencyTooHigh
         labels:
-          team: kaas-slo
+          team: phoenix
           area: kaas
         annotations:
           opsrecipe: <no value>
@@ -34,8 +34,8 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: kaas-slo
+            team: phoenix
         ticketAlert:
           labels:
             severity: "notify"
-            slack_channel: "#team-kaas-slo"
+            slack_channel: "#team-phoenix"

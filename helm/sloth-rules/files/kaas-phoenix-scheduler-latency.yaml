@@ -3,29 +3,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-kaas-slo-cni-latency-intranode
+  name: kaas-phoenix-scheduler-latency
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: kaas-slo
+    application.giantswarm.io/team: phoenix
 spec:
-  service: "cni"
+  service: "scheduler"
   labels:
-    owner: "kaas-slo"
+    owner: "phoenix"
   slos:
-    - name: "latency-intranode"
+    - name: "latency"
       objective: 99
-      description: Cilium node connectivity latency
+      description: Pod scheduling duration
       sli:
         events:
           errorQuery: |-
-            avg(quantile_over_time(0.99, cilium_node_connectivity_latency_seconds{target_node_type="remote_intra_cluster"}[{{.window}}])) by (cluster_id) > 0.001
+            clamp_min(sum(rate(scheduler_pod_scheduling_duration_seconds_count{}[{{.window}}])) by (cluster_id) - sum(rate(scheduler_pod_scheduling_duration_seconds_bucket{le="327.68"}[{{.window}}])) by (cluster_id), 0)
           totalQuery: |-
-            avg(quantile_over_time(0.99, cilium_node_connectivity_latency_seconds{target_node_type="remote_intra_cluster"}[{{.window}}])) by (cluster_id)
+            sum(rate(scheduler_pod_scheduling_duration_seconds_count{}[{{.window}}])) by (cluster_id)
       alerting:
-        name: CiliumNodeConnectivityLatencyTooHigh
+        name: PodSchedulingDurationTooHigh
         labels:
-          team: kaas-slo
+          team: phoenix
           area: kaas
         annotations:
           opsrecipe: <no value>
@@ -34,8 +34,8 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: kaas-slo
+            team: phoenix
         ticketAlert:
           labels:
             severity: "notify"
-            slack_channel: "#team-kaas-slo"
+            slack_channel: "#team-phoenix"

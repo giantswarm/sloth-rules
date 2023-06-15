@@ -3,39 +3,39 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-kaas-slo-apiserver-availability
+  name: kaas-phoenix-containerd-disk-usage
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: kaas-slo
+    application.giantswarm.io/team: phoenix
 spec:
-  service: "apiserver"
+  service: "containerd"
   labels:
-    owner: "kaas-slo"
+    owner: "phoenix"
   slos:
-    - name: "availability"
-      objective: 99
-      description: API availability SLO
+    - name: "disk-usage"
+      objective: 10
+      description: Containerd Disk Usage
       sli:
         events:
           errorQuery: |-
-            sum(rate(apiserver_request_total{ code=~"(5..|429)" }[{{.window}}])) by (cluster_id)
+            sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])
           totalQuery: |-
-            sum(rate(apiserver_request_total[{{.window}}])) by (cluster_id)
+            sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])
       alerting:
-        name: ApiServerAvailabilityErrorRateTooHigh
+        name: ContainerdDiskUsage
         labels:
-          team: kaas-slo
+          team: phoenix
           area: kaas
         annotations:
-          opsrecipe: <no value>
+          opsrecipe: low-disk-space/#containerd-volume
         pageAlert:
           labels:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: kaas-slo
+            team: phoenix
         ticketAlert:
           labels:
             severity: "notify"
-            slack_channel: "#team-kaas-slo"
+            slack_channel: "#team-phoenix"
