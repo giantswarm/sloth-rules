@@ -3,15 +3,15 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-apiserver-latency-readonly-cluster
+  name: kaas-kaas-slo-apiserver-latency-readonly-cluster
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: phoenix
+    application.giantswarm.io/team: kaas-slo
 spec:
   service: "apiserver"
   labels:
-    owner: "phoenix"
+    owner: "kaas-slo"
   slos:
     - name: "latency-readonly-cluster"
       objective: 99
@@ -25,7 +25,7 @@ spec:
       alerting:
         name: ApiServerReadonlyLatencyTooHigh
         labels:
-          team: phoenix
+          team: kaas-slo
           area: kaas
         annotations:
           opsrecipe: <no value>
@@ -34,8 +34,8 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
+            team: kaas-slo
         ticketAlert:
           labels:
             severity: "notify"
-            slack_channel: "#team-phoenix"
+            slack_channel: "#team-kaas-slo"

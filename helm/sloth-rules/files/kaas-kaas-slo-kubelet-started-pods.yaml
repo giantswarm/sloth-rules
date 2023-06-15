@@ -3,29 +3,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-kubelet-storage-operations
+  name: kaas-kaas-slo-kubelet-started-pods
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: phoenix
+    application.giantswarm.io/team: kaas-slo
 spec:
   service: "kubelet"
   labels:
-    owner: "phoenix"
+    owner: "kaas-slo"
   slos:
-    - name: "storage-operations"
+    - name: "started-pods"
       objective: 99
-      description: Storage Operations SLO
+      description: Kubelet Started Pods SLO
       sli:
         events:
           errorQuery: |-
-            sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id)
+            sum(rate(kubelet_started_pods_errors_total[{{.window}}])) by (cluster_id)
           totalQuery: |-
-            sum(rate(storage_operation_duration_seconds_count{status=~"success"}[{{.window}}])) by (cluster_id)
+            sum(rate(kubelet_started_pods_total[{{.window}}])) by (cluster_id)
       alerting:
-        name: StorageOperationsErrorRateTooHigh
+        name: KubeletStartedPodsErrorRateTooHigh
         labels:
-          team: phoenix
+          team: kaas-slo
           area: kaas
         annotations:
           opsrecipe: <no value>
@@ -34,8 +34,8 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
+            team: kaas-slo
         ticketAlert:
           labels:
             severity: "notify"
-            slack_channel: "#team-phoenix"
+            slack_channel: "#team-kaas-slo"
