@@ -29,6 +29,10 @@ annotations:
 
 Finally run `make generate` to generate your SLO CRs. Output will be in the `output` directory.
 
+### Limtiations
+
+- Labels cannot be changed currently, as this will heavily disrupt all SLO rules evaluation (see https://github.com/giantswarm/roadmap/issues/2579)
+
 ## SLO definition guidelines
 
 - The resulting prometheusRules generated from your SLO will use the following query : `errorQuery/totalQuery` so keep in mind that **the result of your errorQuery divided by your totalQuery must be a decimal value comprised between 0 and 1**.
