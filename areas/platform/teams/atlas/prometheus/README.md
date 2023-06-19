@@ -11,4 +11,4 @@ When Prometheus is unavailable, we are not alerted
 
 |Category | SLI                                                                                                                                                                                      |SLO |
 |---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---:|
-| Availability | The availability of the prometheus container over time. | 99% success  |
+| Availability | The availability of the prometheus container over time. | 95% success  |

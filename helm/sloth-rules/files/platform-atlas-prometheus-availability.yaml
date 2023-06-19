@@ -14,7 +14,7 @@ spec:
     owner: "atlas"
   slos:
     - name: "availability"
-      objective: 99
+      objective: 95
       description: Prometheus is unavailable
       sli:
         events:
