@@ -1,6 +1,6 @@
 ---
 description: "Prometheus is unavailable"
 alertName: "PrometheusUnavailable"
-objective: 95
+objective: 75
 errorQuery: sum(avg_over_time(kube_pod_status_ready{condition="true",namespace=~"(.*)-prometheus"}[{{.window}}])) by (pod) < 1
 totalQuery: sum(avg_over_time(kube_pod_container_info{container="prometheus", namespace=~"(.*)-prometheus"}[{{.window}}])) by (pod)
