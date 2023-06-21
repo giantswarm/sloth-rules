@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Reduce Prometheus Availability SLO target to 75%.
 
+### Fixed
+
+- Fix missing cluster id for Prometheus Availability SLO alert.
+
 ## [0.8.3] - 2023-06-19
 
 ### Fixed
