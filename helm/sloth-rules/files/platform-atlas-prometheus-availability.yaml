@@ -27,8 +27,11 @@ spec:
         labels:
           team: atlas
           area: platform
+          topic: observability
         annotations:
-          opsrecipe: <no value>
+          dashboard: promavailability/prometheus-availability
+          description: Prometheus {{$labels.pod}} is unavailable.
+          opsrecipe: prometheus-resource-limit-reached/
         pageAlert:
           labels:
             cancel_if_cluster_status_creating: "true"

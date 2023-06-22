@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add missing dashboard and opsrecipe to Prometheus Availability SLO alert.
+
 ## [0.8.4] - 2023-06-22
 
 ### Changed
