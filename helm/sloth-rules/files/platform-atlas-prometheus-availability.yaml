@@ -28,7 +28,7 @@ spec:
           team: atlas
           area: platform
         annotations:
-          opsrecipe: <no value>
+          opsrecipe: prometheus-resource-limit-reached/
         pageAlert:
           labels:
             cancel_if_cluster_status_creating: "true"
