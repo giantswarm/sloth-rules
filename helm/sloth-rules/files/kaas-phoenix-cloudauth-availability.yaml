@@ -19,9 +19,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate", code!="200"}[{{.window}}])) by (cluster_id)
+            sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate", code!="200"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
           totalQuery: |-
-            sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate"}[{{.window}}])) by (cluster_id)
+            sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
         name: AWSPodIdentityWebhookErrorRateTooHigh
         labels:

@@ -2,5 +2,5 @@
 description: "ClusterOperator SLO"
 alertName: "ClusterOperatorErrorRateTooHigh"
 objective: 99
-errorQuery: sum(rate(operatorkit_controller_errors_total{app="cluster-operator"}[{{.window}}])) by (pod)
-totalQuery: sum(rate(operatorkit_controller_operation_total{app="cluster-operator"}[{{.window}}])) by (pod)
+errorQuery: sum(rate(operatorkit_controller_errors_total{app="cluster-operator"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+totalQuery: sum(rate(operatorkit_controller_operation_total{app="cluster-operator"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)

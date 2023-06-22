@@ -2,5 +2,5 @@
 description: "AWS Pod Identity Webhook Availability"
 alertName: "AWSPodIdentityWebhookErrorRateTooHigh"
 objective: 99
-errorQuery: sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate", code!="200"}[{{.window}}])) by (cluster_id)
-totalQuery: sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate"}[{{.window}}])) by (cluster_id)
+errorQuery: sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate", code!="200"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+totalQuery: sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)

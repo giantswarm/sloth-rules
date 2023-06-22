@@ -2,5 +2,5 @@
 description: "AWSOperator SLO"
 alertName: "AWSOperatorErrorRateTooHigh"
 objective: 99
-errorQuery: sum(rate(operatorkit_controller_errors_total{container="aws-operator"}[{{.window}}])) by (app)
-totalQuery: sum(rate(operatorkit_controller_operation_total{container="aws-operator"}[{{.window}}])) by (app)
+errorQuery: sum(rate(operatorkit_controller_errors_total{container="aws-operator"}[{{.window}}])) by (app, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+totalQuery: sum(rate(operatorkit_controller_operation_total{container="aws-operator"}[{{.window}}])) by (app, cluster_id, cluster_type, customer, installation, pipeline, provider, region)

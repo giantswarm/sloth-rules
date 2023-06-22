@@ -19,9 +19,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(grpc_client_handled_total{app="etcd",grpc_code!="OK"}[{{.window}}])) by (cluster_id)
+            sum(rate(grpc_client_handled_total{app="etcd",grpc_code!="OK"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
           totalQuery: |-
-            sum(rate(grpc_client_handled_total{app="etcd"}[{{.window}}])) by (cluster_id)
+            sum(rate(grpc_client_handled_total{app="etcd"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
         name: ETCDAvailabilityErrorRateTooHigh
         labels:

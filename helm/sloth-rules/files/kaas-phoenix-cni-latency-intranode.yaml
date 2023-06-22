@@ -19,9 +19,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            avg(quantile_over_time(0.99, cilium_node_connectivity_latency_seconds{target_node_type="remote_intra_cluster"}[{{.window}}])) by (cluster_id) > 0.001
+            avg(quantile_over_time(0.99, cilium_node_connectivity_latency_seconds{target_node_type="remote_intra_cluster"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) > 0.001
           totalQuery: |-
-            avg(quantile_over_time(0.99, cilium_node_connectivity_latency_seconds{target_node_type="remote_intra_cluster"}[{{.window}}])) by (cluster_id)
+            avg(quantile_over_time(0.99, cilium_node_connectivity_latency_seconds{target_node_type="remote_intra_cluster"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
         name: CiliumNodeConnectivityLatencyTooHigh
         labels:
