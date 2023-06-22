@@ -27,13 +27,13 @@ spec:
         labels:
           team: {{ .team }}
           area: {{ .area }}
+          {{- if .topic }}
+          topic: {{ .topic }}
+          {{- end }}
         {{- with .annotations }}
         annotations:
-          {{- if .opsrecipe }}
-          opsrecipe: {{ .opsrecipe }}
-          {{- end }}
-          {{- if .dashboard }}
-          dashboard: {{ .dashboard }}
+          {{- range $key, $value := . }}
+          {{ $key }}: {{ $value }}
           {{- end }}
         {{- end }}
         pageAlert:

@@ -4,6 +4,8 @@ alertName: "PrometheusUnavailable"
 objective: 75
 errorQuery: sum(label_replace(avg_over_time(kube_pod_status_ready{condition="true",namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod) < 1
 totalQuery: sum(label_replace(avg_over_time(kube_pod_container_info{container="prometheus", namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod)
+topic: observability
 annotations:
-  opsrecipe: prometheus-resource-limit-reached/
   dashboard: promavailability/prometheus-availability
+  description: Prometheus {{$labels.pod}} is unavailable.
+  opsrecipe: prometheus-resource-limit-reached/
