@@ -29,6 +29,7 @@ spec:
           area: platform
         annotations:
           opsrecipe: prometheus-resource-limit-reached/
+          dashboard: promavailability/prometheus-availability
         pageAlert:
           labels:
             cancel_if_cluster_status_creating: "true"
