@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2023-06-22
+
 ### Changed
 
 - Add missing dashboard and opsrecipe to Prometheus Availability SLO alert.
@@ -120,7 +122,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.8.4...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/giantswarm/sloth-rules/compare/v0.8.4...v0.9.0
 [0.8.4]: https://github.com/giantswarm/sloth-rules/compare/v0.8.3...v0.8.4
 [0.8.3]: https://github.com/giantswarm/sloth-rules/compare/v0.8.1...v0.8.3
 [0.8.1]: https://github.com/giantswarm/sloth-rules/compare/v0.8.2...v0.8.1
