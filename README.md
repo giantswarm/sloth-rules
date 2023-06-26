@@ -2,8 +2,6 @@
 
 # SLO
 
-WARNING: this is a POC run by team phoenix. Do not use for production reasons.
-
 This repository contains the SLO definition for Giant Swarm services.
 
 ## How to create a SLO
@@ -26,6 +24,8 @@ alertLabels:
 annotations:
   opsrecipe: whatever/
 ```
+
+:warning: Please add the `cancel_if_outside_working_hours: "true"` label to your SLO at least for the 1st week after you released it to make sure it works as intended and doesn't page too much. :warning:
 
 Finally run `make generate` to generate your SLO CRs. Output will be in the `output` directory.
 
