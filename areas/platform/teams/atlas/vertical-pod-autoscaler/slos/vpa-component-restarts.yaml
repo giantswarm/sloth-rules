@@ -2,7 +2,7 @@
 description: "VPA's component(s) has restarted several times"
 alertName: "VpaComponentTooManyRestarts"
 objective: 99
-errorQuery: 1 - sum(increase(kube_pod_container_status_restarts_total{container=~"recommender|updater|admission-controller"}[{{.window}}])) by (container)/100 or 1 - sum(increase(kube_pod_container_status_restarts_total{container="vertical-pod-autoscaler-app"}[{{.window}}])) by (container)/100
-totalQuery: sum(rate(kube_pod_container_info{container=~"recommender|updater|admission-controller"}[{{.window}}])) by (container) + 1 or sum(rate(kube_pod_container_info{container="vertical-pod-autoscaler-app"}[{{.window}}])) by (container) + 1
+errorQuery: 1 - sum(increase(kube_pod_container_status_restarts_total{container=~"recommender|updater|admission-controller"}[{{.window}}])) by (container, cluster_id, cluster_type, customer, installation, pipeline, provider, region)/100 or 1 - sum(increase(kube_pod_container_status_restarts_total{container="vertical-pod-autoscaler-app"}[{{.window}}])) by (container, cluster_id, cluster_type, customer, installation, pipeline, provider, region)/100
+totalQuery: sum(rate(kube_pod_container_info{container=~"recommender|updater|admission-controller"}[{{.window}}])) by (container, cluster_id, cluster_type, customer, installation, pipeline, provider, region) + 1 or sum(rate(kube_pod_container_info{container="vertical-pod-autoscaler-app"}[{{.window}}])) by (container, cluster_id, cluster_type, customer, installation, pipeline, provider, region) + 1
 annotations:
   opsrecipe: vpa-component-too-many-restarts/

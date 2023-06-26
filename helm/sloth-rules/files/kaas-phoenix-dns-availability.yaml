@@ -19,9 +19,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id) - avg(sum_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id)
+            avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - avg(sum_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
           totalQuery: |-
-            avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id)
+            avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
         name: DNSResolutionUnavailable
         labels:

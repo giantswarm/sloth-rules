@@ -19,9 +19,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            clamp_min(sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id) - sum(rate(workqueue_queue_duration_seconds_bucket{le="10"}[{{.window}}])) by (cluster_id), 0)
+            clamp_min(sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(workqueue_queue_duration_seconds_bucket{le="10"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)
           totalQuery: |-
-            sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id)
+            sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
         name: ControllerManagerReconciliationLatencyTooHigh
         labels:
