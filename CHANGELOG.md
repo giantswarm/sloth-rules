@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update VpaComponentTooManyRestarts SLO alert to prevent it from paging too much.
+
 ## [0.9.0] - 2023-06-22
 
 ### Changed
