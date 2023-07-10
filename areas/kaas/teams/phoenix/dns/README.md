@@ -11,7 +11,7 @@ The DNS service is responsible for resolving internat domains (services) as well
 |Category | SLI                                                                                                                                                                                      |SLO |
 |---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---:|
 | DNS Availability | The proportion of sufficiently resolved DNS queries, as measured from BlackBox Exporter pods's metrics.| 99% success |
-| CoreDNS Latency | The proportion of sufficiently fast DNS resolution, as measured from CoreDNS pods's metrics.<br>“Sufficiently fast” is any resolution taking less than 0.008 seconds. | 99% success  |
+| CoreDNS Latency | The proportion of sufficiently fast DNS resolution, as measured from CoreDNS pods's metrics.<br>“Sufficiently fast” is any resolution taking less than 0.016 seconds. | 99% success  |
 | Local Node DNS Cache Latency | The proportion of sufficiently fast DNS resolution, as measured from NodeLocalDNSCache pods's metrics.<br>“Sufficiently fast” is any resolution taking less than 0.008 seconds. | 99% success  |
 
 ## Clarifications and Caveats
