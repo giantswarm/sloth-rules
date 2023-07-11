@@ -27,6 +27,8 @@ spec:
         labels:
           team: phoenix
           area: kaas
+        annotations:
+          opsrecipe: dns-issue-mitigation
         pageAlert:
           labels:
             cancel_if_cluster_status_creating: "true"
