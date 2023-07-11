@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Added quoting to `alertLabels` to avoid validation errors on non-string-like types.
+
 ## [0.12.0] - 2023-07-11
 
 ### Changed
