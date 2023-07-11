@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add ops recipe to DNS latency SLOs.
+- Make DNS latency SLOs page on BH only.
 
 ## [0.11.0] - 2023-07-10
 

@@ -6,3 +6,5 @@ errorQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-nod
 totalQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
 annotations:
   opsrecipe: dns-issue-mitigation
+alertLabels:
+  cancel_if_outside_working_hours: "true"
