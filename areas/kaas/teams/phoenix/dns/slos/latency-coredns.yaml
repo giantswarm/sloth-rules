@@ -2,5 +2,5 @@
 description: "DNS resolution latency from coredns"
 alertName: "CoreDNSLatencyTooHigh"
 objective: 99
-errorQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="coredns"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="0.016"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
-totalQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="coredns"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+errorQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="coredns",type="A"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",type="A",le="0.016"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+totalQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="coredns",type="A"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
