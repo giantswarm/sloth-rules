@@ -39,7 +39,7 @@ spec:
         pageAlert:
           labels:
             {{ range $key, $val := .alertLabels -}}
-            {{ $key }}: {{ $val }}
+            {{ $key }}: "{{ $val }}"
             {{ end -}}
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
