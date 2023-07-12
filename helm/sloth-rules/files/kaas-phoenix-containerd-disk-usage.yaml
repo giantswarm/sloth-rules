@@ -31,6 +31,7 @@ spec:
           opsrecipe: low-disk-space/#containerd-volume
         pageAlert:
           labels:
+            silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page

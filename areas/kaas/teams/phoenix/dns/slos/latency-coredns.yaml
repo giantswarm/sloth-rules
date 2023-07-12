@@ -8,3 +8,4 @@ annotations:
   opsrecipe: dns-issue-mitigation
 alertLabels:
   cancel_if_outside_working_hours: "true"
+  silence: "true"
