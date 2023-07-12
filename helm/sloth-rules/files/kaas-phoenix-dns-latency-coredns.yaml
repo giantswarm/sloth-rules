@@ -19,7 +19,7 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(coredns_dns_request_duration_seconds_count{app="coredns"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="0.016"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            sum(rate(coredns_dns_request_duration_seconds_count{app="coredns"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="0.032"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
           totalQuery: |-
             sum(rate(coredns_dns_request_duration_seconds_count{app="coredns"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
