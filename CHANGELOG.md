@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add 'silence: true' label to all phoenix's SLOs to be able to selectively enable them.
+
 ## [0.12.1] - 2023-07-11
 
 ### Fixed

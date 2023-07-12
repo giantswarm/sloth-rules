@@ -4,3 +4,5 @@ alertName: "KubeletStartedContainersErrorRateTooHigh"
 objective: 99
 errorQuery: sum(rate(kubelet_started_containers_errors_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
 totalQuery: sum(rate(kubelet_started_containers_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+alertLabels:
+  silence: "true"
