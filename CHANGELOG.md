@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Only consider `local` DNS queries for latency SLO.
+
 ## [0.14.0] - 2023-07-12
 
 ### Changed
