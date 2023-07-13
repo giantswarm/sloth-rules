@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add 'silence: true' label to all phoenix's SLOs to be able to selectively enable them.
+- Only use `*.local` zone to measure the latency of local DNS cache.
 
 ## [0.12.1] - 2023-07-11
 
