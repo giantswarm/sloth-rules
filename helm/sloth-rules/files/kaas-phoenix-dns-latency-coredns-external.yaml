@@ -19,7 +19,7 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="0.128", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="{{ if .Values.provider == "aws" }}0.128{{ else }}0.512{{ end }}", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
           totalQuery: |-
             sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
@@ -32,6 +32,7 @@ spec:
         pageAlert:
           labels:
             cancel_if_outside_working_hours: "true"
+            silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
