@@ -1,5 +1,5 @@
 {{ $currentScope := . }}
-{{ $providerFiles := .Files.Glob (printf "files/%s/**.yaml" .Values.provider) }}
+{{ $providerFiles := .Files.Glob (printf "files/%s/**.yaml" .Values.provider.kind) }}
 {{ $commonFiles := .Files.Glob "files/all/**.yaml" }}
 {{ range $path, $_ := $providerFiles  }}
 ---
