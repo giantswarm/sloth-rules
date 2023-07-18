@@ -1,4 +1,6 @@
 # provider is dynamic environment value, which comes from application catalog configuration
 # applies only to Giant Swarm clusters
-provider:
-  kind: ""
+Installation:
+  V1:
+    Provider:
+      Kind: ""
