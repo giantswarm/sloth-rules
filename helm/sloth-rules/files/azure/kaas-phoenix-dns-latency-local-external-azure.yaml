@@ -3,7 +3,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-dns-latency-local-external
+  name: kaas-phoenix-dns-latency-local-external-azure
   namespace: monitoring
   labels:
     release: prometheus
@@ -13,13 +13,13 @@ spec:
   labels:
     owner: "phoenix"
   slos:
-    - name: "latency-local-external"
+    - name: "latency-local-external-azure"
       objective: 99
       description: DNS resolution latency for non-local domains from Node Local DNS Cache
       sli:
         events:
           errorQuery: |-
-            sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="k8s-dns-node-cache",le="0.128", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="k8s-dns-node-cache",le="0.512", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
           totalQuery: |-
             sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:

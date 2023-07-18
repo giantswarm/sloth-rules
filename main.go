@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -27,7 +28,7 @@ func main() {
 	outputDir := path.Join(currentDirectory, "helm", "sloth-rules", "files")
 
 	// Cleanup previously generated files.
-	files, err := filepath.Glob(path.Join(outputDir, "*.yaml"))
+	files, err := filepath.Glob(path.Join(outputDir, "./**/*.yaml"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -69,12 +70,6 @@ func main() {
 						}
 
 						for _, slo := range slos {
-							name := strings.TrimSuffix(filepath.Base(slo), ".yaml")
-
-							destinationFileName := fmt.Sprintf("%s-%s-%s-%s.yaml", area.Name(), team.Name(), service.Name(), name)
-							destinationPath := path.Join(outputDir, destinationFileName)
-							log.Printf("Generating prometheusservicelevel.sloth.slok.dev named %s in %s", destinationFileName, outputDir)
-
 							rawData, err := os.ReadFile(slo)
 							if err != nil {
 								log.Fatal(err)
@@ -84,6 +79,26 @@ func main() {
 							err = yaml.Unmarshal(rawData, data)
 							if err != nil {
 								log.Fatal(err)
+							}
+
+							name := strings.TrimSuffix(filepath.Base(slo), ".yaml")
+
+							var provider = "all"
+							providerStr, found := data["provider"]
+							if found {
+								provider = providerStr.(string)
+							}
+
+							destinationFileName := fmt.Sprintf("%s-%s-%s-%s.yaml", area.Name(), team.Name(), service.Name(), name)
+							destinationPath := path.Join(outputDir, provider, destinationFileName)
+							log.Printf("Generating prometheusservicelevel.sloth.slok.dev named %s in %s", destinationFileName, outputDir)
+
+							dir := path.Dir(destinationPath)
+							if _, err := os.Stat(dir); errors.Is(err, os.ErrNotExist) {
+								err := os.Mkdir(dir, os.ModePerm)
+								if err != nil {
+									log.Fatal(err)
+								}
 							}
 
 							data["area"] = area.Name()
