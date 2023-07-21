@@ -1,5 +1,13 @@
-{{ $currentScope := .}}
-{{ range $path, $_ :=  .Files.Glob  "**.yaml" }}
+{{ $currentScope := . }}
+{{ $providerFiles := .Files.Glob (printf "files/%s/**.yaml" .Values.Installation.V1.Provider.Kind) }}
+{{ $commonFiles := .Files.Glob "files/all/**.yaml" }}
+{{ range $path, $_ := $providerFiles  }}
+---
+  {{- with $currentScope}}
+    {{ .Files.Get $path }}
+  {{- end }}
+{{ end }}
+{{ range $path, $_ := $commonFiles  }}
 ---
   {{- with $currentScope}}
     {{ .Files.Get $path }}

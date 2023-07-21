@@ -1,2 +1,6 @@
-# This is only here to make CI pass until we have a valid value in values.yaml
-some: value
+# provider is dynamic environment value, which comes from application catalog configuration
+# applies only to Giant Swarm clusters
+Installation:
+  V1:
+    Provider:
+      Kind: ""
