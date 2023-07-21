@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Unsilence `DNSResolutionUnavailable` and make it only page during BH.
+
 ## [0.16.0] - 2023-07-13
 
 ### Changed
