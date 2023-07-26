@@ -1,0 +1,8 @@
+---
+description: "VPA's component(s) is/are unavailable"
+alertName: "VpaComponentUnavailable"
+objective: 99
+errorQuery: sum(label_replace(avg_over_time(kube_pod_status_ready{condition="false",pod=~"vertical-pod-autoscaler-app-.*",cluster_id=~"^.*"}[{{.window}}]), "pod", "$1", "cluster_id", "$2")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+totalQuery: sum(label_replace(avg_over_time(kube_pod_container_info{container=~"recommender|admission-controller|updater|vertical-pod-autoscaler-app",cluster_id=~"^.*"}[{{.window}}]), "pod", "$1", "cluster_id", "$2")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+annotations:
+  opsrecipe: vpa-down/
