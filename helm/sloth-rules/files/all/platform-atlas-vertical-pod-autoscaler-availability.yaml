@@ -14,7 +14,7 @@ spec:
     owner: "atlas"
   slos:
     - name: "availability"
-      objective: 70
+      objective: 95
       description: VPA's component(s) is/are unavailable
       sli:
         events:
