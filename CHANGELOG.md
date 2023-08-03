@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Move `dns` alerts from kaas/phoenix to empowerment/cabbage.
+
 ## [0.17.0] - 2023-07-21
 
 ### Added

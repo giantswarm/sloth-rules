@@ -3,15 +3,15 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-dns-latency-coredns
+  name: empowerment-cabbage-dns-latency-coredns
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: phoenix
+    application.giantswarm.io/team: cabbage
 spec:
   service: "dns"
   labels:
-    owner: "phoenix"
+    owner: "cabbage"
   slos:
     - name: "latency-coredns"
       objective: 99
@@ -25,8 +25,8 @@ spec:
       alerting:
         name: CoreDNSLatencyTooHigh
         labels:
-          team: phoenix
-          area: kaas
+          team: cabbage
+          area: empowerment
         annotations:
           opsrecipe: dns-issue-mitigation
         pageAlert:
@@ -35,8 +35,8 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
+            team: cabbage
         ticketAlert:
           labels:
             severity: "notify"
-            slack_channel: "#team-phoenix"
+            slack_channel: "#team-cabbage"
