@@ -11,7 +11,7 @@ the VPA allows to monitor targeted objects' resources and adjust (raising or low
 |Category |SLI |SLO |
 |---------|:---|---:|
 | VPA    |    |    |
-| Component Restarts        | The percentage of availibility for the VPA components | 99% success  |
+| Component Availability        | The percentage of availability for the VPA components | 99% success  |
 
 
 ## Clarifications and Caveats
