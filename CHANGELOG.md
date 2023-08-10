@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Move `dns` alerts from kaas/phoenix to empowerment/cabbage.
 
+### Removed
+
+- Removed `starboard-exporter` alert.
+
 ## [0.18.0] - 2023-08-03
 
 ### Changed
