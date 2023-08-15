@@ -14,14 +14,14 @@ spec:
     owner: "atlas"
   slos:
     - name: "availability"
-      objective: 75
+      objective: 90
       description: Prometheus is unavailable
       sli:
         events:
           errorQuery: |-
-            sum(label_replace(avg_over_time(kube_pod_status_ready{condition="true",namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region) < 1
+            sum(label_replace(avg_over_time(kube_pod_status_ready{condition="false",namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
           totalQuery: |-
-            sum(label_replace(avg_over_time(kube_pod_container_info{container="prometheus", namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            sum(label_replace(avg_over_time(kube_pod_status_ready{namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
         name: PrometheusUnavailable
         labels:
@@ -34,6 +34,12 @@ spec:
           opsrecipe: prometheus-resource-limit-reached/
         pageAlert:
           labels:
+            cancel_if_any_apiserver_down: "true"
+            cancel_if_cluster_has_no_workers: "true"
+            cancel_if_cluster_status_creating: "true"
+            cancel_if_cluster_status_deleting: "true"
+            cancel_if_cluster_status_updating: "true"
+            cancel_if_outside_working_hours: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
