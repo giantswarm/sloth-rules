@@ -23,7 +23,7 @@ alertLabels:
   cancel_if_wathever: "true"
 annotations:
   opsrecipe: whatever/
-#if needed (can also be set to workload_cluster)
+# To deploy and run the rules only on some specific clusters (can also be set to workload_cluster)
 cluster_type: management_cluster
 ```
 
