@@ -31,7 +31,10 @@ Finally run `make generate` to generate your SLO CRs. Output will be in the `out
 
 ### Limtiations
 
-- Labels cannot be changed currently, as this will heavily disrupt all SLO rules evaluation (see https://github.com/giantswarm/roadmap/issues/2579)
+- Labels cannot be changed currently, as this will heavily disrupt all SLO rules evaluation (see https://github.com/giantswarm/roadmap/issues/2579).
+  You should rename the alert when you need to change labels for one.
+
+  If you have changed a label, you will have to silence the recordingrule for 30 days (until old labels are purged). See [an example silence PR](https://github.com/giantswarm/silences/pull/1179).
 
 ## SLO definition guidelines
 
