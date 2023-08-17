@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Made the `PrometheusUnavailable` SLO only evaluate MCs' prometheuses.
+
 ## [0.19.0] - 2023-08-17
 
 ### Changed
