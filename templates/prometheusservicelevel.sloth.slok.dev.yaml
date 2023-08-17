@@ -8,6 +8,9 @@ metadata:
   labels:
     release: prometheus
     application.giantswarm.io/team: {{ .team }}
+    {{- if .cluster_type }}
+    cluster_type: {{ .cluster_type }}
+    {{- end }}
 spec:
   service: "{{ .service }}"
   labels:

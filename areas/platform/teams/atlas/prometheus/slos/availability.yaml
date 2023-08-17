@@ -2,9 +2,10 @@
 description: "Prometheus is unavailable"
 alertName: "PrometheusUnavailable"
 objective: 90
-errorQuery: sum(label_replace(avg_over_time(kube_pod_status_ready{condition="false",namespace=~"(.*)-prometheus",cluster_type="management_cluster"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
-totalQuery: sum(label_replace(avg_over_time(kube_pod_status_ready{namespace=~"(.*)-prometheus",cluster_type="management_cluster"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+errorQuery: sum(label_replace(avg_over_time(kube_pod_status_ready{condition="false",namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+totalQuery: sum(label_replace(avg_over_time(kube_pod_status_ready{namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
 topic: observability
+cluster_type: management_cluster
 alertLabels:
   cancel_if_any_apiserver_down: "true"
   cancel_if_cluster_status_creating: "true"
