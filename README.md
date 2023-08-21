@@ -23,6 +23,8 @@ alertLabels:
   cancel_if_wathever: "true"
 annotations:
   opsrecipe: whatever/
+# To deploy and run the rules only on some specific clusters (can also be set to workload_cluster)
+cluster_type: management_cluster
 ```
 
 :warning: Please add the `cancel_if_outside_working_hours: "true"` label to your SLO at least for the 1st week after you released it to make sure it works as intended and doesn't page too much. :warning:
