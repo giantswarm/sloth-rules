@@ -30,6 +30,7 @@ spec:
         annotations:
           opsrecipe: low-disk-space/#containerd-volume
         pageAlert:
+          disable: false
           labels:
             silence: "true"
             cancel_if_cluster_status_creating: "true"
@@ -37,6 +38,7 @@ spec:
             severity: page
             team: phoenix
         ticketAlert:
+          disable: false
           labels:
             severity: "notify"
             slack_channel: "#team-phoenix"

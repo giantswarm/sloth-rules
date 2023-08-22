@@ -28,6 +28,7 @@ spec:
           team: phoenix
           area: kaas
         pageAlert:
+          disable: false
           labels:
             silence: "true"
             cancel_if_cluster_status_creating: "true"
@@ -35,6 +36,7 @@ spec:
             severity: page
             team: phoenix
         ticketAlert:
+          disable: false
           labels:
             severity: "notify"
             slack_channel: "#team-phoenix"
