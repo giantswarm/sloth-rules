@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New DNSServiceUnavailable SLO based on DNS queries.
 
+### Changed
+
+- Add option to disable alerts on template.
+- Disable DNS alerts for external zones.
+
 ## [0.20.0] - 2023-08-21
 
 ### Changed
