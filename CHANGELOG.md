@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New DNSServiceUnavailable SLO based on DNS queries.
+
 ### Changed
 
 - Change ownership from Atlas to Turtles for vertical pod autoscaler related alerts.
