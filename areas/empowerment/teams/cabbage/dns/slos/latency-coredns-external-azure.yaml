@@ -10,3 +10,7 @@ annotations:
 alertLabels:
   cancel_if_outside_working_hours: "true"
   silence: "true"
+pageAlert:
+  disable: true
+ticketAlert:
+  disable: true

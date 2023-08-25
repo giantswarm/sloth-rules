@@ -45,6 +45,7 @@ Finally run `make generate` to generate your SLO CRs. Output will be in the `out
 Instead of having `vector(1)` you can for example use `sum(rate(kube_pod_container_info{container=~"whatever"}[{{.window}}]))`
 - You can and should **add an opsrecipe annotation** to your SLO.
 - Always test your SLO on a testing installation before creating a new repo release to make sure it pages right when the conditions are met.
+- You can create a SLO withouth alerts by setting `pageAlert.disable` and/or `ticketAlert.disable` as `true`. By default, both alerts are created.
 
 ## Architecture
 

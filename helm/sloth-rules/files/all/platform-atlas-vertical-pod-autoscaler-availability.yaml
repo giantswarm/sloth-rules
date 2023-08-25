@@ -30,12 +30,14 @@ spec:
         annotations:
           opsrecipe: vpa-down/
         pageAlert:
+          disable: false
           labels:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
             team: atlas
         ticketAlert:
+          disable: false
           labels:
             severity: "notify"
             slack_channel: "#team-atlas"

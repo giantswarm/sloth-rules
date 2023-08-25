@@ -30,6 +30,7 @@ spec:
         annotations:
           opsrecipe: dns-issue-mitigation
         pageAlert:
+          disable: true
           labels:
             cancel_if_outside_working_hours: "true"
             silence: "true"
@@ -38,6 +39,7 @@ spec:
             severity: page
             team: cabbage
         ticketAlert:
+          disable: true
           labels:
             severity: "notify"
             slack_channel: "#team-cabbage"

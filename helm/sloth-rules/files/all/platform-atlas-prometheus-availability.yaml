@@ -34,6 +34,7 @@ spec:
           description: Prometheus {{$labels.pod}} is unavailable.
           opsrecipe: prometheus-resource-limit-reached/
         pageAlert:
+          disable: false
           labels:
             cancel_if_any_apiserver_down: "true"
             cancel_if_cluster_has_no_workers: "true"
@@ -46,6 +47,7 @@ spec:
             severity: page
             team: atlas
         ticketAlert:
+          disable: false
           labels:
             severity: "notify"
             slack_channel: "#team-atlas"
