@@ -7,13 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Change ownership from Atlas to Turtles for vertical pod autoscaler related alerts.
+
+## [0.21.0] - 2023-08-25
+
 ### Added
 
 - New DNSServiceUnavailable SLO based on DNS queries.
 
 ### Changed
 
-- Change ownership from Atlas to Turtles for vertical pod autoscaler related alerts.
+- Add option to disable alerts on template.
+- Disable DNS alerts for external zones.
 
 ## [0.20.0] - 2023-08-21
 
@@ -219,7 +226,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.20.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.21.0...HEAD
+[0.21.0]: https://github.com/giantswarm/sloth-rules/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/giantswarm/sloth-rules/compare/v0.19.1...v0.20.0
 [0.19.1]: https://github.com/giantswarm/sloth-rules/compare/v0.19.0...v0.19.1
 [0.19.0]: https://github.com/giantswarm/sloth-rules/compare/v0.18.0...v0.19.0
