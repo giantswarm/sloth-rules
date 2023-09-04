@@ -14,8 +14,8 @@ The DNS service is responsible for resolving internat domains (services) as well
 | DNS Service Availability | The proportion of sufficiently not failed responses from both CoreDNS and NodeLocal services. | 99% success |
 | CoreDNS Latency | The proportion of sufficiently fast DNS resolution for `local` zones, as measured from CoreDNS pods's metrics.<br>“Sufficiently fast” is any resolution taking less than 0.032 seconds. | 99% success  |
 | Local Node DNS Cache Latency | The proportion of sufficiently fast DNS resolution for `local` zones, as measured from NodeLocalDNSCache pods's metrics.<br>“Sufficiently fast” is any resolution taking less than 0.008 seconds. | 99% success  |
-| CoreDNS Latency for external domains | The proportion of sufficiently fast DNS resolution for `non local` zones, as measured from CoreDNS pods's metrics.<br>“Sufficiently fast” is any resolution taking less than 0.128 seconds on AWS and less that 0.512 seconds on azure. | 99% success  |
-| Local Node DNS Cache Latency for external domains | The proportion of sufficiently fast DNS resolution for `non local` zones, as measured from NodeLocalDNSCache pods's metrics.<br>“Sufficiently fast” is any resolution taking less than 0.128 seconds on AWS and less that 0.512 on azure. | 99% success  |
+| CoreDNS Latency for external domains | The proportion of sufficiently fast DNS resolution for `non local` zones, as measured from CoreDNS pods's metrics.<br>“Sufficiently fast” is any resolution taking less than 1.024 seconds. | 99% success  |
+| Local Node DNS Cache Latency for external domains | The proportion of sufficiently fast DNS resolution for `non local` zones, as measured from NodeLocalDNSCache pods's metrics.<br>“Sufficiently fast” is any resolution taking less than 1.024 seconds. | 99% success  |
 
 ## Clarifications and Caveats
 
