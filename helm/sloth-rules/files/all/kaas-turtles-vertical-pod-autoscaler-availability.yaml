@@ -3,15 +3,15 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: platform-atlas-vertical-pod-autoscaler-availability
+  name: kaas-turtles-vertical-pod-autoscaler-availability
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: atlas
+    application.giantswarm.io/team: turtles
 spec:
   service: "vertical-pod-autoscaler"
   labels:
-    owner: "atlas"
+    owner: "turtles"
   slos:
     - name: "availability"
       objective: 95
@@ -23,10 +23,10 @@ spec:
           totalQuery: |-
             sum(label_replace(avg_over_time(kube_pod_container_info{container=~"recommender|admission-controller|updater|vertical-pod-autoscaler-app",cluster_id=~"^.*"}[{{.window}}]), "pod", "$1", "cluster_id", "$2")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
-        name: VpaComponentUnavailable
+        name: VPAComponentUnavailable
         labels:
-          team: atlas
-          area: platform
+          team: turtles
+          area: kaas
         annotations:
           opsrecipe: vpa-down/
         pageAlert:
@@ -35,9 +35,9 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: atlas
+            team: turtles
         ticketAlert:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-atlas"
+            slack_channel: "#team-turtles"
