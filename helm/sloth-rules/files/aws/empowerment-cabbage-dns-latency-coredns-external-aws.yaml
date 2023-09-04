@@ -19,7 +19,7 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="0.128", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="1.024", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
           totalQuery: |-
             sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
@@ -33,13 +33,12 @@ spec:
           disable: true
           labels:
             cancel_if_outside_working_hours: "true"
-            silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
             team: cabbage
         ticketAlert:
-          disable: true
+          disable: false
           labels:
             severity: "notify"
             slack_channel: "#team-cabbage"
