@@ -19,9 +19,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            clamp_min(sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"master|worker"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(kubelet_pleg_relist_interval_seconds_bucket{le="2.5",role=~"master|worker"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)
+            clamp_min(sum(rate(kubelet_pleg_relist_duration_seconds_count{}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(kubelet_pleg_relist_interval_seconds_bucket{le="2.5"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)
           totalQuery: |-
-            sum(rate(kubelet_pleg_relist_duration_seconds_count{role=~"worker|master"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            sum(rate(kubelet_pleg_relist_duration_seconds_count{}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
         name: KubeletPLEGDurationTooHigh
         labels:
