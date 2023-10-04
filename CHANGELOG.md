@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Removed unneeded node role in `KubeletPLEGDurationTooHigh`.
+
 ## [0.22.0] - 2023-09-12
 
 ### Changed
