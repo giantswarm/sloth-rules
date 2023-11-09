@@ -11,7 +11,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/go-yaml/yaml"
+	"gopkg.in/yaml.v3"
 )
 
 func main() {
