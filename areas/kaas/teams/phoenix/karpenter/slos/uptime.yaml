@@ -1,0 +1,17 @@
+---
+alertLabels:
+  cancel_if_any_apiserver_down: "true"
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_cluster_has_no_workers: "true"
+  cancel_if_outside_working_hours: "true"
+  silence: true
+alertName: "KarpenterServiceDegraded"
+annotations:
+  dashboard: e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter
+  description: Karpenter is experiencing a service degradation in cluster {{$labels.installation}}/{{$labels.cluster_id}}.
+cluster_type: workload_cluster
+description: "Karpenter SLO"
+objective: 80
+topic: kubernetes
+errorQuery: sum(avg_over_time(kube_pod_status_ready{condition="false", namespace="kube-system", pod=~"karpenter.*"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+totalQuery: sum(avg_over_time(kube_pod_status_ready{namespace="kube-system", pod=~"karpenter.*"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
