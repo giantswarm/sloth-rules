@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add conntrack exhaustion SLO.
 
+### Changed
+
+- Exclude `karpenter-renewer` pods from Karpenter SLO
+
 ## [0.24.0] - 2023-12-12
 
 ### Added
