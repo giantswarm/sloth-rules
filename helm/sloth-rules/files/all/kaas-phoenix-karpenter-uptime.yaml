@@ -20,9 +20,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(avg_over_time(kube_pod_status_ready{condition="false", namespace="kube-system", pod=~"karpenter.*"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            sum(avg_over_time(kube_pod_status_ready{condition="false", namespace="kube-system", pod=~"karpenter.*", pod!~"karpenter-renewer-.*"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
           totalQuery: |-
-            sum(avg_over_time(kube_pod_status_ready{namespace="kube-system", pod=~"karpenter.*"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            sum(avg_over_time(kube_pod_status_ready{namespace="kube-system", pod=~"karpenter.*", pod!~"karpenter-renewer-.*"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
       alerting:
         name: KarpenterServiceDegraded
         labels:
