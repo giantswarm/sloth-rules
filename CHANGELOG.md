@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add Atlas kube-builder operator reconciliation SLOs. Target is defined at 95% for now.
+- Add Atlas kube-builder operator reconciliation SLOs. Target is defined at 99% for now.
 
 ## [0.26.0] - 2024-01-10
 
