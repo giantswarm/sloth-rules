@@ -11,4 +11,4 @@ When they cannot reconcile over a period of time, we should be alerted
 
 |Category | SLI                                                                                                                                                                                      |SLO |
 |---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---:|
-| Reconciliation | The reconciliations of the operators over time. | 95% success  |
+| Reconciliation | The reconciliations of the operators over time. | 99% success  |
