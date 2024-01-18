@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add Atlas kube-builder operator reconciliation SLOs. Target is defined at 99% for now.
 
+### Changed
+
+- Removed silence from ApiServerAvailabilityErrorRateTooHigh alert.
+
 ## [0.26.0] - 2024-01-10
 
 ### Changed
