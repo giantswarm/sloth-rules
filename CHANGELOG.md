@@ -9,15 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.27.1] - 2024-01-22
 
+### Changed
+
+- Removed silence from ApiServerAvailabilityErrorRateTooHigh alert.
+
 ## [0.27.0] - 2024-01-16
 
 ### Added
 
 - Add Atlas kube-builder operator reconciliation SLOs. Target is defined at 99% for now.
-
-### Changed
-
-- Removed silence from ApiServerAvailabilityErrorRateTooHigh alert.
 
 ## [0.26.0] - 2024-01-10
 
