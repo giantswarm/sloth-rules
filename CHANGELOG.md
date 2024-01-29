@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed missing parenthesis in `NodeConnTrackAlmostExhausted`
+
 ## [0.27.1] - 2024-01-22
 
 ### Changed
