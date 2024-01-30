@@ -2,6 +2,6 @@
 description: "API availability SLO"
 alertName: "ApiServerAvailabilityErrorRateTooHigh"
 objective: 99
-errorQuery: sum(rate(apiserver_request_total{ code=~"(5..|429)" }[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
-totalQuery: sum(rate(apiserver_request_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+errorQuery: sum(rate(apiserver_request_total{ code=~"(5..|429)" }[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) or on() (1-up{app="kubernetes"}) unless absent(apiserver_request_total)
+totalQuery: sum(rate(apiserver_request_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)  or on() (1-up{app="kubernetes"}) unless absent(apiserver_request_total)
 alertLabels: {}
