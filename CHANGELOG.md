@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.27.3] - 2024-02-06
+
 ### Changed
 
 - Check `kubernetes` service availability in `ApiServerAvailabilityErrorRateTooHigh` alert.
@@ -279,7 +281,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.27.2...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.27.3...HEAD
+[0.27.3]: https://github.com/giantswarm/sloth-rules/compare/v0.27.2...v0.27.3
 [0.27.2]: https://github.com/giantswarm/sloth-rules/compare/v0.27.1...v0.27.2
 [0.27.1]: https://github.com/giantswarm/sloth-rules/compare/v0.27.0...v0.27.1
 [0.27.0]: https://github.com/giantswarm/sloth-rules/compare/v0.26.0...v0.27.0
