@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add alert on API server instance availability, `ApiServerInstanceUnavailable`.
+
 ## [0.27.3] - 2024-02-06
 
 ### Changed
