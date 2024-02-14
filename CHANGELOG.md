@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.28.0] - 2024-02-14
+
 ### Added
 
 - Add alert on API server instance availability, `ApiServerInstanceUnavailable`.
@@ -285,7 +287,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.27.3...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.28.0...HEAD
+[0.28.0]: https://github.com/giantswarm/sloth-rules/compare/v0.27.3...v0.28.0
 [0.27.3]: https://github.com/giantswarm/sloth-rules/compare/v0.27.2...v0.27.3
 [0.27.2]: https://github.com/giantswarm/sloth-rules/compare/v0.27.1...v0.27.2
 [0.27.1]: https://github.com/giantswarm/sloth-rules/compare/v0.27.0...v0.27.1
