@@ -1,0 +1,9 @@
+---
+description: "API server instance status SLO"
+alertName: "ApiServerInstanceUnavailable"
+objective: 99
+# number of APIserver instances that are down (up{app="kubernetes"} == 0)
+errorQuery: count_over_time(up{app="kubernetes"}[{{.window}}])-(sum_over_time(up{app="kubernetes"}[{{.window}}]))
+# total number of APIserver instances
+totalQuery: count_over_time(up{app="kubernetes"}[{{.window}}])
+alertLabels: {}
