@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add `cancel_if_cluster_status_updating` labels to unsilenced API server alerts
+
 ## [0.28.0] - 2024-02-14
 
 ### Added
