@@ -30,6 +30,7 @@ spec:
         pageAlert:
           disable: false
           labels:
+            cancel_if_cluster_status_updating: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page

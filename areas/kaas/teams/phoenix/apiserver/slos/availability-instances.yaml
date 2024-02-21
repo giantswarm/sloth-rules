@@ -6,4 +6,5 @@ objective: 99
 errorQuery: count_over_time(up{app="kubernetes"}[{{.window}}])-(sum_over_time(up{app="kubernetes"}[{{.window}}]))
 # total number of APIserver instances
 totalQuery: count_over_time(up{app="kubernetes"}[{{.window}}])
-alertLabels: {}
+alertLabels:
+  cancel_if_cluster_status_updating: "true"
