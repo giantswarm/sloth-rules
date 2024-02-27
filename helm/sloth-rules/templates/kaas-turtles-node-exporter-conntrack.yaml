@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(count_over_time((node_nf_conntrack_entries / node_nf_conntrack_entries_limit >= 0.7)[{{.window}}:{{.window}}]))
+            {{`sum(count_over_time((node_nf_conntrack_entries / node_nf_conntrack_entries_limit >= 0.7)[{{.window}}:{{.window}}]))`}}
           totalQuery: |-
-            sum(count_over_time((node_nf_conntrack_entries)[{{.window}}:{{.window}}]))
+            {{`sum(count_over_time((node_nf_conntrack_entries)[{{.window}}:{{.window}}]))`}}
       alerting:
         name: NodeConnTrackAlmostExhausted
         labels:
@@ -31,6 +31,7 @@ spec:
         pageAlert:
           disable: false
           labels:
+            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"

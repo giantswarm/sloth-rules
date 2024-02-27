@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"text/template"
 
@@ -24,7 +25,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	outputDir := path.Join(currentDirectory, "helm", "sloth-rules", "templates")
 
 	// Cleanup previously generated files.
@@ -81,7 +81,17 @@ func main() {
 							if err != nil {
 								log.Fatal(err)
 							}
-
+							// We quote booleans to avoid issues with alerting rules.
+							if data["alertLabels"] != nil {
+								alertLabels := data["alertLabels"].(map[string]interface{})
+								for k, v := range alertLabels {
+									if v == "true" || v == "false" {
+										alertLabels[k] = fmt.Sprintf("\"%s\"", v)
+									} else if v == true || v == false {
+										alertLabels[k] = fmt.Sprintf("\"%s\"", strconv.FormatBool(v.(bool)))
+									}
+								}
+							}
 							name := strings.TrimSuffix(filepath.Base(slo), ".yaml")
 
 							var provider = "all"

@@ -19,9 +19,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(label_replace(avg_over_time(kube_pod_status_ready{condition="false",namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            {{`sum(label_replace(avg_over_time(kube_pod_status_ready{condition="false",namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            sum(label_replace(avg_over_time(kube_pod_status_ready{namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            {{`sum(label_replace(avg_over_time(kube_pod_status_ready{namespace=~"(.*)-prometheus"}[{{.window}}]), "cluster_id", "$1", "pod", "prometheus-(.+)-(.+)")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: PrometheusUnavailable
         labels:

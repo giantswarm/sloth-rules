@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            clamp_min(sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(workqueue_queue_duration_seconds_bucket{le="10"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)
+            {{`clamp_min(sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(workqueue_queue_duration_seconds_bucket{le="10"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
           totalQuery: |-
-            sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            {{`sum(rate(workqueue_queue_duration_seconds_count{}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: ControllerManagerReconciliationLatencyTooHigh
         labels:
@@ -29,6 +29,7 @@ spec:
         pageAlert:
           disable: false
           labels:
+            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"

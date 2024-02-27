@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])
+            {{`sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])`}}
           totalQuery: |-
-            sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])
+            {{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])`}}
       alerting:
         name: ContainerdDiskUsage
         labels:
@@ -31,6 +31,7 @@ spec:
         pageAlert:
           disable: false
           labels:
+            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"

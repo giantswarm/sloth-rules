@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(grpc_client_handled_total{app="etcd",grpc_code!="OK"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            {{`sum(rate(grpc_client_handled_total{app="etcd",grpc_code!="OK"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            sum(rate(grpc_client_handled_total{app="etcd"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            {{`sum(rate(grpc_client_handled_total{app="etcd"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: ETCDAvailabilityErrorRateTooHigh
         labels:
@@ -29,6 +29,7 @@ spec:
         pageAlert:
           disable: false
           labels:
+            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"

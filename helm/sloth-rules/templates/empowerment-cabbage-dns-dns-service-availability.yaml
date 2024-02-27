@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(coredns_dns_responses_total{rcode="SERVFAIL"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, app)
+            {{`sum(rate(coredns_dns_responses_total{rcode="SERVFAIL"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, app)`}}
           totalQuery: |-
-            sum(rate(coredns_dns_responses_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, app)
+            {{`sum(rate(coredns_dns_responses_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, app)`}}
       alerting:
         name: DNSServiceUnavailable
         labels:
@@ -31,6 +31,7 @@ spec:
         pageAlert:
           disable: false
           labels:
+            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page

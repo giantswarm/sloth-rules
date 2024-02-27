@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            count_over_time(up{app="kubernetes"}[{{.window}}])-(sum_over_time(up{app="kubernetes"}[{{.window}}]))
+            {{`count_over_time(up{app="kubernetes"}[{{.window}}])-(sum_over_time(up{app="kubernetes"}[{{.window}}]))`}}
           totalQuery: |-
-            count_over_time(up{app="kubernetes"}[{{.window}}])
+            {{`count_over_time(up{app="kubernetes"}[{{.window}}])`}}
       alerting:
         name: ApiServerInstanceUnavailable
         labels:
@@ -30,6 +30,7 @@ spec:
           disable: false
           labels:
             cancel_if_cluster_status_updating: "true"
+            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"

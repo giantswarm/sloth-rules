@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="k8s-dns-node-cache",le="0.008", zone=~".+local."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            {{`sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="k8s-dns-node-cache",le="0.008", zone=~".+local."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            {{`sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: LocalDNSCacheLatencyTooHigh
         labels:
@@ -31,6 +31,7 @@ spec:
         pageAlert:
           disable: false
           labels:
+            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page

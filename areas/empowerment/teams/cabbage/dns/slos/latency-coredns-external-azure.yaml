@@ -3,8 +3,8 @@ description: "DNS resolution latency for non-local domains from coredns"
 alertName: "CoreDNSExternalDomainsLatencyTooHigh"
 objective: 99
 provider: azure
-errorQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="1.024", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
-totalQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+errorQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="1.024", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+totalQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
   opsrecipe: dns-issue-mitigation
 alertLabels:

@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate", code!="200"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            {{`sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate", code!="200"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+            {{`sum(rate(http_request_count{app="aws-pod-identity-webhook", path="/mutate"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: AWSPodIdentityWebhookErrorRateTooHigh
         labels:
@@ -29,6 +29,7 @@ spec:
         pageAlert:
           disable: false
           labels:
+            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"

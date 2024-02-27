@@ -19,9 +19,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(controller_runtime_reconcile_errors_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)
+            {{`sum(rate(controller_runtime_reconcile_errors_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)`}}
           totalQuery: |-
-            sum(rate(controller_runtime_reconcile_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)
+            {{`sum(rate(controller_runtime_reconcile_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)`}}
       alerting:
         name: AtlasOperatorsReconciliationError
         labels:

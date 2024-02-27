@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(controller_runtime_reconcile_errors_total{app="irsa-operator"}[{{.window}}]))
+            {{`sum(rate(controller_runtime_reconcile_errors_total{app="irsa-operator"}[{{.window}}]))`}}
           totalQuery: |-
-            sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}]))
+            {{`sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}]))`}}
       alerting:
         name: IRSAOperatorErrorRateTooHigh
         labels:
@@ -29,6 +29,7 @@ spec:
         pageAlert:
           disable: false
           labels:
+            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
