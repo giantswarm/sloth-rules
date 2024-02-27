@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.29.0] - 2024-02-27
+
 ### Changed
 
 - Add support for pipeline field in slos so we can inhibit alerts in stable-testing installations using `cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'` (the single quotes are mandatory)
@@ -309,7 +311,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.28.3...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.0...HEAD
+[0.29.0]: https://github.com/giantswarm/sloth-rules/compare/v0.28.3...v0.29.0
 [0.28.3]: https://github.com/giantswarm/sloth-rules/compare/v0.28.2...v0.28.3
 [0.28.2]: https://github.com/giantswarm/sloth-rules/compare/v0.28.1...v0.28.2
 [0.28.1]: https://github.com/giantswarm/sloth-rules/compare/v0.28.0...v0.28.1
