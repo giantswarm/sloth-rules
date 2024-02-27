@@ -15,7 +15,7 @@ spec:
     owner: "atlas"
   slos:
     - name: "reconciliation"
-      objective: 99
+      objective: 95
       description: Atlas operators are not able to reconcile resources
       sli:
         events:
