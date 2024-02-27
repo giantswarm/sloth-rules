@@ -35,3 +35,11 @@ giantswarm.io/managed-by: {{ .Release.Name | quote }}
 helm.sh/chart: {{ include "chart" . | quote }}
 owner: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end -}}
+
+{{- define "workingHoursOnly" -}}
+{{- if eq .Values.managementCluster.pipeline "stable-testing" -}}
+"true"
+{{- else -}}
+"false"
+{{- end -}}
+{{- end -}}

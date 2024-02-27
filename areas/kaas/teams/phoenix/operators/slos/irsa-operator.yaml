@@ -2,7 +2,8 @@
 description: "IRSA Operator SLO"
 alertName: "IRSAOperatorErrorRateTooHigh"
 objective: 99
-errorQuery: sum(rate(controller_runtime_reconcile_errors_total{app="irsa-operator"}[{{.window}}]))
-totalQuery: sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}]))
+errorQuery: '{{`sum(rate(controller_runtime_reconcile_errors_total{app="irsa-operator"}[{{.window}}]))`}}'
+totalQuery: '{{`sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}]))`}}'
 alertLabels:
   silence: "true"
+  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

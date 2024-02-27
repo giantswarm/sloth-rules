@@ -2,7 +2,8 @@
 description: "AWS Pod Identity Webhook Mutate Latency"
 alertName: "AWSPodIdentityWebhookLatencyTooHigh"
 objective: 99
-errorQuery: sum(rate(http_request_latencies_count{app="aws-pod-identity-webhook"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(http_request_latencies_bucket{app="aws-pod-identity-webhook", le="250000"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
-totalQuery: sum(rate(http_request_latencies_count{app="aws-pod-identity-webhook"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+errorQuery: '{{`sum(rate(http_request_latencies_count{app="aws-pod-identity-webhook"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(http_request_latencies_bucket{app="aws-pod-identity-webhook", le="250000"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+totalQuery: '{{`sum(rate(http_request_latencies_count{app="aws-pod-identity-webhook"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
+  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

@@ -120,4 +120,19 @@ workflows:
             branches:
               ignore: /.*/
             tags:
-              only: /^v.*/()
+              only: /^v.*/
+
+      - architect/push-to-app-collection:
+          context: architect
+          name: push-to-capz-app-collection
+          app_catalog: control-plane-catalog
+          app_name: "sloth-rules"
+          app_namespace: monitoring
+          app_collection_repo: "capz-app-collection"
+          requires:
+            - push-sloth-rules-to-control-plane-catalog-master
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/

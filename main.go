@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"text/template"
 
@@ -24,11 +25,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	outputDir := path.Join(currentDirectory, "helm", "sloth-rules", "files")
+	outputDir := path.Join(currentDirectory, "helm", "sloth-rules", "templates")
 
 	// Cleanup previously generated files.
-	files, err := filepath.Glob(path.Join(outputDir, "./**/*.yaml"))
+	files, err := filepath.Glob(path.Join(outputDir, "./*.yaml"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -71,6 +71,7 @@ func main() {
 
 						for _, slo := range slos {
 							rawData, err := os.ReadFile(slo)
+
 							if err != nil {
 								log.Fatal(err)
 							}
@@ -80,7 +81,17 @@ func main() {
 							if err != nil {
 								log.Fatal(err)
 							}
-
+							// We quote booleans to avoid issues with alerting rules.
+							if data["alertLabels"] != nil {
+								alertLabels := data["alertLabels"].(map[string]interface{})
+								for k, v := range alertLabels {
+									if v == "true" || v == "false" {
+										alertLabels[k] = fmt.Sprintf("\"%s\"", v)
+									} else if v == true || v == false {
+										alertLabels[k] = fmt.Sprintf("\"%s\"", strconv.FormatBool(v.(bool)))
+									}
+								}
+							}
 							name := strings.TrimSuffix(filepath.Base(slo), ".yaml")
 
 							var provider = "all"
@@ -90,7 +101,7 @@ func main() {
 							}
 
 							destinationFileName := fmt.Sprintf("%s-%s-%s-%s.yaml", area.Name(), team.Name(), service.Name(), name)
-							destinationPath := path.Join(outputDir, provider, destinationFileName)
+							destinationPath := path.Join(outputDir, destinationFileName)
 							log.Printf("Generating prometheusservicelevel.sloth.slok.dev named %s in %s", destinationFileName, outputDir)
 
 							dir := path.Dir(destinationPath)
@@ -105,7 +116,9 @@ func main() {
 							data["team"] = team.Name()
 							data["service"] = service.Name()
 							data["slo"] = name
-
+							if provider != "all" {
+								data["provider"] = provider
+							}
 							f, err := os.Create(destinationPath)
 							if err != nil {
 								log.Fatal(err)
@@ -124,7 +137,4 @@ func main() {
 			}
 		}
 	}
-}
-func fileNameWithoutExtSliceNotation(fileName string) string {
-	return fileName[:len(fileName)-len(filepath.Ext(fileName))]
 }

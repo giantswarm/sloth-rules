@@ -2,7 +2,9 @@
 description: "DNS resolution latency from coredns"
 alertName: "CoreDNSLatencyTooHigh"
 objective: 99
-errorQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="0.032", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
-totalQuery: sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+errorQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="0.032", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+totalQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
   opsrecipe: dns-issue-mitigation
+alertLabels:
+  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

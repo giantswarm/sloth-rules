@@ -2,17 +2,15 @@
 description: "Atlas operators are not able to reconcile resources"
 alertName: "AtlasOperatorsReconciliationError"
 objective: 95
-errorQuery: sum(rate(controller_runtime_reconcile_errors_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)
-totalQuery: sum(rate(controller_runtime_reconcile_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)
+errorQuery: '{{`sum(rate(controller_runtime_reconcile_errors_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)`}}'
+totalQuery: '{{`sum(rate(controller_runtime_reconcile_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)`}}'
 topic: observability
 cluster_type: management_cluster
 alertLabels:
   cancel_if_any_apiserver_down: "true"
-  cancel_if_cluster_status_creating: "true"
   cancel_if_cluster_status_updating: "true"
-  cancel_if_cluster_status_deleting: "true"
   cancel_if_cluster_has_no_workers: "true"
   cancel_if_outside_working_hours: "true"
 annotations:
   dashboard: kube-builder-operators/kube-builder-operators
-  description: Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.
+  description: '{{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}'
