@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`count_over_time(up{app="kubernetes"}[{{.window}}])-(sum_over_time(up{app="kubernetes"}[{{.window}}]))`}}
+            {{`count_over_time(up{app="kubernetes", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])-(sum_over_time(up{app="kubernetes", provider=~"aws|capa|eks|capz|azure"}[{{.window}}]))`}}
           totalQuery: |-
-            {{`count_over_time(up{app="kubernetes"}[{{.window}}])`}}
+            {{`count_over_time(up{app="kubernetes", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])`}}
       alerting:
         name: ApiServerInstanceUnavailable
         labels:

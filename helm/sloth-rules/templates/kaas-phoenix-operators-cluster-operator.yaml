@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(operatorkit_controller_errors_total{app="cluster-operator"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(operatorkit_controller_errors_total{app="cluster-operator", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`sum(rate(operatorkit_controller_operation_total{app="cluster-operator"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(operatorkit_controller_operation_total{app="cluster-operator", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: ClusterOperatorErrorRateTooHigh
         labels:

@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])`}}
+            {{`sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])`}}
           totalQuery: |-
-            {{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])`}}
+            {{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])`}}
       alerting:
         name: ContainerdDiskUsage
         labels:

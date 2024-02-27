@@ -3,9 +3,9 @@ description: "API server instance status SLO"
 alertName: "ApiServerInstanceUnavailable"
 objective: 99
 # number of APIserver instances that are down (up{app="kubernetes"} == 0)
-errorQuery: '{{`count_over_time(up{app="kubernetes"}[{{.window}}])-(sum_over_time(up{app="kubernetes"}[{{.window}}]))`}}'
+errorQuery: '{{`count_over_time(up{app="kubernetes", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])-(sum_over_time(up{app="kubernetes", provider=~"aws|capa|eks|capz|azure"}[{{.window}}]))`}}'
 # total number of APIserver instances
-totalQuery: '{{`count_over_time(up{app="kubernetes"}[{{.window}}])`}}'
+totalQuery: '{{`count_over_time(up{app="kubernetes", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])`}}'
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"
