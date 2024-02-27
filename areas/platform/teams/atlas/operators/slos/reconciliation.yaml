@@ -1,7 +1,7 @@
 ---
 description: "Atlas operators are not able to reconcile resources"
 alertName: "AtlasOperatorsReconciliationError"
-objective: 99
+objective: 95
 errorQuery: sum(rate(controller_runtime_reconcile_errors_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)
 totalQuery: sum(rate(controller_runtime_reconcile_total{app=~"logging-operator|object-storage-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)
 topic: observability
