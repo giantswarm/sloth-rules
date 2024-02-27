@@ -8,3 +8,4 @@ errorQuery: count_over_time(up{app="kubernetes"}[{{.window}}])-(sum_over_time(up
 totalQuery: count_over_time(up{app="kubernetes"}[{{.window}}])
 alertLabels:
   cancel_if_cluster_status_updating: "true"
+  cancel_if_prometheus_agent_down: "true"

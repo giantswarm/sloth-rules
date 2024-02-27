@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add `cancel_if_prometheus_agent_down` label to unsilenced API server alerts
+
 ## [0.28.1] - 2024-02-21
 
 ### Changed
