@@ -25,10 +25,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	outputDir := path.Join(currentDirectory, "helm", "sloth-rules", "files")
+	outputDir := path.Join(currentDirectory, "helm", "sloth-rules", "templates")
 
 	// Cleanup previously generated files.
-	files, err := filepath.Glob(path.Join(outputDir, "./**/*.yaml"))
+	files, err := filepath.Glob(path.Join(outputDir, "./*.yaml"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -71,6 +71,7 @@ func main() {
 
 						for _, slo := range slos {
 							rawData, err := os.ReadFile(slo)
+
 							if err != nil {
 								log.Fatal(err)
 							}
@@ -90,7 +91,7 @@ func main() {
 							}
 
 							destinationFileName := fmt.Sprintf("%s-%s-%s-%s.yaml", area.Name(), team.Name(), service.Name(), name)
-							destinationPath := path.Join(outputDir, provider, destinationFileName)
+							destinationPath := path.Join(outputDir, destinationFileName)
 							log.Printf("Generating prometheusservicelevel.sloth.slok.dev named %s in %s", destinationFileName, outputDir)
 
 							dir := path.Dir(destinationPath)
@@ -105,7 +106,9 @@ func main() {
 							data["team"] = team.Name()
 							data["service"] = service.Name()
 							data["slo"] = name
-
+							if provider != "all" {
+								data["provider"] = provider
+							}
 							f, err := os.Create(destinationPath)
 							if err != nil {
 								log.Fatal(err)
@@ -124,7 +127,4 @@ func main() {
 			}
 		}
 	}
-}
-func fileNameWithoutExtSliceNotation(fileName string) string {
-	return fileName[:len(fileName)-len(filepath.Ext(fileName))]
 }

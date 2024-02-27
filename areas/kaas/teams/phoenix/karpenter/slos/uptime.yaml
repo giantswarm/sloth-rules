@@ -8,7 +8,7 @@ alertLabels:
 alertName: "KarpenterServiceDegraded"
 annotations:
   dashboard: e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter
-  description: Karpenter is experiencing a service degradation in cluster {{$labels.installation}}/{{$labels.cluster_id}}.
+  description: '{{`Karpenter is experiencing a service degradation in cluster {{$labels.installation}}/{{$labels.cluster_id}}.`}}'
 cluster_type: workload_cluster
 description: "Karpenter SLO"
 objective: 80
