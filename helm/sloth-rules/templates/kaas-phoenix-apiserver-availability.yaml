@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`(sum(rate(apiserver_request_total{code=~"(5..|429)"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{app="kubernetes"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0))`}}
+            {{`(sum(rate(apiserver_request_total{code=~"(5..|429)", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{app="kubernetes", provider=~`}}{{ include "cloud.providers" .}}{{`}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0))`}}
           totalQuery: |-
-            {{`(sum(rate(apiserver_request_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{app="kubernetes"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0.01))`}}
+            {{`(sum(rate(apiserver_request_total{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{app="kubernetes", provider=~`}}{{ include "cloud.providers" .}}{{`}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0.01))`}}
       alerting:
         name: ApiServerAvailabilityErrorRateTooHigh
         labels:

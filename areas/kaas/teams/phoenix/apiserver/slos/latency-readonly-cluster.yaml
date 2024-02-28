@@ -2,8 +2,8 @@
 description: "Read-only cluster level API calls latency SLO based on https://github.com/kubernetes/community/blob/master/sig-scalability/slos/api_call_latency.md"
 alertName: "ApiServerReadonlyLatencyTooHigh"
 objective: 99
-errorQuery: '{{`clamp_min(sum(rate(apiserver_request_duration_seconds_count{verb=~"GET|LIST", scope!="resource"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(apiserver_request_duration_seconds_bucket{le="30", verb=~"GET|LIST", scope!="resource"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
-totalQuery: '{{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"GET|LIST", scope!="resource" }[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+errorQuery: '{{`clamp_min(sum(rate(apiserver_request_duration_seconds_count{verb=~"GET|LIST", scope!="resource", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(apiserver_request_duration_seconds_bucket{le="30", verb=~"GET|LIST", scope!="resource", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
+totalQuery: '{{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"GET|LIST", scope!="resource" , provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
