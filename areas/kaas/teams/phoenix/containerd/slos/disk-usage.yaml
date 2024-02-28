@@ -2,8 +2,8 @@
 description: "Containerd Disk Usage"
 alertName: "ContainerdDiskUsage"
 objective: 10
-errorQuery: '{{`sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])`}}'
-totalQuery: '{{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])`}}'
+errorQuery: '{{`sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}'
+totalQuery: '{{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}'
 annotations:
   opsrecipe: low-disk-space/#containerd-volume
 alertLabels:

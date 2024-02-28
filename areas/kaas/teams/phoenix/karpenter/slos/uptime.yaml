@@ -13,5 +13,5 @@ cluster_type: workload_cluster
 description: "Karpenter SLO"
 objective: 80
 topic: kubernetes
-errorQuery: '{{`sum(avg_over_time(kube_pod_status_ready{condition="false", namespace="kube-system", pod=~"karpenter.*", pod!~"karpenter-renewer-.*", provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
-totalQuery: '{{`sum(avg_over_time(kube_pod_status_ready{namespace="kube-system", pod=~"karpenter.*", pod!~"karpenter-renewer-.*", provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+errorQuery: '{{`sum(avg_over_time(kube_pod_status_ready{condition="false", namespace="kube-system", pod=~"karpenter.*", pod!~"karpenter-renewer-.*", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+totalQuery: '{{`sum(avg_over_time(kube_pod_status_ready{namespace="kube-system", pod=~"karpenter.*", pod!~"karpenter-renewer-.*", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
