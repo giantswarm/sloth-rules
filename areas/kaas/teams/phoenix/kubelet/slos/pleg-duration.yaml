@@ -2,8 +2,8 @@
 description: "Kubelet PLEG Duration SLO"
 alertName: "KubeletPLEGDurationTooHigh"
 objective: 99
-errorQuery: '{{`clamp_min(sum(rate(kubelet_pleg_relist_duration_seconds_count{provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(kubelet_pleg_relist_interval_seconds_bucket{le="2.5", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
-totalQuery: '{{`sum(rate(kubelet_pleg_relist_duration_seconds_count{provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+errorQuery: '{{`clamp_min(sum(rate(kubelet_pleg_relist_duration_seconds_count{provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(kubelet_pleg_relist_interval_seconds_bucket{le="2.5", provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
+totalQuery: '{{`sum(rate(kubelet_pleg_relist_duration_seconds_count{provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`clamp_min(sum(rate(scheduler_pod_scheduling_duration_seconds_count{provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(scheduler_pod_scheduling_duration_seconds_bucket{le="327.68", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
+            {{`clamp_min(sum(rate(scheduler_pod_scheduling_duration_seconds_count{provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(scheduler_pod_scheduling_duration_seconds_bucket{le="327.68", provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
           totalQuery: |-
-            {{`sum(rate(scheduler_pod_scheduling_duration_seconds_count{provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(scheduler_pod_scheduling_duration_seconds_count{provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: PodSchedulingDurationTooHigh
         labels:

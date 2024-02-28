@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`clamp_min(sum(rate(apiserver_request_duration_seconds_count{verb=~"GET|LIST", scope!="resource", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(apiserver_request_duration_seconds_bucket{le="30", verb=~"GET|LIST", scope!="resource", provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
+            {{`clamp_min(sum(rate(apiserver_request_duration_seconds_count{verb=~"GET|LIST", scope!="resource", provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(apiserver_request_duration_seconds_bucket{le="30", verb=~"GET|LIST", scope!="resource", provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
           totalQuery: |-
-            {{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"GET|LIST", scope!="resource" , provider=~"aws|capa|eks|capz|azure"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"GET|LIST", scope!="resource" , provider=~`}}{{ include "kaas.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: ApiServerReadonlyLatencyTooHigh
         labels:

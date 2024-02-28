@@ -43,3 +43,8 @@ owner: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 "false"
 {{- end -}}
 {{- end -}}
+
+{{/* Provider filters for areas */}}
+{{- define "kaas.providers" -}}
+"aws|capa|eks|capz|azure"
+{{- end -}}
