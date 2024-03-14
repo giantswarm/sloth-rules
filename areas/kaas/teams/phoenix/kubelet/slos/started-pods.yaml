@@ -1,8 +1,0 @@
----
-description: "Kubelet Started Pods SLO"
-alertName: "KubeletStartedPodsErrorRateTooHigh"
-objective: 99
-errorQuery: '{{`sum(rate(kubelet_started_pods_errors_total{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
-totalQuery: '{{`sum(rate(kubelet_started_pods_total{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
-alertLabels:
-  silence: "true"
