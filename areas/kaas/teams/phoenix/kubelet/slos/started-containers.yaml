@@ -1,9 +1,0 @@
----
-description: "Kubelet Started Containers SLO"
-alertName: "KubeletStartedContainersErrorRateTooHigh"
-objective: 99
-errorQuery: '{{`sum(rate(kubelet_started_containers_errors_total{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
-totalQuery: '{{`sum(rate(kubelet_started_containers_total{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
-alertLabels:
-  silence: "true"
-  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

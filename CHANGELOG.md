@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add provider filter to all phoenix alerts.
 
+### Removed
+
+- Remove `KubeletStartedContainersErrorRateTooHigh` and `KubeletStartedPodsErrorRateTooHigh` alerts.
+
 ## [0.29.0] - 2024-02-27
 
 ### Changed
