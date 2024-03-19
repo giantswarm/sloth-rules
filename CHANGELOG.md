@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add provider filter to all phoenix alerts.
+- Moved `CiliumEndpointRegenerationLatencyTooHigh` alert to cabbage, disabled page alert and ticket alert.
 
 ### Removed
 
