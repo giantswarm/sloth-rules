@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.29.1] - 2024-03-19
+
 ### Changed
 
 - Add provider filter to all phoenix alerts.
@@ -320,7 +322,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.1...HEAD
+[0.29.1]: https://github.com/giantswarm/sloth-rules/compare/v0.29.0...v0.29.1
 [0.29.0]: https://github.com/giantswarm/sloth-rules/compare/v0.28.3...v0.29.0
 [0.28.3]: https://github.com/giantswarm/sloth-rules/compare/v0.28.2...v0.28.3
 [0.28.2]: https://github.com/giantswarm/sloth-rules/compare/v0.28.1...v0.28.2
