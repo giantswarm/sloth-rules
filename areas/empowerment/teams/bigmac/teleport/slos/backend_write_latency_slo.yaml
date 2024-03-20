@@ -1,0 +1,25 @@
+---
+description: "95th percentile of backend write operation latencies should be below 100ms"
+alertName: "TeleportBackendWriteLatencyHigh"
+objective: 99
+serviceLevelIndicator:
+  errorQuery: |
+    histogram_quantile(0.95, sum(rate(backend_write_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m])) by (le)) > 0.1
+  totalQuery: |
+    sum(rate(backend_write_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m]))
+  metricType: histogram
+  component: teleport-backend
+alerting:
+  pageAlert:
+    labels:
+      severity: "critical"
+      category: "latency"
+    annotations:
+      summary: "High latency detected in Teleport backend write operations"
+      impact: "May lead to delays in data persistence and affect overall application performance"
+      action: "Check the Teleport backend for performance issues"
+budgetingMethod: "occurrences"
+cancelIfOutsideWorkingHours: true
+labels:
+  team: "bigmac"
+  service: "teleport-backend-writes"
