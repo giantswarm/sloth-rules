@@ -1,0 +1,24 @@
+---
+description: "99th percentile of Teleport authentication request latencies should be below the threshold"
+alertName: "TeleportAuthGenerateLatencyHigh"
+objective: 99
+serviceLevelIndicator:
+  errorQuery: |
+    histogram_quantile(0.99, sum by (le) (rate(auth_generate_seconds_bucket{cluster_id="teleportprod", job="teleport/teleport-cluster"}[5m]))) > 0.2
+  totalQuery: |
+    sum(rate(auth_generate_seconds_count{cluster_id="teleportprod", job="teleport/teleport-cluster"}[5m]))
+  metricType: histogram
+  component: teleport-auth
+alerting:
+  pageAlert:
+    labels:
+      severity: "critical"
+      category: "latency"
+    annotations:
+      summary: "High latency detected in Teleport authentication requests"
+      impact: "May lead to poor user experience and potential timeouts"
+      action: "Investigate the cause of latency issues in the Teleport authentication service"
+budgetingMethod: "occurrences"
+cancelIfOutsideWorkingHours: true
+labels:
+  team: "bigmac"
