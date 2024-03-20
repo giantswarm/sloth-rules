@@ -1,0 +1,29 @@
+---
+description: "Ensure Teleport processes remain in the 'ok' state"
+alertName: "TeleportProcessStateAlert"
+objective: 99.9
+serviceLevelIndicator:
+  errorQuery: 'sum(rate(process_state{cluster_id="teleportprod", state!="0"}[5m])) by (instance)'
+  totalQuery: 'sum(rate(process_state{cluster_id="teleportprod"}[5m])) by (instance)'
+  metricType: gauge
+  component: teleport
+alerting:
+  pageAlert:
+    labels:
+      severity: "critical"
+    annotations:
+      summary: "Teleport process state is not 'ok'"
+      impact: "Teleport service could be degraded or unavailable"
+      action: "Check for issues with Teleport processes immediately"
+  ticketAlert:
+    labels:
+      severity: "warning"
+    annotations:
+      summary: "Teleport process state is not 'ok'"
+      impact: "Potential degradation in Teleport service quality"
+      action: "Review Teleport process health during working hours"
+budgetingMethod: "occurrences"
+cancelIfOutsideWorkingHours: true
+labels:
+  team: "bigmac"
+
