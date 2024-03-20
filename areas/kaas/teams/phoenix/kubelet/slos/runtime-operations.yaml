@@ -5,5 +5,7 @@ objective: 99
 errorQuery: '{{`sum(rate(kubelet_runtime_operations_errors_total{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 totalQuery: '{{`sum(rate(kubelet_runtime_operations_total{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
-  silence: "true"
-  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_prometheus_agent_down: "true"
+  #cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  cancel_if_outside_working_hours: "true"

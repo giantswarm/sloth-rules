@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Removed silence from reviewed alerts, keeping business hours only: 
+  - `ApiServerReadonlyLatencyTooHigh`
+  - `AWSPodIdentityWebhookErrorRateTooHigh`
+  - `AWSPodIdentityWebhookLatencyTooHigh`
+  - `ETCDLatencyTooHigh`
+  - `KarpenterServiceDegraded`
+  - `KubeletRuntimeErrorRateTooHigh`
+  - `KubeletPLEGDurationTooHigh`
+  - `StorageOperationsErrorRateTooHigh`
+  - `ClusterOperatorErrorRateTooHigh`
+  - `PodSchedulingDurationTooHigh`
+  - `NodeConnTrackAlmostExhausted`
+
+- Tuned alerts, still silenced:
+  - `ControllerManagerReconciliationLatencyTooHigh`
+  - `IRSAOperatorErrorRateTooHigh`
+  - `VPAComponentUnavailable`
+  - `ContainerdDiskUsage`
+
 ## [0.29.2] - 2024-03-26
 
 ### Removed
