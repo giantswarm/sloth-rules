@@ -1,0 +1,13 @@
+---
+description: "Availability of the Teleport authentication service"
+alertName: "TeleportAuthenticationAvailabilityTooLow"
+objective: 99.9
+errorQuery: 'rate(teleport_auth_requests_failed_total[5m])'
+totalQuery: 'rate(teleport_auth_requests_total[5m])'
+alertLabels:
+  severity: "page"
+  cancel_if_outside_working_hours: "true"
+annotations:
+  summary: "High error rate in Teleport authentication requests"
+  impact: "Might lead to user access issues"
+  action: "Investigate Teleport auth service immediately"
