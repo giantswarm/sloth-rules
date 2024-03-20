@@ -1,0 +1,22 @@
+---
+description: "SLO for Teleport backend batch read operation latencies"
+alertName: "TeleportBackendReadLatencyHigh"
+objective: 99
+serviceLevelIndicator:
+  errorQuery: 'histogram_quantile(0.95, sum(rate(backend_read_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m])) by (le)) > 0.05'
+  totalQuery: 'sum(rate(backend_read_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m]))'
+  metricType: histogram
+  component: teleport-backend
+alerting:
+  pageAlert:
+    labels:
+      severity: "critical"
+      category: "backend"
+    annotations:
+      summary: "High latency for Teleport backend read operations"
+      impact: "Possible delays in processing read operations, affecting user experience"
+      action: "Investigate the Teleport backend for high read latencies"
+budgetingMethod: "occurrences"
+cancelIfOutsideWorkingHours: false
+labels:
+  team: "bigmac"
