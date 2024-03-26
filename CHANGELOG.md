@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove `PrometheusUnavailable` SLO as it is not actionnable.
+
 ## [0.29.1] - 2024-03-19
 
 ### Changed
