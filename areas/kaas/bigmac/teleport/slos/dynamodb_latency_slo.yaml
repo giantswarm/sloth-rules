@@ -1,7 +1,7 @@
 ---
 description: "99th percentile of DynamoDB request latencies should be below 200ms"
 alertName: "DynamoDBLatencyHigh"
-objective: 99
+objective: 95
 serviceLevelIndicator:
   errorQuery: |
     histogram_quantile(0.99, sum(rate(dynamo_requests_seconds_bucket{job="teleport/teleport-cluster", type="backend"}[5m])) by (le)) > 0.2
@@ -9,17 +9,8 @@ serviceLevelIndicator:
     sum(rate(dynamo_requests_seconds_count{job="teleport/teleport-cluster", type="backend"}[5m]))
   metricType: histogram
   component: dynamodb
-alerting:
-  pageAlert:
-    labels:
-      severity: "critical"
-      category: "latency"
-    annotations:
-      summary: "High latency for DynamoDB API requests detected"
-      impact: "This may affect application performance and user experience"
-      action: "Investigate DynamoDB performance issues"
-budgetingMethod: "occurrences"
-cancelIfOutsideWorkingHours: true
+alertLabels:
+  silence: "true"
+  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
 labels:
   team: "bigmac"
-  service: "dynamodb-latency"

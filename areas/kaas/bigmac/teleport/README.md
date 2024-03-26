@@ -19,7 +19,7 @@ The Teleport service provides secure access to servers, databases, and Kubernete
 
 | Category | SLI | SLO |
 | --- | :--- | :--- |
-| Availability | Rate of successful authentication requests | 99.9% |
+| Availability | Rate of successful authentication requests | 95.0% |
 | Latency | Response time for authentication requests | P95 < 300ms |
 
 ## Rationale
