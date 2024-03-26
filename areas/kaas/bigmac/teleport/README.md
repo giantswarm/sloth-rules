@@ -11,25 +11,13 @@ This document outlines the Service Level Objectives for the Teleport service man
 | Approval date | |
 | Revisit date | |
 
-## Service Overview
+## Teleport Service
 
-The Teleport service provides secure access to servers, databases, and Kubernetes clusters based on the principle of least privilege.
-
-## SLIs and SLOs
+The Teleport service provides secure access for servers, databases, and Kubernetes clusters.
 
 | Category | SLI | SLO |
 | --- | :--- | :--- |
-| Availability | Rate of successful authentication requests | 95.0% |
+| Availability | Rate of successful authentication requests | 95% |
 | Latency | Response time for authentication requests | P95 < 300ms |
 
-## Rationale
-
-Maintaining high availability and low latency for the Teleport service is critical to ensure that users have consistent and reliable access.
-
-## Error Budget
-
-The error budget will be calculated based on the SLOs set for availability and latency.
-
-## Clarifications and Caveats
-
-Any deviations from the defined SLOs will trigger an investigation to identify root causes and implement corrective actions.
+Note: Alerts will be triggered if the SLOs for availability or latency are not met.
