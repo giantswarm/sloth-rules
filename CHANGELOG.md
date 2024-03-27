@@ -15,9 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `AWSPodIdentityWebhookLatencyTooHigh`
   - `ETCDLatencyTooHigh`
   - `KarpenterServiceDegraded`
-  - `KubeletRuntimeErrorRateTooHigh`
   - `KubeletPLEGDurationTooHigh`
-  - `StorageOperationsErrorRateTooHigh`
   - `ClusterOperatorErrorRateTooHigh`
   - `PodSchedulingDurationTooHigh`
   - `NodeConnTrackAlmostExhausted`
@@ -27,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `IRSAOperatorErrorRateTooHigh`
   - `VPAComponentUnavailable`
   - `ContainerdDiskUsage`
+  - `StorageOperationsErrorRateTooHigh`
+  - `KubeletRuntimeErrorRateTooHigh`
 
 ## [0.29.2] - 2024-03-26
 
