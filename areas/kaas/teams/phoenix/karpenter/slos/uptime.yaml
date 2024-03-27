@@ -4,7 +4,7 @@ alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_cluster_has_no_workers: "true"
   cancel_if_outside_working_hours: "true"
-  silence: "true"
+  cancel_if_prometheus_agent_down: "true"
 alertName: "KarpenterServiceDegraded"
 annotations:
   dashboard: e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter

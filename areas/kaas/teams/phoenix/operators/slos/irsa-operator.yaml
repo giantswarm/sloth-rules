@@ -6,4 +6,7 @@ errorQuery: '{{`sum(rate(controller_runtime_reconcile_errors_total{app="irsa-ope
 totalQuery: '{{`sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}]))`}}'
 alertLabels:
   silence: "true"
-  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_prometheus_agent_down: "true"
+  #cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  cancel_if_outside_working_hours: "true"

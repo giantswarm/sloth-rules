@@ -1,11 +1,18 @@
 ---
 description: "Containerd Disk Usage"
 alertName: "ContainerdDiskUsage"
-objective: 10
-errorQuery: '{{`sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}'
-totalQuery: '{{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}'
+objective: 99
+# We start counting errors at less than 10% free space
+# E.g., if free space is 5% of total space, we get a 50% error rate
+# if free space is 2% of total space, we get a 80% error rate
+# if free space is 11% of total space, we get a 0% error rate (see clamp_min)
+errorQuery: '{{`clamp_min((sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])/10 - sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])),0)`}}'
+totalQuery: '{{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])/10`}}'
 annotations:
   opsrecipe: low-disk-space/#containerd-volume
 alertLabels:
   silence: "true"
-  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_prometheus_agent_down: "true"
+  #cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  cancel_if_outside_working_hours: "true"

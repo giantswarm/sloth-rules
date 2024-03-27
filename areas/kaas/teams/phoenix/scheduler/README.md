@@ -11,7 +11,7 @@ We want the assignment operation to be as fast as possible.
 
 |Category | SLI                                                                                                                                                                       |          SLO |
 |---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------:|
-| Latency | The proportion of sufficiently fast pod-node assignments, as measured from scheduler pods's metrics.<br>“Sufficiently fast” is any assignment taking less than 5 minutes. | 99% success |
+| Latency | The proportion of sufficiently fast pod-node assignments, as measured from scheduler pods's metrics.<br>“Sufficiently fast” is any assignment taking less than 5 minutes. | 90% success |
 
 ## Clarifications and Caveats
 

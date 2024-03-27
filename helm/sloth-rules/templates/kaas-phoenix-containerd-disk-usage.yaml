@@ -13,14 +13,14 @@ spec:
     owner: "phoenix"
   slos:
     - name: "disk-usage"
-      objective: 10
+      objective: 99
       description: Containerd Disk Usage
       sli:
         events:
           errorQuery: |-
-            {{`sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}
+            {{`clamp_min((sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])/10 - sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])),0)`}}
           totalQuery: |-
-            {{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}
+            {{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])/10`}}
       alerting:
         name: ContainerdDiskUsage
         labels:
@@ -31,7 +31,9 @@ spec:
         pageAlert:
           disable: false
           labels:
-            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
+            cancel_if_cluster_status_updating: "true"
+            cancel_if_outside_working_hours: "true"
+            cancel_if_prometheus_agent_down: "true"
             silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
