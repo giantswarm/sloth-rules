@@ -1,0 +1,14 @@
+---
+description: "Monitor the rate of stale events in Teleport auth cache"
+alertName: "TeleportAuthCacheStaleEventsHigh"
+objective: 95
+serviceLevelIndicator:
+  errorQuery: 'increase(teleport_cache_events{cluster_id="teleportprod", cache_component="auth"}[5m])'
+  totalQuery: 'increase(teleport_cache_events{cluster_id="teleportprod", cache_component="auth"}[1h])'
+  metricType: counter
+  component: teleport
+alertLabels:
+  silence: "true"
+  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+labels:
+  team: "bigmac"
