@@ -1,4 +1,4 @@
-## Kubelet
+## Operators
 
 This document describes the SLO for `Operators` on Giant Swarm's Management Clusters.
 
