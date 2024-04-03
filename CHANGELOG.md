@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added `DaemonsetAvailability` SLO.
+- Added SLOs from prometheus rules:
+  - `AWSAPIsRequestsAvailability`
+  - `AzureAPIsRequestsAvailability`
+  - `DaemonsetAvailability`
+  - `KubeletAvailability`
+  - `NodeExporterAvailability`
 
 ## [0.29.3] - 2024-03-27
 
