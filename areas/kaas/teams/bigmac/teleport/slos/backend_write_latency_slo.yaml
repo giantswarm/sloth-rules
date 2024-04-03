@@ -4,7 +4,7 @@ alertName: "TeleportBackendWriteLatencyHigh"
 objective: 95
 serviceLevelIndicator:
   errorQuery: |
-    histogram_quantile(0.95, sum(rate(backend_write_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m])) by (le)) > 0.1
+    histogram_quantile(0.95, sum(rate(backend_write_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m])) by (le)) > 0.05
   totalQuery: |
     sum(rate(backend_write_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m]))
   metricType: histogram

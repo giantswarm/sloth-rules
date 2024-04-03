@@ -3,8 +3,8 @@ description: "Teleport Audit Log Disk Usage"
 alertName: "TeleportAuditLogDiskUsageHigh"
 objective: 95
 serviceLevelIndicator:
-  errorQuery: 'avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[30d]) > 80'
-  totalQuery: 'avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[30d])'
+  errorQuery: 'avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80'
+  totalQuery: 'avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])
   metricType: gauge
   component: teleport  
 alertLabels:

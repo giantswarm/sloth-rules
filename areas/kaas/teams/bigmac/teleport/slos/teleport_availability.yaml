@@ -2,7 +2,7 @@
 description: "Availability of the Teleport authentication service"
 alertName: "TeleportAuthenticationAvailabilityTooLow"
 objective: 95
-errorQuery: 'rate(teleport_auth_requests_failed_total[5m])'
+errorQuery: 'rate(teleport_auth_requests_failed_total{cluster_id="teleportprod"}[5m])'
 totalQuery: 'rate(teleport_auth_requests_total[5m])'
 alertLabels:
   silence: "true"
