@@ -1,7 +1,6 @@
 ---
 description: "95th percentile of Teleport authentication request latencies should be below the threshold"
 alertName: "TeleportAuthGenerateLatencyHigh"
-
 serviceLevelIndicator:
   objective: 95
   errorQuery: |
