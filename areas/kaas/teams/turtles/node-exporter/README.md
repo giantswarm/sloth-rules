@@ -12,6 +12,7 @@ The node exporter allows to monitor node metrics.
 |---------|:---|---:|
 | Node Exporter |    |    |
 | Conntrack Entries | The percentage of used connections compared to maximum number of connections on a node | 85% success  |
+| Availability | The percentage of available node exporters in a cluster | 99% success  |
 
 
 ## Clarifications and Caveats
