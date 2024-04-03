@@ -14,7 +14,7 @@ spec:
   slos:
     - name: "availability"
       objective: 99
-      description: API server instance status SLO
+      description: Kubelet availability SLO
       sli:
         events:
           errorQuery: |-
@@ -22,7 +22,7 @@ spec:
           totalQuery: |-
             {{`count_over_time(kube_node_status_condition{condition="Ready", status="true", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}
       alerting:
-        name: ApiServerInstanceUnavailable
+        name: KubeletAvailability
         labels:
           team: phoenix
           area: kaas
