@@ -13,7 +13,7 @@ spec:
     owner: "bigmac"
   slos:
     - name: "auth_generate_latency_slo"
-      objective: 95
+      objective: <no value>
       description: 95th percentile of Teleport authentication request latencies should be below the threshold
       sli:
         events:

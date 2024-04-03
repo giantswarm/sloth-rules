@@ -13,7 +13,7 @@ spec:
     owner: "bigmac"
   slos:
     - name: "audit_percentage_disk_space_used_slo"
-      objective: 95
+      objective: <no value>
       description: Teleport Audit Log Disk Usage
       sli:
         events:
