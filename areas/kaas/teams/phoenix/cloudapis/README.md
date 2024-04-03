@@ -13,7 +13,6 @@ We want to measure the availability of those requests, as if they start to fail 
 |---------|:-------------------------------------------------------------------------|---:|
 | Availability | The proportion of successful calls against the against the amount of unsuccessful calls. | 99% success  |
 
-
 ## Clarifications and Caveats
 
 - This alert has been ported over from prometheus-rules and might need some changes or fine tuning.

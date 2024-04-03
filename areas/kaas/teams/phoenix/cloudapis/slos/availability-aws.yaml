@@ -1,9 +1,9 @@
 ---
-description: "Cloud APIs requests from core components availability SLO"
-alertName: "CloudApisRequestsAvailability"
+description: "AWS APIs requests from core components availability SLO"
+alertName: "AWSAPIsRequestsAvailability"
 objective: 99
-errorQuery: '{{`label_replace(sum_over_time(cloudprovider_azure_api_request_errors{app=~"kube-controller-manager|kube-scheduler"}[{{.window}}]) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, app), "service", "$1", "app", "(.*)")`}}'
-totalQuery: '{{`label_replace(sum_over_time(cloudprovider_azure_api_request_duration_seconds_count{app=~"kube-controller-manager|kube-scheduler"}[{{.window}}]) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, app), "service", "$1", "app", "(.*)")`}}'
+errorQuery: '{{`label_replace(sum_over_time(cloudprovider_aws_api_request_errors{app=~"kube-controller-manager|kube-scheduler"}[{{.window}}]) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, app), "service", "$1", "app", "(.*)")`}}'
+totalQuery: '{{`label_replace(sum_over_time(cloudprovider_aws_api_request_duration_seconds_count{app=~"kube-controller-manager|kube-scheduler"}[{{.window}}]) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, app), "service", "$1", "app", "(.*)")`}}'
 alertLabels:
   silence: true
   cancel_if_cluster_status_updating: "true"
