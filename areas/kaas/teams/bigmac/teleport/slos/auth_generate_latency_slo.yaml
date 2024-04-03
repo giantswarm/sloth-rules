@@ -1,5 +1,5 @@
 ---
-description: "99th percentile of Teleport authentication request latencies should be below the threshold"
+description: "95th percentile of Teleport authentication request latencies should be below the threshold"
 alertName: "TeleportAuthGenerateLatencyHigh"
 objective: 95
 serviceLevelIndicator:
@@ -7,7 +7,6 @@ serviceLevelIndicator:
     histogram_quantile(0.99, sum by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) (rate(auth_generate_seconds_bucket{cluster_id="teleportprod", job="teleport/teleport-cluster"}[5m]))) > 0.2
   totalQuery: |
     sum(rate(auth_generate_seconds_count{cluster_id="teleportprod", job="teleport/teleport-cluster"}[{{.window}}]))
-
   metricType: histogram
   component: teleport-auth
 alertLabels:
