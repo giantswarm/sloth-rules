@@ -44,5 +44,5 @@ owner: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 
 {{/* Provider filters for areas */}}
 {{- define "cloud.providers" -}}
-"aws|capa|eks|capz|azure"
+"aws|capa|eks|capz"
 {{- end -}}
