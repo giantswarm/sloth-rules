@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Move to abs.
 - Removal of the provider property. If this is needed, use the provider value in the metric.
 
 ## [0.29.3] - 2024-03-27

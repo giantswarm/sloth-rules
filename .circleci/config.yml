@@ -22,6 +22,7 @@ workflows:
       - architect/push-to-app-catalog:
           name: push-sloth-rules-to-control-plane-catalog-master
           context: "architect"
+          executor: app-build-suite
           app_catalog: "control-plane-catalog"
           app_catalog_test: "control-plane-test-catalog"
           chart: "sloth-rules"
