@@ -5,11 +5,6 @@ objective: 95
 serviceLevelIndicator:
   errorQuery: 'sum(rate(process_state{cluster_id="teleportprod", state!="0"}[5m])) by (instance)'
   totalQuery: 'sum(rate(process_state{cluster_id="teleportprod"}[5m])) by (instance)'
-  metricType: gauge
-  component: teleport
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
-labels:
-  team: "bigmac"
-

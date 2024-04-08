@@ -12,5 +12,3 @@ serviceLevelIndicator:
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
-labels:
-  team: "bigmac"
