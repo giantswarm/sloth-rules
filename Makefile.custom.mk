@@ -14,8 +14,7 @@ test-opsrecipes: install-tools template-chart ## Check if opsrecipes are valid
 	scripts/tests/check-opsrecipes.sh
 
 test-ci-opsrecipes: install-tools template-chart ## Check if opsrecipes are valid in CI
-	OPSRECIPES_DIR=./giantswarm
-	scripts/tests/check-opsrecipes.sh
+	scripts/tests/check-opsrecipes.sh --ci
 
 test-clean:
 	rm -rf scripts/tests/bin
