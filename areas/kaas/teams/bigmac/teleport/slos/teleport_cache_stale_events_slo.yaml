@@ -7,4 +7,3 @@ totalQuery: 'increase(teleport_cache_stale_events{cluster_id="teleportprod", cac
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
-  
