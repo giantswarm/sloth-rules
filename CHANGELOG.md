@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Move to abs.
 - Removal of the provider property. If this is needed, use the provider value in the metric.
+- Removed business hours only from:
+  - `AWSPodIdentityWebhookErrorRateTooHigh`
+  - `KubeletPLEGDurationTooHigh`
+  - `ClusterOperatorErrorRateTooHigh`
+  - `NodeConnTrackAlmostExhausted`
 
 ## [0.29.3] - 2024-03-27
 

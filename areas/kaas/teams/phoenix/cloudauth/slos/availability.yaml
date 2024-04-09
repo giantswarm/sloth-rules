@@ -7,5 +7,4 @@ totalQuery: '{{`sum(rate(http_request_count{app="aws-pod-identity-webhook", path
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"
-  #cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
-  cancel_if_outside_working_hours: "true"
+  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
