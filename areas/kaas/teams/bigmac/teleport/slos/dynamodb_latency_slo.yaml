@@ -6,8 +6,7 @@ errorQuery: |
   histogram_quantile(0.95, sum(rate(dynamo_requests_seconds_bucket{job="teleport/teleport-cluster", type="backend"}[5m])) by (le)) > 0.05
 totalQuery: |
   sum(rate(dynamo_requests_seconds_count{job="teleport/teleport-cluster", type="backend"}[5m]))
-metricType: histogram
-component: dynamodb
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  
