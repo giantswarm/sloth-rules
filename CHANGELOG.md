@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Move to abs.
+- Removal of the provider property. If this is needed, use the provider value in the metric.
+
+## [0.29.3] - 2024-03-27
+
+### Changed
+
+- Removed silence from reviewed alerts, keeping business hours only: 
+  - `ApiServerReadonlyLatencyTooHigh`
+  - `AWSPodIdentityWebhookErrorRateTooHigh`
+  - `AWSPodIdentityWebhookLatencyTooHigh`
+  - `ETCDLatencyTooHigh`
+  - `KarpenterServiceDegraded`
+  - `KubeletPLEGDurationTooHigh`
+  - `ClusterOperatorErrorRateTooHigh`
+  - `PodSchedulingDurationTooHigh`
+  - `NodeConnTrackAlmostExhausted`
+
+- Tuned alerts, still silenced:
+  - `ControllerManagerReconciliationLatencyTooHigh`
+  - `IRSAOperatorErrorRateTooHigh`
+  - `VPAComponentUnavailable`
+  - `ContainerdDiskUsage`
+  - `StorageOperationsErrorRateTooHigh`
+  - `KubeletRuntimeErrorRateTooHigh`
+
 ## [0.29.2] - 2024-03-26
 
 ### Removed
@@ -328,7 +356,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.2...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.3...HEAD
+[0.29.3]: https://github.com/giantswarm/sloth-rules/compare/v0.29.2...v0.29.3
 [0.29.2]: https://github.com/giantswarm/sloth-rules/compare/v0.29.1...v0.29.2
 [0.29.1]: https://github.com/giantswarm/sloth-rules/compare/v0.29.0...v0.29.1
 [0.29.0]: https://github.com/giantswarm/sloth-rules/compare/v0.28.3...v0.29.0
