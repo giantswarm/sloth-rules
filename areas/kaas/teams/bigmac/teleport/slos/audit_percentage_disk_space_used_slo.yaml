@@ -7,3 +7,4 @@ totalQuery: 'avg_over_time(audit_percentage_disk_space_used{cluster_id="teleport
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  
