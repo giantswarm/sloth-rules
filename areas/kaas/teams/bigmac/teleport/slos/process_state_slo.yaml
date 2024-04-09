@@ -7,3 +7,4 @@ totalQuery: 'sum(rate(process_state{cluster_id="teleportprod"}[5m])) by (instanc
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  
