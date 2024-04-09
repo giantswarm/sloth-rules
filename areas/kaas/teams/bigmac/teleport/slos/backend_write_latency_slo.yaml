@@ -6,8 +6,7 @@ errorQuery: |
   histogram_quantile(0.95, sum(rate(backend_write_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m])) by (le)) > 0.05
 totalQuery: |
   sum(rate(backend_write_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m]))
-metricType: histogram
-component: teleport-backend
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  
