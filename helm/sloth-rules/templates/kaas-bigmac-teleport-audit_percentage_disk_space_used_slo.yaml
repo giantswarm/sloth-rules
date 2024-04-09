@@ -13,14 +13,14 @@ spec:
     owner: "bigmac"
   slos:
     - name: "audit_percentage_disk_space_used_slo"
-      objective: <no value>
+      objective: 95
       description: Teleport Audit Log Disk Usage
       sli:
         events:
           errorQuery: |-
-            <no value>
+            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80
           totalQuery: |-
-            <no value>
+            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])
       alerting:
         name: TeleportAuditLogDiskUsageHigh
         labels:

@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            <no value>
+            increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[5m])
           totalQuery: |-
-            <no value>
+            increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[1h])
       alerting:
         name: TeleportAuthCacheStaleEventsHigh
         labels:

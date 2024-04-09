@@ -13,14 +13,16 @@ spec:
     owner: "bigmac"
   slos:
     - name: "auth_generate_latency_slo"
-      objective: <no value>
+      objective: 95
       description: 95th percentile of Teleport authentication request latencies should be below the threshold
       sli:
         events:
           errorQuery: |-
-            <no value>
+            histogram_quantile(0.99, sum by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) (rate(auth_generate_seconds_bucket{cluster_id="teleportprod", job="teleport/teleport-cluster"}[5m]))) > 0.2
+
           totalQuery: |-
-            <no value>
+            sum(rate(auth_generate_seconds_count{cluster_id="teleportprod", job="teleport/teleport-cluster"}[{{.window}}]))
+
       alerting:
         name: TeleportAuthGenerateLatencyHigh
         labels:
