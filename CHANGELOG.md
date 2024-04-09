@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `KubeletPLEGDurationTooHigh`
   - `ClusterOperatorErrorRateTooHigh`
   - `NodeConnTrackAlmostExhausted`
+- Removed silence from:
+  - `ContainerdDiskUsage`
 
 ## [0.29.3] - 2024-03-27
 

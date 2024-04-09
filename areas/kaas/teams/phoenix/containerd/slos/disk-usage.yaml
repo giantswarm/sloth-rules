@@ -11,7 +11,6 @@ totalQuery: '{{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?
 annotations:
   opsrecipe: low-disk-space/#containerd-volume
 alertLabels:
-  silence: "true"
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"
   #cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
