@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add a `scripts` directory.
+- Add the `list-alerts.sh` script to list all sloth generated alerting rules' names.
+
 ### Changed
 
 - Move to abs.
