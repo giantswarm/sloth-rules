@@ -1,0 +1,7 @@
+# Ignore everything in this directory
+*
+# Except the following
+!.gitignore
+!install-tools.sh
+!template-chart.sh
+!check-opsrecipes.sh

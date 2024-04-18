@@ -11,11 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add a `scripts` directory.
 - Add the `list-alerts.sh` script to list all sloth generated alerting rules' names.
+- Add OpsRecipe CI validation.
 
 ### Changed
 
-- Move to abs.
-- Removal of the provider property. If this is needed, use the provider value in the metric.
+- Move to ABS for CI execution.
+
+### Removed
+
+- Remove the provider flag filtering as provider filtering should be done on the metric level using the provider.
 
 ## [0.29.3] - 2024-03-27
 
