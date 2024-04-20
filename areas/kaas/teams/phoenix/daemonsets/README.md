@@ -1,10 +1,10 @@
 ## Daemonsets
 
-This document describes the SLO for `Daemonsets` on Giant Swarm's clusters.
+This document describes the SLO for `DaemonSets` on Giant Swarm's clusters.
 
 ## Service Overview
 
-Some core platform components are scheduled as daemonsets in the giantswarm and kube-system namespaces. These daemonsets include kube-proxy, cloud controllers, CNI components and exporters.
+Some core platform components are scheduled as `DaemonSets` in the `giantswarm` and `kube-system` namespaces. These `DaemonSets` include `kube-proxy`, cloud controllers, CNI components and exporters.
 
 ## SLIs and SLOs
 
