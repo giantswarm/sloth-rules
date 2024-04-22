@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-audit_percentage_disk_space_used_slo
+  name: kaas-bigmac-teleport-dynamodb-latency-slo
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,17 +12,19 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "audit_percentage_disk_space_used_slo"
+    - name: "dynamodb-latency-slo"
       objective: 95
-      description: Teleport Audit Log Disk Usage
+      description: 99th percentile of DynamoDB request latencies should be below 200ms
       sli:
         events:
           errorQuery: |-
-            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80
+            histogram_quantile(0.95, sum(rate(dynamo_requests_seconds_bucket{job="teleport/teleport-cluster", type="backend"}[5m])) by (le)) > 0.05
+
           totalQuery: |-
-            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])
+            sum(rate(dynamo_requests_seconds_count{job="teleport/teleport-cluster", type="backend"}[5m]))
+
       alerting:
-        name: TeleportAuditLogDiskUsageHigh
+        name: DynamoDBLatencyHigh
         labels:
           team: bigmac
           area: kaas

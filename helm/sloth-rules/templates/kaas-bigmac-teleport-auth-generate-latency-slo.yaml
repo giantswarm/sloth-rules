@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-auth_generate_latency_slo
+  name: kaas-bigmac-teleport-auth-generate-latency-slo
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,7 +12,7 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "auth_generate_latency_slo"
+    - name: "auth-generate-latency-slo"
       objective: 95
       description: 95th percentile of Teleport authentication request latencies should be below the threshold
       sli:

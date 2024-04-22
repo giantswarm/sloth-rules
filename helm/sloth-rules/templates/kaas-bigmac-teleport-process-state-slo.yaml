@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-teleport_cache_stale_events_slo
+  name: kaas-bigmac-teleport-process-state-slo
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,17 +12,17 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "teleport_cache_stale_events_slo"
+    - name: "process-state-slo"
       objective: 95
-      description: Monitor the rate of stale events in Teleport auth cache
+      description: Ensure Teleport processes remain in the 'ok' state
       sli:
         events:
           errorQuery: |-
-            increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[5m])
+            sum(rate(process_state{cluster_id="teleportprod", state!="0"}[5m])) by (instance)
           totalQuery: |-
-            increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[1h])
+            sum(rate(process_state{cluster_id="teleportprod"}[5m])) by (instance)
       alerting:
-        name: TeleportAuthCacheStaleEventsHigh
+        name: TeleportProcessStateAlert
         labels:
           team: bigmac
           area: kaas

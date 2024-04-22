@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-backend_write_latency_slo
+  name: kaas-bigmac-teleport-backend-write-latency-slo
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,7 +12,7 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "backend_write_latency_slo"
+    - name: "backend-write-latency-slo"
       objective: 95
       description: 95th percentile of backend write operation latencies should be below 100ms
       sli:

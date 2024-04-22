@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-backend_read_seconds_bucket
+  name: kaas-bigmac-teleport-teleport-availability
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,17 +12,17 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "backend_read_seconds_bucket"
+    - name: "teleport-availability"
       objective: 95
-      description: SLO for Teleport backend batch read operation latencies
+      description: Availability of the Teleport authentication service
       sli:
         events:
           errorQuery: |-
-            histogram_quantile(0.95, sum(rate(backend_read_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}])) by (le)) > 0.05
+            rate(teleport_auth_requests_failed_total{cluster_id="teleportprod"}[5m])
           totalQuery: |-
-            sum(rate(backend_read_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}]))
+            rate(teleport_auth_requests_total[5m])
       alerting:
-        name: TeleportBackendReadLatencyHigh
+        name: TeleportAuthenticationAvailabilityTooLow
         labels:
           team: bigmac
           area: kaas

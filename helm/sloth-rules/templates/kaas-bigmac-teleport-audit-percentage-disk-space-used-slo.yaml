@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-teleport_availability
+  name: kaas-bigmac-teleport-audit-percentage-disk-space-used-slo
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,17 +12,17 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "teleport_availability"
+    - name: "audit-percentage-disk-space-used-slo"
       objective: 95
-      description: Availability of the Teleport authentication service
+      description: Teleport Audit Log Disk Usage
       sli:
         events:
           errorQuery: |-
-            rate(teleport_auth_requests_failed_total{cluster_id="teleportprod"}[5m])
+            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80
           totalQuery: |-
-            rate(teleport_auth_requests_total[5m])
+            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])
       alerting:
-        name: TeleportAuthenticationAvailabilityTooLow
+        name: TeleportAuditLogDiskUsageHigh
         labels:
           team: bigmac
           area: kaas
