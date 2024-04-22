@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `DaemonsetAvailability`
   - `KubeletAvailability`
   - `NodeExporterAvailability`
+- Add OpsRecipe CI validation.
+
+### Changed
+
+- Move to ABS for CI execution.
+
+### Removed
+
+- Remove the provider flag filtering as provider filtering should be done on the metric level using the provider.
 
 ## [0.29.3] - 2024-03-27
 

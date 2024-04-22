@@ -2,7 +2,6 @@
 description: "DNS resolution latency for non-local domains from Node Local DNS Cache"
 alertName: "LocalDNSCacheExternalDomainsLatencyTooHigh"
 objective: 99
-provider: aws
 errorQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="k8s-dns-node-cache",le="1.024", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 totalQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:

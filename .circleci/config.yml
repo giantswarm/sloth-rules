@@ -22,6 +22,7 @@ workflows:
       - architect/push-to-app-catalog:
           name: push-sloth-rules-to-control-plane-catalog-master
           context: "architect"
+          executor: app-build-suite
           app_catalog: "control-plane-catalog"
           app_catalog_test: "control-plane-test-catalog"
           chart: "sloth-rules"
@@ -39,21 +40,6 @@ workflows:
           app_name: "sloth-rules"
           app_namespace: monitoring
           app_collection_repo: "aws-app-collection"
-          requires:
-            - push-sloth-rules-to-control-plane-catalog-master
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
-
-      - architect/push-to-app-collection:
-          name: azure-app-collection
-          context: "architect"
-          app_catalog: control-plane-catalog
-          app_name: "sloth-rules"
-          app_namespace: monitoring
-          app_collection_repo: "azure-app-collection"
           requires:
             - push-sloth-rules-to-control-plane-catalog-master
           filters:
