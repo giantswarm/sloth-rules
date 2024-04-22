@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-process_state_slo
+  name: kaas-bigmac-teleport-process-state-slo
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,7 +12,7 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "process_state_slo"
+    - name: "process-state-slo"
       objective: 95
       description: Ensure Teleport processes remain in the 'ok' state
       sli:
