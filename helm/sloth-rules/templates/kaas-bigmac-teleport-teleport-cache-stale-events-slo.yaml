@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-audit_percentage_disk_space_used_slo
+  name: kaas-bigmac-teleport-teleport-cache-stale-events-slo
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,17 +12,17 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "audit_percentage_disk_space_used_slo"
+    - name: "teleport-cache-stale-events-slo"
       objective: 95
-      description: Teleport Audit Log Disk Usage
+      description: Monitor the rate of stale events in Teleport auth cache
       sli:
         events:
           errorQuery: |-
-            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80
+            increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[5m])
           totalQuery: |-
-            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])
+            increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[1h])
       alerting:
-        name: TeleportAuditLogDiskUsageHigh
+        name: TeleportAuthCacheStaleEventsHigh
         labels:
           team: bigmac
           area: kaas

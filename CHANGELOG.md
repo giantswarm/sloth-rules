@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- BigMac alerts name.
+
 ## [0.29.5] - 2024-04-22
 
 ### Added

@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-dynamodb_latency_slo
+  name: kaas-bigmac-teleport-backend-write-latency-slo
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,19 +12,19 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "dynamodb_latency_slo"
+    - name: "backend-write-latency-slo"
       objective: 95
-      description: 99th percentile of DynamoDB request latencies should be below 200ms
+      description: 95th percentile of backend write operation latencies should be below 100ms
       sli:
         events:
           errorQuery: |-
-            histogram_quantile(0.95, sum(rate(dynamo_requests_seconds_bucket{job="teleport/teleport-cluster", type="backend"}[5m])) by (le)) > 0.05
+            histogram_quantile(0.95, sum(rate(backend_write_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m])) by (le)) > 0.05
 
           totalQuery: |-
-            sum(rate(dynamo_requests_seconds_count{job="teleport/teleport-cluster", type="backend"}[5m]))
+            sum(rate(backend_write_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[5m]))
 
       alerting:
-        name: DynamoDBLatencyHigh
+        name: TeleportBackendWriteLatencyHigh
         labels:
           team: bigmac
           area: kaas

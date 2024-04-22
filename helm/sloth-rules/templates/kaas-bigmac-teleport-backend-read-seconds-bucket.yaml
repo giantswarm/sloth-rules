@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-teleport_cache_stale_events_slo
+  name: kaas-bigmac-teleport-backend-read-seconds-bucket
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,17 +12,17 @@ spec:
   labels:
     owner: "bigmac"
   slos:
-    - name: "teleport_cache_stale_events_slo"
+    - name: "backend-read-seconds-bucket"
       objective: 95
-      description: Monitor the rate of stale events in Teleport auth cache
+      description: SLO for Teleport backend batch read operation latencies
       sli:
         events:
           errorQuery: |-
-            increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[5m])
+            histogram_quantile(0.95, sum(rate(backend_read_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}])) by (le)) > 0.05
           totalQuery: |-
-            increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[1h])
+            sum(rate(backend_read_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}]))
       alerting:
-        name: TeleportAuthCacheStaleEventsHigh
+        name: TeleportBackendReadLatencyHigh
         labels:
           team: bigmac
           area: kaas
