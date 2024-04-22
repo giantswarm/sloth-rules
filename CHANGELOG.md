@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.29.5] - 2024-04-22
+
 ### Added
 
 - Added SLOs from prometheus rules:
@@ -24,6 +26,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Remove the provider flag filtering as provider filtering should be done on the metric level using the provider.
+
+## [0.29.4] - 2024-04-12
+
+### Added
+
+ - Teleport Metrics Alerting:
+   Enhanced monitoring capabilities by adding alerts for critical Teleport metrics to ensure the health and performance of our Teleport system.
+   Added Alerts:
+   - Process State
+   - Cache Stale Events
+   - Audit Log Disk Usage
+   - Auth Request Latency
+   - Backend Operation Latency
+   - DynamoDB Request Latency
 
 ## [0.29.3] - 2024-03-27
 
@@ -369,7 +385,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.3...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.5...HEAD
+[0.29.5]: https://github.com/giantswarm/sloth-rules/compare/v0.29.3...v0.29.5
 [0.29.3]: https://github.com/giantswarm/sloth-rules/compare/v0.29.2...v0.29.3
 [0.29.2]: https://github.com/giantswarm/sloth-rules/compare/v0.29.1...v0.29.2
 [0.29.1]: https://github.com/giantswarm/sloth-rules/compare/v0.29.0...v0.29.1
