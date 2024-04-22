@@ -27,6 +27,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove the provider flag filtering as provider filtering should be done on the metric level using the provider.
 
+## [0.29.4] - 2024-04-12
+
+### Added
+
+ - Teleport Metrics Alerting:
+   Enhanced monitoring capabilities by adding alerts for critical Teleport metrics to ensure the health and performance of our Teleport system.
+   Added Alerts:
+   - Process State
+   - Cache Stale Events
+   - Audit Log Disk Usage
+   - Auth Request Latency
+   - Backend Operation Latency
+   - DynamoDB Request Latency
+
 ## [0.29.3] - 2024-03-27
 
 ### Changed
