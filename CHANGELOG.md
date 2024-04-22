@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.29.5] - 2024-04-22
+
 ### Added
 
 - Added SLOs from prometheus rules:
@@ -369,7 +371,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.3...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.5...HEAD
+[0.29.5]: https://github.com/giantswarm/sloth-rules/compare/v0.29.3...v0.29.5
 [0.29.3]: https://github.com/giantswarm/sloth-rules/compare/v0.29.2...v0.29.3
 [0.29.2]: https://github.com/giantswarm/sloth-rules/compare/v0.29.1...v0.29.2
 [0.29.1]: https://github.com/giantswarm/sloth-rules/compare/v0.29.0...v0.29.1
