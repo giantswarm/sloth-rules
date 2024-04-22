@@ -16,6 +16,7 @@ Kubelet is the primary "node agent" that runs on each node.
 | PLEG Duration        | The proportion of sufficiently fast PLEG relist calls, as measured from Kubelet. | 99% success  |
 | Storage    |    |    |
 | Operations        | The percentage of successful storage operations per volume plugin, measured from Kubelet.<br>The status "fail-unknown" is considered as an error. | 99% success  |
+| Availability | The percentage of successful storage operations per volume plugin, measured from Kubelet.<br>The status "fail-unknown" is considered as an error. | 99% success  |
 
 
 ## Clarifications and Caveats
