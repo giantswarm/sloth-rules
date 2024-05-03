@@ -1,0 +1,20 @@
+---
+description: "Ingress availability SLO"
+alertName: "IngressAvailabilityErrorRateTooHigh"
+objective: 99
+#
+#   TODO
+#   TODO
+#   TODO
+#
+# 1. How I can template "nginx" in "ingress-sla-nginx-blackbox"
+# 2. How to make it dynamic?
+# 3. What will happen when the alert is there but the metric is missing?
+#
+errorQuery: '{{`sum(count_over_time(probe_success{target="ingress-sla-nginx-blackbox"}[{{.window}}]) - sum_over_time(probe_success{target="http-ingress-nginx-net-exporter-healthz"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+totalQuery: '{{`sum(count_over_time(probe_success{target="ingress-sla-nginx-blackbox"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+alertLabels:
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_prometheus_agent_down: "true"
+  #cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  cancel_if_outside_working_hours: "true" # for the 1st week
