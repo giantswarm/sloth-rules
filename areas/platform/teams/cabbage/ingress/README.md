@@ -1,4 +1,4 @@
-# SLO Documentation for Teleport Service
+# SLO Documentation for Ingress Service
 
 This document outlines the Service Level Objectives for the Ingress service managed by the Cabbage team.
 
