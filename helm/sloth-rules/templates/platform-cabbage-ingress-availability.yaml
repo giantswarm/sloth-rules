@@ -18,7 +18,7 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum(count_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}]) - sum_over_time(probe_success{target="http-ingress-.*-net-exporter-healthz"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(count_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}]) - sum_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
             {{`sum(count_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
