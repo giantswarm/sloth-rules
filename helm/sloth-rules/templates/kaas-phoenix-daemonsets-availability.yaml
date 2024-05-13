@@ -13,7 +13,7 @@ spec:
     owner: "phoenix"
   slos:
     - name: "availability"
-      objective: 99
+      objective: 90
       description: DaemonSet availability SLO
       sli:
         events:

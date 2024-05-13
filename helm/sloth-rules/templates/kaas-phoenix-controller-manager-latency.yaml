@@ -13,7 +13,7 @@ spec:
     owner: "phoenix"
   slos:
     - name: "latency"
-      objective: 99
+      objective: 90
       description: Reconciliation time for each resource controller by controller manager
       sli:
         events:

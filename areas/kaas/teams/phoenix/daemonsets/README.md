@@ -11,7 +11,7 @@ Some core platform components are scheduled as `DaemonSets` in the `giantswarm` 
 |Category |SLI |SLO |
 |---------|:---|---:|
 | Daemonsets |    |    |
-| Availability | The percentage of daemonsets pods scheduled and available on nodes. | 99% success  |
+| Availability | The percentage of daemonsets pods scheduled and available on nodes. | 90% success  |
 
 ## Clarifications and Caveats
 
