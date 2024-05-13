@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum(count_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}]) - sum_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(label_replace(count_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}]) - sum_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}]), "ingress_class", "$1", "target", "ingress-sla-(.*)-blackbox")) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, ingress_class)`}}
           totalQuery: |-
-            {{`sum(count_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(label_replace(count_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}]), "ingress_class", "$1", "target", "ingress-sla-(.*)-blackbox")) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, ingress_class)`}}
       alerting:
         name: IngressAvailabilityErrorRateTooHigh
         labels:
