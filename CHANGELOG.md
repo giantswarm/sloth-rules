@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replace `cancel_if_any_apiserver_down` with `cancel_if_any_cluster_control_plane_unhealthy`.
+
 ## [0.29.6] - 2024-04-22
 
 ### Fixed
