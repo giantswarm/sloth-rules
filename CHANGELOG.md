@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.29.7] - 2024-05-15
+
 ### Changed
 
 - Replace `cancel_if_any_apiserver_down` with `cancel_if_any_cluster_control_plane_unhealthy`.
@@ -399,7 +401,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.6...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.7...HEAD
+[0.29.7]: https://github.com/giantswarm/sloth-rules/compare/v0.29.6...v0.29.7
 [0.29.6]: https://github.com/giantswarm/sloth-rules/compare/v0.29.5...v0.29.6
 [0.29.5]: https://github.com/giantswarm/sloth-rules/compare/v0.29.3...v0.29.5
 [0.29.3]: https://github.com/giantswarm/sloth-rules/compare/v0.29.2...v0.29.3
