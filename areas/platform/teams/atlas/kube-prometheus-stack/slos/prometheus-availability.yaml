@@ -1,0 +1,18 @@
+---
+description: "kube-prometheus-stack prometheus is unavailable"
+alertName: "KubePrometheusStackPrometheusUnavailable"
+objective: 99
+topic: observability
+alertLabels:
+  cancel_if_any_cluster_control_plane_unhealthy: "true"
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_cluster_has_no_workers: "true"
+annotations:
+  opsrecipe: service-level-burn-rate-too-high
+  description: '{{`kube-prometheus-stack prometheus {{$labels.pod}} in namespace {{ $labels.namespace }} is unavailable.`}}'
+# number of Prometheus instances that are down
+# job=~"kube-prometheus-stack-prometheus|prometheus-operator-app-prometheus" is used for workload clusters Prometheus instance
+# container="prometheus" is used to not alert for config reloader or other containers
+errorQuery: '{{`count_over_time(up{job=~"kube-prometheus-stack-prometheus|prometheus-operator-app-prometheus", container="prometheus"}[{{.window}}])-(sum_over_time(up{job=~"kube-prometheus-stack-prometheus|prometheus-operator-app-prometheus", container="prometheus"}[{{.window}}]))`}}'
+# total number of Alertmanager instances
+totalQuery: '{{`count_over_time(up{job=~"kube-prometheus-stack-prometheus|prometheus-operator-app-prometheus", container="prometheus"}[{{.window}}])`}}'

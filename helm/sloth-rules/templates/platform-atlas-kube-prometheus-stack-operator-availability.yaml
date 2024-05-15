@@ -2,42 +2,40 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: platform-atlas-operators-reconciliation
+  name: platform-atlas-kube-prometheus-stack-operator-availability
   namespace: monitoring
   labels:
     release: prometheus
     application.giantswarm.io/team: atlas
-    cluster_type: management_cluster
 spec:
-  service: "operators"
+  service: "kube-prometheus-stack"
   labels:
     owner: "atlas"
   slos:
-    - name: "reconciliation"
+    - name: "operator-availability"
       objective: 95
-      description: Atlas operators are not able to reconcile resources
+      description: kube-prometheus-stack prometheus-operator is unavailable
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(controller_runtime_reconcile_errors_total{app=~"logging-operator|object-storage-operator|observability-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)`}}
+            {{`count_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}])-(sum_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}]))`}}
           totalQuery: |-
-            {{`sum(rate(controller_runtime_reconcile_total{app=~"logging-operator|object-storage-operator|observability-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)`}}
+            {{`count_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}])`}}
       alerting:
-        name: AtlasOperatorsReconciliationError
+        name: KubePrometheusStackPrometheusOperatorUnavailable
         labels:
           team: atlas
           area: platform
           topic: observability
         annotations:
-          dashboard: kube-builder-operators/kube-builder-operators
-          description: {{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}
+          description: {{`kube-prometheus-stack prometheus-operator {{$labels.pod}} in namespace {{ $labels.namespace }} is unavailable.`}}
+          opsrecipe: prometheus-operator
         pageAlert:
           disable: false
           labels:
             cancel_if_any_cluster_control_plane_unhealthy: "true"
             cancel_if_cluster_has_no_workers: "true"
             cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
