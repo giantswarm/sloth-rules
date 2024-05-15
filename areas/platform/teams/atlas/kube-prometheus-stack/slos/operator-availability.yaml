@@ -12,5 +12,5 @@ annotations:
   description: '{{`kube-prometheus-stack prometheus-operator {{$labels.pod}} in namespace {{ $labels.namespace }} is unavailable.`}}'
 # number of Prometheus Operator instances that are down
 errorQuery: '{{`count_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}])-(sum_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}]))`}}'
-# total number of Alertmanager instances
+# total number of PrometheusOperator instances
 totalQuery: '{{`count_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}])`}}'
