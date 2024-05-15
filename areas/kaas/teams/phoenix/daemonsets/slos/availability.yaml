@@ -1,7 +1,7 @@
 ---
 description: "DaemonSet availability SLO"
 alertName: "DaemonSetAvailability"
-objective: 99
+objective: 90
 # number of desired daemonsets pods that are down (kube_daemonset_status_number_unavailable > 0)
 errorQuery: '{{`sum_over_time(kube_daemonset_status_number_unavailable{namespace=~"giantswarm|kube-system", daemonset=~"aws-node|aws-cloud-controller-manager|ebs-csi-node|calico-node|cert-exporter|kube-proxy|net-exporter|node-exporter|azure-cloud-controller-manager|azure-cloud-node-manager|azure-scheduled-events|csi-azuredisk-node|cilium", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}'
 # total number of desired daemonsets pods
