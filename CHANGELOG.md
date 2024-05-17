@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add ops recipe link for Ingress SLO.
+
 ## [0.29.7] - 2024-05-15
+
+### Added
+
+- Add SLO for Ingress.
 
 ### Changed
 
