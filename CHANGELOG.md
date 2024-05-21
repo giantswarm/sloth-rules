@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `kube-prometheus-stack` availability SLOs
+- Add `kube-prometheus-stack` availability SLOs.
+
+### Changed
+
+- Tuned `VPAComponentUnavailable` to not count terminated job pods as errors.
 
 ## [0.29.7] - 2024-05-15
 
