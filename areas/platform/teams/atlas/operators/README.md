@@ -1,6 +1,6 @@
-## Operators
+# SLO Documentation for Atlas operators
 
-This document describes the SLO for `Atlas operators` on both Giant Swarm's Management Clusters.
+This document describes the SLO for `Atlas operators` on Giant Swarm's Management Clusters.
 
 ## Service Overview
 
@@ -11,4 +11,4 @@ When they cannot reconcile over a period of time, we should be alerted
 
 |Category | SLI                                                                                                                                                                                      |SLO |
 |---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---:|
-| Reconciliation | The reconciliations of the operators over time. | 99% success  |
+| Reconciliation | The reconciliations of the operators over time. | 95% success  |

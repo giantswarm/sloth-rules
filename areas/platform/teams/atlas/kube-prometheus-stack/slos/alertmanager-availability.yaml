@@ -1,0 +1,20 @@
+---
+description: "kube-prometheus-stack alertmanager is unavailable"
+alertName: "KubePrometheusStackAlertmanagerUnavailable"
+objective: 99
+topic: observability
+alertLabels:
+  cancel_if_any_cluster_control_plane_unhealthy: "true"
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_cluster_has_no_workers: "true"
+annotations:
+  dashboard: alertmanager-overview/alertmanager-overview
+  opsrecipe: service-level-burn-rate-too-high
+  description: '{{`kube-prometheus-stack alertmanager {{$labels.pod}} in namespace {{ $labels.namespace }} is unavailable.`}}'
+# number of Alertmanager instances that are down
+# job=~"prometheus-operator-app-alertmanager|kube-prometheus-stack-alertmanager" is used for workload clusters Alertmanager instances
+# container="alertmanager" is used to not alert for config reloader or other containers
+errorQuery: '{{`count_over_time(up{job=~"prometheus-operator-app-alertmanager|kube-prometheus-stack-alertmanager", container="alertmanager"}[{{.window}}])-(sum_over_time(up{job=~"alertmanager-operated|prometheus-operator-app-alertmanager|kube-prometheus-stack-alertmanager", container="alertmanager"}[{{.window}}]))`}}'
+# total number of Alertmanager instances
+totalQuery: '{{`count_over_time(up{job=~"prometheus-operator-app-alertmanager|kube-prometheus-stack-alertmanager", container="alertmanager"}[{{.window}}])`}}'
+

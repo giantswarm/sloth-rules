@@ -1,0 +1,16 @@
+---
+description: "kube-prometheus-stack prometheus-operator is unavailable"
+alertName: "KubePrometheusStackPrometheusOperatorUnavailable"
+objective: 95
+topic: observability
+alertLabels:
+  cancel_if_any_cluster_control_plane_unhealthy: "true"
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_cluster_has_no_workers: "true"
+annotations:
+  opsrecipe: prometheus-operator
+  description: '{{`kube-prometheus-stack prometheus-operator {{$labels.pod}} in namespace {{ $labels.namespace }} is unavailable.`}}'
+# number of Prometheus Operator instances that are down
+errorQuery: '{{`count_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}])-(sum_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}]))`}}'
+# total number of PrometheusOperator instances
+totalQuery: '{{`count_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}])`}}'
