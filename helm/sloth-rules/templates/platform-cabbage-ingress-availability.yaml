@@ -26,6 +26,8 @@ spec:
         labels:
           team: cabbage
           area: platform
+        annotations:
+          opsrecipe: managed-app-nginx-ic/
         pageAlert:
           disable: false
           labels:
