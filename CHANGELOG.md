@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add ops recipe link for Ingress SLO.
 
+## [0.30.0] - 2024-05-27
+
+### Added
+
+- Add `kube-prometheus-stack` availability SLOs.
+
+### Changed
+
+- Tuned `VPAComponentUnavailable` to not count terminated job pods as errors.
+
 ## [0.29.7] - 2024-05-15
 
 ### Added
@@ -409,7 +419,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.29.7...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.30.0...HEAD
+[0.30.0]: https://github.com/giantswarm/sloth-rules/compare/v0.29.7...v0.30.0
 [0.29.7]: https://github.com/giantswarm/sloth-rules/compare/v0.29.6...v0.29.7
 [0.29.6]: https://github.com/giantswarm/sloth-rules/compare/v0.29.5...v0.29.6
 [0.29.5]: https://github.com/giantswarm/sloth-rules/compare/v0.29.3...v0.29.5
