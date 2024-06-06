@@ -2,8 +2,8 @@
 description: "ETCD availability error rate is too high"
 alertName: "ETCDAvailabilityErrorRateTooHigh"
 objective: 99
-errorQuery: '{{`sum(rate(grpc_client_handled_total{app="etcd",grpc_code!="OK", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
-totalQuery: '{{`sum(rate(grpc_client_handled_total{app="etcd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+errorQuery: '{{`sum(rate(grpc_client_handled_total{job="apiserver",grpc_service=~"etcd.*",grpc_code!="OK", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+totalQuery: '{{`sum(rate(grpc_client_handled_total{job="apiserver",grpc_service=~"etcd.*", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
