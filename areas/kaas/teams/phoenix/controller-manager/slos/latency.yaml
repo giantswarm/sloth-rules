@@ -2,8 +2,8 @@
 description: "Reconciliation time for each resource controller by controller manager"
 alertName: "ControllerManagerReconciliationLatencyTooHigh"
 objective: 90
-errorQuery: '{{`clamp_min(sum(rate(workqueue_queue_duration_seconds_count{app="kube-controller-manager", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(workqueue_queue_duration_seconds_bucket{app="kube-controller-manager", le="10", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
-totalQuery: '{{`sum(rate(workqueue_queue_duration_seconds_count{app="kube-controller-manager", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+errorQuery: '{{`clamp_min(sum(rate(workqueue_queue_duration_seconds_count{job="kube-controller-manager", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(workqueue_queue_duration_seconds_bucket{job="kube-controller-manager", le="10", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
+totalQuery: '{{`sum(rate(workqueue_queue_duration_seconds_count{job="kube-controller-manager", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
   cancel_if_cluster_status_updating: "true"
