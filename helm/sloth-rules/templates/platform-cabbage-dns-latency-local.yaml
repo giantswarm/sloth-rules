@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: empowerment-cabbage-dns-latency-local
+  name: platform-cabbage-dns-latency-local
   namespace: monitoring
   labels:
     release: prometheus
@@ -25,7 +25,7 @@ spec:
         name: LocalDNSCacheLatencyTooHigh
         labels:
           team: cabbage
-          area: empowerment
+          area: platform
         annotations:
           opsrecipe: dns-issue-mitigation
         pageAlert:

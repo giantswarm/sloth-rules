@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: empowerment-cabbage-dns-latency-coredns-external
+  name: platform-cabbage-dns-latency-local-external
   namespace: monitoring
   labels:
     release: prometheus
@@ -12,20 +12,20 @@ spec:
   labels:
     owner: "cabbage"
   slos:
-    - name: "latency-coredns-external"
+    - name: "latency-local-external"
       objective: 99
-      description: DNS resolution latency for non-local domains from coredns
+      description: DNS resolution latency for non-local domains from Node Local DNS Cache
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="1.024", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="k8s-dns-node-cache",le="1.024", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: CoreDNSExternalDomainsLatencyTooHigh
+        name: LocalDNSCacheExternalDomainsLatencyTooHigh
         labels:
           team: cabbage
-          area: empowerment
+          area: platform
         annotations:
           opsrecipe: dns-issue-mitigation
         pageAlert:
