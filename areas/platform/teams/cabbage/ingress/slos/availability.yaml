@@ -7,7 +7,6 @@ totalQuery: '{{`sum(label_replace(count_over_time(probe_success{target=~"ingress
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"
-  #cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
   cancel_if_outside_working_hours: "true" # for the 1st week
 annotations:
   opsrecipe: managed-app-nginx-ic/
