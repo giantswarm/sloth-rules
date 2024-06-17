@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(controller_runtime_reconcile_errors_total{app="irsa-operator"}[{{.window}}]))`}}
+            {{`sum(rate(controller_runtime_reconcile_errors_total{app="irsa-operator"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}]))`}}
+            {{`sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: IRSAOperatorErrorRateTooHigh
         labels:
