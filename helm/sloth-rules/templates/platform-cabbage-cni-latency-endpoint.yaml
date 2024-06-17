@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: empowerment-cabbage-cni-latency-endpoint
+  name: platform-cabbage-cni-latency-endpoint
   namespace: monitoring
   labels:
     release: prometheus
@@ -25,7 +25,7 @@ spec:
         name: CiliumEndpointRegenerationLatencyTooHigh
         labels:
           team: cabbage
-          area: empowerment
+          area: platform
         pageAlert:
           disable: true
           labels:
