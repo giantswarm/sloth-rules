@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Reviewed turtles alert labels.
+- Enable cloud-api slos.
 
 ## [0.30.0] - 2024-05-27
 
