@@ -2,11 +2,10 @@
 description: "IRSA Operator SLO"
 alertName: "IRSAOperatorErrorRateTooHigh"
 objective: 99
-errorQuery: '{{`sum(rate(controller_runtime_reconcile_errors_total{app="irsa-operator"}[{{.window}}]))`}}'
-totalQuery: '{{`sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}]))`}}'
+errorQuery: '{{`sum(rate(controller_runtime_reconcile_errors_total{app="irsa-operator"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+totalQuery: '{{`sum(rate(controller_runtime_reconcile_total{app="irsa-operator"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"
-  #cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
   cancel_if_outside_working_hours: "true"

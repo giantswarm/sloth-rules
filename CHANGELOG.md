@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enable cloud-api slos.
 - Move cabbage alerts from area `empowerment` to `platform`.
 
+### Fixed
+
+- Fix missing labels on irsa slo.
+
 ## [0.30.0] - 2024-05-27
 
 ### Added
