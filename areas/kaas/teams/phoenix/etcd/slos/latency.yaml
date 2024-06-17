@@ -7,5 +7,4 @@ totalQuery: '{{`sum(rate(etcd_request_duration_seconds_count{provider=~`}}{{ inc
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"
-  #cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
   cancel_if_outside_working_hours: "true"
