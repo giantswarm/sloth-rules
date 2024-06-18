@@ -14,7 +14,7 @@ spec:
   slos:
     - name: "availability"
       objective: 90
-      description: DaemonSet availability SLO
+      description: Onprem DaemonSet availability SLO
       sli:
         events:
           errorQuery: |-
@@ -22,7 +22,7 @@ spec:
           totalQuery: |-
             {{`sum_over_time(kube_daemonset_status_desired_number_scheduled{namespace=~"giantswarm|kube-system", daemonset=~"cert-exporter|kube-proxy|net-exporter|node-exporter", provider!~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}
       alerting:
-        name: DaemonSetAvailability
+        name: OnpremDaemonSetAvailability
         labels:
           team: rocket
           area: kaas
