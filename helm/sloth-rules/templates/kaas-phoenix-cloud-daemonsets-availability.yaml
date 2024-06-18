@@ -2,13 +2,13 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-daemonsets-availability
+  name: kaas-phoenix-cloud-daemonsets-availability
   namespace: monitoring
   labels:
     release: prometheus
     application.giantswarm.io/team: phoenix
 spec:
-  service: "daemonsets"
+  service: "cloud-daemonsets"
   labels:
     owner: "phoenix"
   slos:

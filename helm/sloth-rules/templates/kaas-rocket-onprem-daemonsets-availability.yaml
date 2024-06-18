@@ -2,13 +2,13 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-rocket-daemonsets-availability
+  name: kaas-rocket-onprem-daemonsets-availability
   namespace: monitoring
   labels:
     release: prometheus
     application.giantswarm.io/team: rocket
 spec:
-  service: "daemonsets"
+  service: "onprem-daemonsets"
   labels:
     owner: "rocket"
   slos:
