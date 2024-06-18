@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.31.2] - 2024-06-18
 
+### Added
+
+- Add SLO about Cilium Availability.
+
 ## [0.31.1] - 2024-06-18
 
 ### Fixed
