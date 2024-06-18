@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix duplicate sloth rule to avoid prometheus rules failures.
+
 ## [0.31.0] - 2024-06-17
 
 ### Added

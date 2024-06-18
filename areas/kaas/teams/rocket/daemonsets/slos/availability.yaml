@@ -1,6 +1,6 @@
 ---
-description: "DaemonSet availability SLO"
-alertName: "DaemonSetAvailability"
+description: "Onprem DaemonSet availability SLO"
+alertName: "OnpremDaemonSetAvailability"
 objective: 90
 # number of desired daemonsets pods that are down (kube_daemonset_status_number_unavailable > 0)
 errorQuery: '{{`sum_over_time(kube_daemonset_status_number_unavailable{namespace=~"giantswarm|kube-system", daemonset=~"cert-exporter|kube-proxy|net-exporter|node-exporter", provider!~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}'
