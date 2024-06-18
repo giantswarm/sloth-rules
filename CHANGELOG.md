@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.31.1] - 2024-06-18
+
 ### Fixed
 
 - Fix duplicate sloth rule to avoid prometheus rules failures.
@@ -435,7 +437,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.31.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.31.1...HEAD
+[0.31.1]: https://github.com/giantswarm/sloth-rules/compare/v0.31.0...v0.31.1
 [0.31.0]: https://github.com/giantswarm/sloth-rules/compare/v0.30.0...v0.31.0
 [0.30.0]: https://github.com/giantswarm/sloth-rules/compare/v0.29.7...v0.30.0
 [0.29.7]: https://github.com/giantswarm/sloth-rules/compare/v0.29.6...v0.29.7
