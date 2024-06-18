@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Really fix the duplicate sloth id in recording rules for daemonset availability SLOs.
+
 ## [0.31.2] - 2024-06-18
 
 ### Added
