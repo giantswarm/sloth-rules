@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Improve Cilium Availability SLO including a delay and conditions for it to trigger.
+
 ## [0.31.3] - 2024-06-18
 
 ### Fixed
