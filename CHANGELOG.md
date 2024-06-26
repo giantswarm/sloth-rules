@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Increase threshold for cni/endpoint-latency to 10s.
+
 ## [0.31.4] - 2024-06-25
 
 ### Changed
