@@ -13,6 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   trigger the alert. Since we already have the IRSATooManyErrors alert, this is
   redundant.
 
+### Changed
+
+- Increase threshold for cni/endpoint-latency to 10s.
+
+## [0.31.4] - 2024-06-25
+
+### Changed
+
+- Improve Cilium Availability SLO including a delay and conditions for it to trigger.
+
 ## [0.31.3] - 2024-06-18
 
 ### Fixed
@@ -455,7 +465,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.31.3...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.31.4...HEAD
+[0.31.4]: https://github.com/giantswarm/sloth-rules/compare/v0.31.3...v0.31.4
 [0.31.3]: https://github.com/giantswarm/sloth-rules/compare/v0.31.2...v0.31.3
 [0.31.2]: https://github.com/giantswarm/sloth-rules/compare/v0.31.1...v0.31.2
 [0.31.1]: https://github.com/giantswarm/sloth-rules/compare/v0.31.0...v0.31.1
