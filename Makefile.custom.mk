@@ -16,6 +16,9 @@ test-opsrecipes: install-tools template-chart ## Check if opsrecipes are valid
 test-ci-opsrecipes: install-tools template-chart ## Check if opsrecipes are valid in CI
 	scripts/tests/check-opsrecipes.sh --ci
 
+sloth-validate: install-tools template-chart ## Validate sloth resources
+	scripts/tests/bin/sloth validate --input=scripts/tests/output/sloth-rules/templates/
+
 test-clean:
 	rm -rf scripts/tests/bin
 	rm -rf scripts/tests/output
