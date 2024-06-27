@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove IRSAOperatorErrorRateTooHigh. There are errors that are expected but
+  trigger the alert. Since we already have the IRSATooManyErrors alert, this is
+  redundant.
+
 ### Changed
 
 - Increase threshold for cni/endpoint-latency to 10s.
