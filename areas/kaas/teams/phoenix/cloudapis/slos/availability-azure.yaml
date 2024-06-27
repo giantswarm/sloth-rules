@@ -2,8 +2,8 @@
 description: "Azure APIs requests from core components availability SLO"
 alertName: "AzureAPIsRequestsAvailability"
 objective: 99
-errorQuery: '{{`label_replace(sum_over_time(cloudprovider_azure_api_request_errors{pod=~"kube-controller-manager.*"}[{{.window}}]) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, pod), "service", "$1", "pod", "(.*)")`}}'
-totalQuery: '{{`label_replace(sum_over_time(cloudprovider_azure_api_request_duration_seconds_count{pod=~"kube-controller-manager.*"}[{{.window}}]) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, pod), "service", "$1", "pod", "(.*)")`}}'
+errorQuery: '{{`label_replace(sum_over_time(cloudprovider_azure_api_request_errors{job="kube-controller-manager"}[{{.window}}]), "service", "$1", "pod", "(.*)")`}}'
+totalQuery: '{{`label_replace(sum_over_time(cloudprovider_azure_api_request_duration_seconds_count{job="kube-controller-manager"}[{{.window}}]), "service", "$1", "pod", "(.*)")`}}'
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"
