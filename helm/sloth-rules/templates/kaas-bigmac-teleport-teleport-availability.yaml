@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`rate(teleport_auth_requests_failed_total{cluster_id="teleportprod"}[5m])`}}
+            {{`sum(rate(teleport_auth_requests_failed_total{cluster_id="teleportprod"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`rate(teleport_auth_requests_total[5m])`}}
+            {{`sum(rate(teleport_auth_requests_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: TeleportAuthenticationAvailabilityTooLow
         labels:

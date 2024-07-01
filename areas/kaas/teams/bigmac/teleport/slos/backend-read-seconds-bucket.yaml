@@ -2,8 +2,8 @@
 description: "SLO for Teleport backend batch read operation latencies"
 alertName: "TeleportBackendReadLatencyHigh"
 objective: 95
-errorQuery: '{{`histogram_quantile(0.95, sum(rate(backend_read_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}])) by (le)) > 0.05`}}'
-totalQuery: '{{`sum(rate(backend_read_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}]))`}}'
+errorQuery: '{{`histogram_quantile(0.95, sum(rate(backend_read_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, le)) > 0.05`}}'
+totalQuery: '{{`sum(rate(backend_read_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
