@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            histogram_quantile(0.95, sum(rate(backend_read_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}])) by (le)) > 0.05
+            {{`histogram_quantile(0.95, sum(rate(backend_read_seconds_bucket{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}])) by (le)) > 0.05`}}
           totalQuery: |-
-            sum(rate(backend_read_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}]))
+            {{`sum(rate(backend_read_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}]))`}}
       alerting:
         name: TeleportBackendReadLatencyHigh
         labels:
