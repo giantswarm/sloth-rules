@@ -3,7 +3,7 @@ description: "Cilium availability SLO"
 alertName: "CiliumAvailability"
 objective: 99
 # number of desired cilium pods that are down (kube_daemonset_status_number_unavailable > 0)
-errorQuery: '{{`((((sum_over_time(kube_daemonset_status_number_unavailable{namespace="kube-system", daemonset="cilium"}[{{.window}}]) > 0) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, daemonset, node) (kube_daemonset_status_number_unavailable{namespace="kube-system", daemonset="cilium"} offset 10m) > 0) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) kube_node_spec_unschedulable == 0) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) time() - kube_node_created > 10 * 60)`}}'
+errorQuery: '{{`((last_over_time(kube_daemonset_status_number_unavailable{namespace="kube-system", daemonset="cilium"}[{{.window}}]) > 0) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, daemonset) (kube_daemonset_status_number_unavailable{namespace="kube-system", daemonset="cilium"} offset 10m) > 0) unless on (cluster_id, cluster_type, customer, installation, pipeline, provider, region) (time() - kube_node_created < 600)`}}'
 # total number of desired daemonsets pods
 totalQuery: '{{`sum_over_time(kube_daemonset_status_desired_number_scheduled{namespace="kube-system", daemonset="cilium"}[{{.window}}])`}}'
 alertLabels:
