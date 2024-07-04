@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove unused conditions from CNI/Availability SLO.
+
 ### Fixed
 
 - Fix helm templating of teleport alerts by adding missing backticks.
