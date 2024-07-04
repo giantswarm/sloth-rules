@@ -2,8 +2,8 @@
 description: "Ensure Teleport processes remain in the 'ok' state"
 alertName: "TeleportProcessStateAlert"
 objective: 95
-errorQuery: '{{`sum(rate(process_state{cluster_id="teleportprod", state!="0"}[5m])) by (instance)`}}'
-totalQuery: '{{`sum(rate(process_state{cluster_id="teleportprod"}[5m])) by (instance)`}}'
+errorQuery: '{{`sum(rate(process_state{cluster_id="teleportprod", state!="0"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, instance)`}}'
+totalQuery: '{{`sum(rate(process_state{cluster_id="teleportprod"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, instance)`}}'
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

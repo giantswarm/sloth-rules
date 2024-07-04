@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[5m])`}}
+            {{`sum(rate(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`increase(teleport_cache_stale_events{cluster_id="teleportprod", cache_component="auth"}[1h])`}}
+            {{`sum(rate(teleport_cache_events{cluster_id="teleportprod", cache_component="auth"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: TeleportAuthCacheStaleEventsHigh
         labels:
