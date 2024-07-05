@@ -18,11 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            histogram_quantile(0.95, sum(rate(dynamo_requests_seconds_bucket{job="teleport/teleport-cluster", type="backend"}[5m])) by (le)) > 0.05
-
+            {{`histogram_quantile(0.95, sum(rate(dynamo_requests_seconds_bucket{job="teleport/teleport-cluster", type="backend"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, le)) > 0.05`}}
           totalQuery: |-
-            sum(rate(dynamo_requests_seconds_count{job="teleport/teleport-cluster", type="backend"}[5m]))
-
+            {{`sum(rate(dynamo_requests_seconds_count{job="teleport/teleport-cluster", type="backend"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: DynamoDBLatencyHigh
         labels:

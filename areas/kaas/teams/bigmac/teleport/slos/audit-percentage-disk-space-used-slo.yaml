@@ -2,8 +2,8 @@
 description: "Teleport Audit Log Disk Usage"
 alertName: "TeleportAuditLogDiskUsageHigh"
 objective: 95
-errorQuery: 'avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80'
-totalQuery: 'avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])'
+errorQuery: '{{`avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80`}}'
+totalQuery: '{{`avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])`}}'
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

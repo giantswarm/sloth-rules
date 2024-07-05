@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            sum(rate(process_state{cluster_id="teleportprod", state!="0"}[5m])) by (instance)
+            {{`sum(rate(process_state{cluster_id="teleportprod", state!="0"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, instance)`}}
           totalQuery: |-
-            sum(rate(process_state{cluster_id="teleportprod"}[5m])) by (instance)
+            {{`sum(rate(process_state{cluster_id="teleportprod"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, instance)`}}
       alerting:
         name: TeleportProcessStateAlert
         labels:

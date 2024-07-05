@@ -2,10 +2,8 @@
 description: "99th percentile of DynamoDB request latencies should be below 200ms"
 alertName: "DynamoDBLatencyHigh"
 objective: 95
-errorQuery: |
-  histogram_quantile(0.95, sum(rate(dynamo_requests_seconds_bucket{job="teleport/teleport-cluster", type="backend"}[5m])) by (le)) > 0.05
-totalQuery: |
-  sum(rate(dynamo_requests_seconds_count{job="teleport/teleport-cluster", type="backend"}[5m]))
+errorQuery: '{{`histogram_quantile(0.95, sum(rate(dynamo_requests_seconds_bucket{job="teleport/teleport-cluster", type="backend"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, le)) > 0.05`}}'
+totalQuery: '{{`sum(rate(dynamo_requests_seconds_count{job="teleport/teleport-cluster", type="backend"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

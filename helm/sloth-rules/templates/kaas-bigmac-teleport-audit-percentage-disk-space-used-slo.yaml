@@ -18,9 +18,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80
+            {{`avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80`}}
           totalQuery: |-
-            avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])
+            {{`avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])`}}
       alerting:
         name: TeleportAuditLogDiskUsageHigh
         labels:
