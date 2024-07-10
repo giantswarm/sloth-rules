@@ -6,5 +6,6 @@ errorQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns
 totalQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
   opsrecipe: dns-issue-mitigation
+  dashboard: Yu9tkufmk/dns
 alertLabels:
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

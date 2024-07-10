@@ -6,6 +6,10 @@ objective: 99
 errorQuery: '{{`((last_over_time(kube_daemonset_status_number_unavailable{namespace="kube-system", daemonset="cilium"}[{{.window}}]) > 0) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, daemonset) (kube_daemonset_status_number_unavailable{namespace="kube-system", daemonset="cilium"} offset 10m) > 0) unless on (cluster_id, cluster_type, customer, installation, pipeline, provider, region) (time() - kube_node_created < 600)`}}'
 # total number of desired daemonsets pods
 totalQuery: '{{`sum_over_time(kube_daemonset_status_desired_number_scheduled{namespace="kube-system", daemonset="cilium"}[{{.window}}])`}}'
+annotations:
+  opsrecipe: cilium-troubleshooting/
+  dashboard: vtuWtdumz/cilium-metrics
+  description: '{{`At least one cilium-agent down for more than 10 minutes.`}}'
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"
