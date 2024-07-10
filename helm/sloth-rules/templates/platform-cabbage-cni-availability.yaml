@@ -26,6 +26,10 @@ spec:
         labels:
           team: cabbage
           area: platform
+        annotations:
+          dashboard: vtuWtdumz/cilium-metrics
+          description: {{`At least one cilium-agent down for more than 10 minutes.`}}
+          opsrecipe: cilium-troubleshooting/
         pageAlert:
           disable: false
           labels:

@@ -27,6 +27,7 @@ spec:
           team: cabbage
           area: platform
         annotations:
+          dashboard: Yu9tkufmk/dns
           opsrecipe: dns-issue-mitigation
         pageAlert:
           disable: false
