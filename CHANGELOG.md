@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Remove office hours only from IngressAvailabilityErrorRateTooHigh
+- Add office hours only to kube-prometheus-stack prometheus SLO
 
 ## [0.33.0] - 2024-07-10
 
