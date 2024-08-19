@@ -2,29 +2,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-kubelet-storage-operations
+  name: kaas-turtles-kubelet-runtime-operations
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: phoenix
+    application.giantswarm.io/team: turtles
 spec:
   service: "kubelet"
   labels:
-    owner: "phoenix"
+    owner: "turtles"
   slos:
-    - name: "storage-operations"
+    - name: "runtime-operations"
       objective: 99
-      description: Storage Operations SLO
+      description: Kubelet Runtime Operations SLO
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(kubelet_runtime_operations_errors_total{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`sum(rate(storage_operation_duration_seconds_count{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(kubelet_runtime_operations_total{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: StorageOperationsErrorRateTooHigh
+        name: KubeletRuntimeErrorRateTooHigh
         labels:
-          team: phoenix
+          team: turtles
           area: kaas
         pageAlert:
           disable: false
@@ -36,9 +36,9 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
+            team: turtles
         ticketAlert:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-phoenix"
+            slack_channel: "#team-turtles"

@@ -2,15 +2,15 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-etcd-latency
+  name: kaas-turtles-etcd-latency
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: phoenix
+    application.giantswarm.io/team: turtles
 spec:
   service: "etcd"
   labels:
-    owner: "phoenix"
+    owner: "turtles"
   slos:
     - name: "latency"
       objective: 99
@@ -24,7 +24,7 @@ spec:
       alerting:
         name: ETCDLatencyTooHigh
         labels:
-          team: phoenix
+          team: turtles
           area: kaas
         pageAlert:
           disable: false
@@ -35,9 +35,9 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
+            team: turtles
         ticketAlert:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-phoenix"
+            slack_channel: "#team-turtles"
