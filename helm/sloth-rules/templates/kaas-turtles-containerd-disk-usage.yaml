@@ -2,15 +2,15 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-containerd-disk-usage
+  name: kaas-turtles-containerd-disk-usage
   namespace: monitoring
   labels:
     release: prometheus
-    application.giantswarm.io/team: phoenix
+    application.giantswarm.io/team: turtles
 spec:
   service: "containerd"
   labels:
-    owner: "phoenix"
+    owner: "turtles"
   slos:
     - name: "disk-usage"
       objective: 99
@@ -24,7 +24,7 @@ spec:
       alerting:
         name: ContainerdDiskUsage
         labels:
-          team: phoenix
+          team: turtles
           area: kaas
         annotations:
           opsrecipe: low-disk-space/#containerd-volume
@@ -38,9 +38,9 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
+            team: turtles
         ticketAlert:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-phoenix"
+            slack_channel: "#team-turtles"

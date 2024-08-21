@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Move basic k8s components alerts from phoenix to turtles.
+
+### Changed
+
 - Remove office hours only from IngressAvailabilityErrorRateTooHigh
 - Add office hours only to kube-prometheus-stack prometheus SLO
 
