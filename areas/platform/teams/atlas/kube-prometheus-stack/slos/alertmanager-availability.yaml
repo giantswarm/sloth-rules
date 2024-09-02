@@ -7,6 +7,7 @@ alertLabels:
   cancel_if_any_cluster_control_plane_unhealthy: "true"
   cancel_if_cluster_status_updating: "true"
   cancel_if_cluster_has_no_workers: "true"
+  cancel_if_outside_working_hours: "true"
 annotations:
   dashboard: alertmanager-overview/alertmanager-overview
   opsrecipe: service-level-burn-rate-too-high
