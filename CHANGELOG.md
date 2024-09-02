@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.34.0] - 2024-09-02
+
 ### Changed
 
 - Move basic k8s components alerts from phoenix to turtles.
@@ -493,7 +495,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.33.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.34.0...HEAD
+[0.34.0]: https://github.com/giantswarm/sloth-rules/compare/v0.33.0...v0.34.0
 [0.33.0]: https://github.com/giantswarm/sloth-rules/compare/v0.32.0...v0.33.0
 [0.32.0]: https://github.com/giantswarm/sloth-rules/compare/v0.31.4...v0.32.0
 [0.31.4]: https://github.com/giantswarm/sloth-rules/compare/v0.31.3...v0.31.4
