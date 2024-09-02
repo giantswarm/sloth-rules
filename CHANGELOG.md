@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove office hours only from IngressAvailabilityErrorRateTooHigh
 - Add office hours only to kube-prometheus-stack prometheus SLO
-- Add `giantswarm.io/remote-write-target: grafana-cloud` label to sloth recording rules so they are sent to grafana cloud for ISMS reasons.
+- Add `giantswarm.io/remote-write-target: grafana-cloud` label to sloth-generated metrics so they are sent to grafana cloud for ISMS reasons.
 
 ## [0.33.0] - 2024-07-10
 
