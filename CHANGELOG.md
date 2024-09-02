@@ -9,12 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Move basic k8s components alerts from phoenix to turtles.
+- Add office hours only to kube-prometheus-stack alertmanager and prometheus-operator SLO
+
+## [0.34.0] - 2024-09-02
 
 ### Changed
 
+- Move basic k8s components alerts from phoenix to turtles.
 - Remove office hours only from IngressAvailabilityErrorRateTooHigh
-- Add office hours only to kube-prometheus-stack alertmanager, prometheus and prometheus-operator SLO
+- Add office hours only to kube-prometheus-stack prometheus SLO
+- Add `giantswarm.io/remote-write-target: grafana-cloud` label to sloth rules so they are evaluated by the `mimir-to-grafana-cloud` prometheus.
 
 ## [0.33.0] - 2024-07-10
 
@@ -492,7 +496,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.33.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.34.0...HEAD
+[0.34.0]: https://github.com/giantswarm/sloth-rules/compare/v0.33.0...v0.34.0
 [0.33.0]: https://github.com/giantswarm/sloth-rules/compare/v0.32.0...v0.33.0
 [0.32.0]: https://github.com/giantswarm/sloth-rules/compare/v0.31.4...v0.32.0
 [0.31.4]: https://github.com/giantswarm/sloth-rules/compare/v0.31.3...v0.31.4

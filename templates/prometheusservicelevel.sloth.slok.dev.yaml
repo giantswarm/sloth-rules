@@ -7,6 +7,8 @@ metadata:
   labels:
     release: prometheus
     application.giantswarm.io/team: {{ .team }}
+    ## Makes sure the SLO metrics are sent to grafana cloud
+    giantswarm.io/remote-write-target: grafana-cloud
     {{- if .cluster_type }}
     cluster_type: {{ .cluster_type }}
     {{- end }}
