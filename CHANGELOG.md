@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.34.1] - 2024-09-03
+
 ### Changed
 
 - Add office hours only to kube-prometheus-stack alertmanager and prometheus-operator SLO
@@ -496,7 +498,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.34.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.34.1...HEAD
+[0.34.1]: https://github.com/giantswarm/sloth-rules/compare/v0.34.0...v0.34.1
 [0.34.0]: https://github.com/giantswarm/sloth-rules/compare/v0.33.0...v0.34.0
 [0.33.0]: https://github.com/giantswarm/sloth-rules/compare/v0.32.0...v0.33.0
 [0.32.0]: https://github.com/giantswarm/sloth-rules/compare/v0.31.4...v0.32.0
