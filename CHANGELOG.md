@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.34.2] - 2024-09-04
+
 ### Removed
 
 - Revert `giantswarm.io/remote-write-target: grafana-cloud` label as this sends too much metrics to grafana cloud.
@@ -502,7 +504,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.34.1...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.34.2...HEAD
+[0.34.2]: https://github.com/giantswarm/sloth-rules/compare/v0.34.1...v0.34.2
 [0.34.1]: https://github.com/giantswarm/sloth-rules/compare/v0.34.0...v0.34.1
 [0.34.0]: https://github.com/giantswarm/sloth-rules/compare/v0.33.0...v0.34.0
 [0.33.0]: https://github.com/giantswarm/sloth-rules/compare/v0.32.0...v0.33.0
