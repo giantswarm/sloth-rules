@@ -5,10 +5,7 @@ metadata:
   name: platform-atlas-kube-prometheus-stack-prometheus-availability
   namespace: monitoring
   labels:
-    release: prometheus
     application.giantswarm.io/team: atlas
-    ## Makes sure the SLO metrics are sent to grafana cloud
-    giantswarm.io/remote-write-target: grafana-cloud
 spec:
   service: "kube-prometheus-stack"
   labels:
