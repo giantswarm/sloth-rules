@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Revert ``giantswarm.io/remote-write-target: grafana-cloud` label as this sends too much metrics to grafana cloud.
+- Revert `giantswarm.io/remote-write-target: grafana-cloud` label as this sends too much metrics to grafana cloud.
 
 ## [0.34.1] - 2024-09-03
 
