@@ -5,10 +5,7 @@ metadata:
   name: platform-atlas-operators-reconciliation
   namespace: monitoring
   labels:
-    release: prometheus
     application.giantswarm.io/team: atlas
-    ## Makes sure the SLO metrics are sent to grafana cloud
-    giantswarm.io/remote-write-target: grafana-cloud
     cluster_type: management_cluster
 spec:
   service: "operators"

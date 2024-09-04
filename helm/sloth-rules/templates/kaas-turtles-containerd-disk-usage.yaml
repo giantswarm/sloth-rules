@@ -5,10 +5,7 @@ metadata:
   name: kaas-turtles-containerd-disk-usage
   namespace: monitoring
   labels:
-    release: prometheus
     application.giantswarm.io/team: turtles
-    ## Makes sure the SLO metrics are sent to grafana cloud
-    giantswarm.io/remote-write-target: grafana-cloud
 spec:
   service: "containerd"
   labels:

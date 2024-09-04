@@ -5,10 +5,7 @@ metadata:
   name: platform-cabbage-cni-latency-endpoint
   namespace: monitoring
   labels:
-    release: prometheus
     application.giantswarm.io/team: cabbage
-    ## Makes sure the SLO metrics are sent to grafana cloud
-    giantswarm.io/remote-write-target: grafana-cloud
 spec:
   service: "cni"
   labels:

@@ -5,10 +5,7 @@ metadata:
   name: kaas-bigmac-teleport-process-state-slo
   namespace: monitoring
   labels:
-    release: prometheus
     application.giantswarm.io/team: bigmac
-    ## Makes sure the SLO metrics are sent to grafana cloud
-    giantswarm.io/remote-write-target: grafana-cloud
 spec:
   service: "teleport"
   labels:
