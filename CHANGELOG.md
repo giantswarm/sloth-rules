@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove SLOs from managed `prometheus` and `alertmanager` (https://github.com/giantswarm/giantswarm/issues/31382)
+
 ## [0.34.2] - 2024-09-04
 
 ### Removed
