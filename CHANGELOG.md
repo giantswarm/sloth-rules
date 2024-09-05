@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.34.3] - 2024-09-05
+
 ### Removed
 
 - Remove SLOs from managed `prometheus` and `alertmanager` (https://github.com/giantswarm/giantswarm/issues/31382)
@@ -508,7 +510,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.34.2...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.34.3...HEAD
+[0.34.3]: https://github.com/giantswarm/sloth-rules/compare/v0.34.2...v0.34.3
 [0.34.2]: https://github.com/giantswarm/sloth-rules/compare/v0.34.1...v0.34.2
 [0.34.1]: https://github.com/giantswarm/sloth-rules/compare/v0.34.0...v0.34.1
 [0.34.0]: https://github.com/giantswarm/sloth-rules/compare/v0.33.0...v0.34.0
