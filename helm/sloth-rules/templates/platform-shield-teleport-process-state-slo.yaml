@@ -2,29 +2,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-audit-percentage-disk-space-used-slo
+  name: platform-shield-teleport-process-state-slo
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: bigmac
+    application.giantswarm.io/team: shield
 spec:
   service: "teleport"
   labels:
-    owner: "bigmac"
+    owner: "shield"
   slos:
-    - name: "audit-percentage-disk-space-used-slo"
+    - name: "process-state-slo"
       objective: 95
-      description: Teleport Audit Log Disk Usage
+      description: Ensure Teleport processes remain in the 'ok' state
       sli:
         events:
           errorQuery: |-
-            {{`avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}]) > 80`}}
+            {{`sum(rate(process_state{cluster_id="teleportprod", state!="0"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, instance)`}}
           totalQuery: |-
-            {{`avg_over_time(audit_percentage_disk_space_used{cluster_id="teleportprod"}[{{.window}}])`}}
+            {{`sum(rate(process_state{cluster_id="teleportprod"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, instance)`}}
       alerting:
-        name: TeleportAuditLogDiskUsageHigh
+        name: TeleportProcessStateAlert
         labels:
-          team: bigmac
-          area: kaas
+          team: shield
+          area: platform
         pageAlert:
           disable: false
           labels:
@@ -33,9 +33,9 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: bigmac
+            team: shield
         ticketAlert:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-bigmac"
+            slack_channel: "#team-shield"

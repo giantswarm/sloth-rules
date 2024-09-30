@@ -2,12 +2,12 @@
 description: "Node Exporter availability SLO"
 alertName: "NodeExporterAvailability"
 objective: 90
-errorQuery: '{{`sum(count_over_time(up{job="node-exporter", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}]) - sum_over_time(up{job="node-exporter", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
-totalQuery: '{{`sum(count_over_time(up{job="node-exporter", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+sharedAccrossProviders: true
+errorQuery: '{{`sum(count_over_time(up{job="node-exporter"}[{{.window}}]) - sum_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+totalQuery: '{{`sum(count_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
-  opsrecipe: node-exporter-is-down
+  opsrecipe: node-exporter-is-down/
 alertLabels:
-  silence: true
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"
   cancel_if_outside_working_hours: "true"
