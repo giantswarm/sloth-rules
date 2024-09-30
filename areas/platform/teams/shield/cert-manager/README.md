@@ -15,6 +15,6 @@ Cert manager provides certificates for applications running in Kubernetes Cluste
 
 | Category | SLI | SLO |
 | --- | :--- | :--- |
-| Availability | The percentage of pods scheduled and available on nodes. | 90% success  |
+| Availability | The percentage of pods scheduled and available on nodes. | 95% success  |
 
 Note: Alerts will be triggered if the SLOs for availability is not met.
