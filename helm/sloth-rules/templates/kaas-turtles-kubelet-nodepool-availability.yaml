@@ -2,7 +2,7 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-kubelet-runtime-operations
+  name: kaas-turtles-kubelet-nodepool-availability
   namespace: monitoring
   labels:
     application.giantswarm.io/team: turtles
@@ -11,17 +11,17 @@ spec:
   labels:
     owner: "turtles"
   slos:
-    - name: "runtime-operations"
+    - name: "nodepool-availability"
       objective: 99
-      description: Kubelet Runtime Operations SLO
+      description: Kubelet Nodepool availability SLO
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(kubelet_runtime_operations_errors_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`label_replace(sum_over_time(kube_node_status_condition{condition="Ready", status!="true"}[{{.window}}]) * on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node, pod) group_left(nodepool) kube_node_labels{nodepool=~".+"}, "service", "kubelet nodepool $1", "nodepool", "(.*)") and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) kube_node_spec_unschedulable == 0 and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) time() - kube_node_created > 10 * 60`}}
           totalQuery: |-
-            {{`sum(rate(kubelet_runtime_operations_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`label_replace(count_over_time(kube_node_labels{nodepool=~".+"}[{{.window}}]), "service", "kubelet nodepool $1", "nodepool", "(.+)")`}}
       alerting:
-        name: KubeletRuntimeErrorRateTooHigh
+        name: KubeletNodepoolAvailability
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas

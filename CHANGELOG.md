@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Adds a new configuration field `sharedAccrossProviders: true` to be able to set the responsible kaas team based on the provider.
+
+### Changed
+
+- Replace old kubelet slos with sloth and support them accross all providers.
+
 ## [0.34.3] - 2024-09-05
 
 ### Removed
