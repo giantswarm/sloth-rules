@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add aws-load-balancer-controller slo.
+
 ## [0.34.3] - 2024-09-05
 
 ### Removed
