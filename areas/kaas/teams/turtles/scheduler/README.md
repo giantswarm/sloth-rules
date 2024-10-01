@@ -11,6 +11,7 @@ We want the assignment operation to be as fast as possible.
 
 |Category | SLI                                                                                                                                                                       |          SLO |
 |---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------:|
+| Availability | The proportion of successful calls against the kubernetes internal API (code 200) against the amount of unsuccessful calls (code !=200). | 99% success  |
 | Latency | The proportion of sufficiently fast pod-node assignments, as measured from scheduler pods's metrics.<br>“Sufficiently fast” is any assignment taking less than 5 minutes. | 90% success |
 
 ## Clarifications and Caveats

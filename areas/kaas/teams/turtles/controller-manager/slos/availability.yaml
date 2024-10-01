@@ -1,0 +1,13 @@
+---
+description: "Kube-controller-manager internal API availability"
+alertName: "KubeControllerManagerInternalAPIErrorRateTooHigh"
+objective: 99
+sharedAccrossProviders: true
+errorQuery: '{{`sum(rate(rest_client_requests_total{job="kube-controller-manager", code=~"5..|<error>"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, job)`}}'
+totalQuery: '{{`sum(rate(rest_client_requests_total{job="kube-controller-manager"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, job)`}}'
+alertLabels:
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_prometheus_agent_down: "true"
+  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+annotations:
+  opsrecipe: service-level-burn-rate-too-high/
