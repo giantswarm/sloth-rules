@@ -17,13 +17,13 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum(count_over_time(up{job="node-exporter", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}]) - sum_over_time(up{job="node-exporter", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(count_over_time(up{job="node-exporter"}[{{.window}}]) - sum_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`sum(count_over_time(up{job="node-exporter", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(count_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: NodeExporterAvailability
         labels:
-          team: turtles
+          team: {{ include "providerTeam" . }}
           area: kaas
         annotations:
           opsrecipe: node-exporter-is-down
@@ -33,11 +33,10 @@ spec:
             cancel_if_cluster_status_updating: "true"
             cancel_if_outside_working_hours: "true"
             cancel_if_prometheus_agent_down: "true"
-            silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: turtles
+            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Replace old kubelet slos with sloth and support them accross all providers.
+- Fix node-exporter alert to page on both cloud and onprem.
 - Add cert-manager slo.
 - Merge bigmac with shield.
 
