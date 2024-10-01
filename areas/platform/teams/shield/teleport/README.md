@@ -1,10 +1,10 @@
 # SLO Documentation for Teleport Service
 
-This document outlines the Service Level Objectives for the Teleport service managed by the Bigmac team.
+This document outlines the Service Level Objectives for the Teleport service managed by the Shield team.
 
 | Status | Published |
 | --- | :---: |
-| Author | Bigmac Team |
+| Author | Shield Team |
 | Date | 2024-03-20 |
 | Reviewers | |
 | Approvers | |
