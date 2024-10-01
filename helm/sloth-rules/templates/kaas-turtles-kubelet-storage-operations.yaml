@@ -17,9 +17,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`sum(rate(storage_operation_duration_seconds_count{provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(storage_operation_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: StorageOperationsErrorRateTooHigh
         labels:
@@ -31,7 +31,6 @@ spec:
             cancel_if_cluster_status_updating: "true"
             cancel_if_outside_working_hours: "true"
             cancel_if_prometheus_agent_down: "true"
-            silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page

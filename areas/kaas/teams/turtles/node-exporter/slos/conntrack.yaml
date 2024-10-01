@@ -2,6 +2,7 @@
 description: "Node Conntrack is almost exhausted"
 alertName: "NodeConnTrackAlmostExhausted"
 objective: 85
+sharedAccrossProviders: true
 errorQuery: '{{`sum(count_over_time((node_nf_conntrack_entries / node_nf_conntrack_entries_limit >= 0.7)[{{.window}}:{{.window}}]))`}}'
 totalQuery: '{{`sum(count_over_time((node_nf_conntrack_entries)[{{.window}}:{{.window}}]))`}}'
 annotations:
