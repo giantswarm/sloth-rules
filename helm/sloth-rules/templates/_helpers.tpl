@@ -46,3 +46,7 @@ owner: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- define "cloud.providers" -}}
 "aws|capa|eks|capz"
 {{- end -}}
+
+{{- define "providerTeam" -}}
+'{{`{{ if or (eq .Labels.provider "cloud-director") (eq .Labels.provider "vsphere") }}rocket{{ else }}phoenix{{ end }}`}}'
+{{- end -}}

@@ -17,13 +17,13 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`(sum_over_time(kube_node_status_condition{condition="Ready", status!="true", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}]) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) kube_node_spec_unschedulable == 0) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) time() - kube_node_created > 10 * 60`}}
+            {{`(sum_over_time(kube_node_status_condition{condition="Ready", status!="true"}[{{.window}}]) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) kube_node_spec_unschedulable == 0) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) time() - kube_node_created > 10 * 60`}}
           totalQuery: |-
-            {{`count_over_time(kube_node_status_condition{condition="Ready", status="true", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}
+            {{`count_over_time(kube_node_status_condition{condition="Ready", status="true"}[{{.window}}])`}}
       alerting:
         name: KubeletAvailability
         labels:
-          team: turtles
+          team: {{ include "providerTeam" . }}
           area: kaas
         pageAlert:
           disable: false
@@ -31,11 +31,10 @@ spec:
             cancel_if_cluster_status_updating: "true"
             cancel_if_outside_working_hours: "true"
             cancel_if_prometheus_agent_down: "true"
-            silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: turtles
+            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

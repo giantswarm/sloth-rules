@@ -26,7 +26,11 @@ spec:
       alerting:
         name: {{ .alertName }}
         labels:
+          {{- if or (not (eq .area "kaas")) (not .sharedAccrossProviders) }}
           team: {{ .team }}
+          {{- else }}
+          team: {{`{{ include "providerTeam" . }}`}}
+          {{- end }}
           area: {{ .area }}
           {{- if .topic }}
           topic: {{ .topic }}
@@ -46,7 +50,11 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
+            {{- if or (not (eq .area "kaas")) (not .sharedAccrossProviders) }}
             team: {{ .team }}
+            {{- else }}
+            team: {{`{{ include "providerTeam" . }}`}}
+            {{- end }}
         ticketAlert:
           disable: {{ or .ticketAlert.disable "false" }}
           labels:
