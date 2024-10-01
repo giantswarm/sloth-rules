@@ -2,31 +2,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-node-exporter-availability
+  name: kaas-tenet-kubelet-storage-operations
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: turtles
+    application.giantswarm.io/team: tenet
 spec:
-  service: "node-exporter"
+  service: "kubelet"
   labels:
-    owner: "turtles"
+    owner: "tenet"
   slos:
-    - name: "availability"
-      objective: 90
-      description: Node Exporter availability SLO
+    - name: "storage-operations"
+      objective: 99
+      description: Storage Operations SLO
       sli:
         events:
           errorQuery: |-
-            {{`sum(count_over_time(up{job="node-exporter"}[{{.window}}]) - sum_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`sum(count_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(storage_operation_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: NodeExporterAvailability
+        name: StorageOperationsErrorRateTooHigh
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
-        annotations:
-          opsrecipe: node-exporter-is-down
         pageAlert:
           disable: false
           labels:
@@ -41,4 +39,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-turtles"
+            slack_channel: "#team-tenet"

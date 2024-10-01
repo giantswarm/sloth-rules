@@ -2,31 +2,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-scheduler-availability
+  name: kaas-tenet-apiserver-availability
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: turtles
+    application.giantswarm.io/team: tenet
 spec:
-  service: "scheduler"
+  service: "apiserver"
   labels:
-    owner: "turtles"
+    owner: "tenet"
   slos:
     - name: "availability"
       objective: 99
-      description: Kube-scheduler internal API availability
+      description: API availability SLO
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(rest_client_requests_total{job="kube-scheduler", code=~"5..|<error>"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, job)`}}
+            {{`(sum(rate(apiserver_request_total{code=~"(5..|429)"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0))`}}
           totalQuery: |-
-            {{`sum(rate(rest_client_requests_total{job="kube-scheduler"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, job)`}}
+            {{`(sum(rate(apiserver_request_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0.01))`}}
       alerting:
-        name: KubeSchedulerInternalAPIErrorRateTooHigh
+        name: ApiServerAvailabilityErrorRateTooHigh
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
-        annotations:
-          opsrecipe: service-level-burn-rate-too-high/
         pageAlert:
           disable: false
           labels:
@@ -41,4 +39,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-turtles"
+            slack_channel: "#team-tenet"

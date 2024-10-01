@@ -2,14 +2,14 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-node-exporter-conntrack
+  name: kaas-tenet-node-exporter-conntrack
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: turtles
+    application.giantswarm.io/team: tenet
 spec:
   service: "node-exporter"
   labels:
-    owner: "turtles"
+    owner: "tenet"
   slos:
     - name: "conntrack"
       objective: 85
@@ -41,4 +41,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-turtles"
+            slack_channel: "#team-tenet"

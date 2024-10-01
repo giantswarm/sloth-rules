@@ -2,31 +2,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-controller-manager-availability
+  name: kaas-tenet-apiserver-availability-instances
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: turtles
+    application.giantswarm.io/team: tenet
 spec:
-  service: "controller-manager"
+  service: "apiserver"
   labels:
-    owner: "turtles"
+    owner: "tenet"
   slos:
-    - name: "availability"
+    - name: "availability-instances"
       objective: 99
-      description: Kube-controller-manager internal API availability
+      description: API server instance status SLO
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(rest_client_requests_total{job="kube-controller-manager", code=~"5..|<error>"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, job)`}}
+            {{`count_over_time(up{job="apiserver"}[{{.window}}])-(sum_over_time(up{job="apiserver"}[{{.window}}]))`}}
           totalQuery: |-
-            {{`sum(rate(rest_client_requests_total{job="kube-controller-manager"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, job)`}}
+            {{`count_over_time(up{job="apiserver"}[{{.window}}])`}}
       alerting:
-        name: KubeControllerManagerInternalAPIErrorRateTooHigh
+        name: ApiServerInstanceUnavailable
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
-        annotations:
-          opsrecipe: service-level-burn-rate-too-high/
         pageAlert:
           disable: false
           labels:
@@ -41,4 +39,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-turtles"
+            slack_channel: "#team-tenet"
