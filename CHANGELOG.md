@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add aws-load-balancer-controller slo.
+- Add cert-manager slo.
+
+### Changed
+
+- Merge bigmac with shield.
 
 ## [0.34.3] - 2024-09-05
 
