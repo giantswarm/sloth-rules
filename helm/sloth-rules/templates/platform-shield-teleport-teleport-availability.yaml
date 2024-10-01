@@ -2,29 +2,29 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-process-state-slo
+  name: platform-shield-teleport-teleport-availability
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: bigmac
+    application.giantswarm.io/team: shield
 spec:
   service: "teleport"
   labels:
-    owner: "bigmac"
+    owner: "shield"
   slos:
-    - name: "process-state-slo"
+    - name: "teleport-availability"
       objective: 95
-      description: Ensure Teleport processes remain in the 'ok' state
+      description: Availability of the Teleport authentication service
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(process_state{cluster_id="teleportprod", state!="0"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, instance)`}}
+            {{`sum(rate(teleport_auth_requests_failed_total{cluster_id="teleportprod"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`sum(rate(process_state{cluster_id="teleportprod"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, instance)`}}
+            {{`sum(rate(teleport_auth_requests_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: TeleportProcessStateAlert
+        name: TeleportAuthenticationAvailabilityTooLow
         labels:
-          team: bigmac
-          area: kaas
+          team: shield
+          area: platform
         pageAlert:
           disable: false
           labels:
@@ -33,9 +33,9 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: bigmac
+            team: shield
         ticketAlert:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-bigmac"
+            slack_channel: "#team-shield"

@@ -2,14 +2,14 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-bigmac-teleport-auth-generate-latency-slo
+  name: platform-shield-teleport-auth-generate-latency-slo
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: bigmac
+    application.giantswarm.io/team: shield
 spec:
   service: "teleport"
   labels:
-    owner: "bigmac"
+    owner: "shield"
   slos:
     - name: "auth-generate-latency-slo"
       objective: 95
@@ -23,8 +23,8 @@ spec:
       alerting:
         name: TeleportAuthGenerateLatencyHigh
         labels:
-          team: bigmac
-          area: kaas
+          team: shield
+          area: platform
         pageAlert:
           disable: false
           labels:
@@ -33,9 +33,9 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: bigmac
+            team: shield
         ticketAlert:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-bigmac"
+            slack_channel: "#team-shield"
