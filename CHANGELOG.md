@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add aws-load-balancer-controller slo.
-- Add cert-manager slo.
+- Add aws-load-balancer-controller SLO
 - Adds a new configuration field `sharedAccrossProviders: true` to be able to set the responsible kaas team based on the provider.
 
 ### Changed
