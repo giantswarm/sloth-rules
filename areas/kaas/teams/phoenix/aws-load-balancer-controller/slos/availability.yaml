@@ -1,0 +1,15 @@
+---
+description: "aws-load-balancer-controller deployment is unavailable"
+alertName: "AWSLoadBalancerControllerUnavailable"
+objective: 95
+alertLabels:
+  cancel_if_cluster_status_updating: "true"
+  cancel_if_prometheus_agent_down: "true"
+  cancel_if_outside_working_hours: "true"
+annotations:
+  opsrecipe: service-level-burn-rate-too-high/
+  description: '{{`aws-load-balancer-controller deployment {{$labels.deployment}} in namespace {{ $labels.namespace }} is unavailable.`}}'
+# number of desired aws-load-balancer-controller pods that are down (kube_deployment_status_replicas_unavailable > 0)
+errorQuery:  '{{`sum_over_time(kube_deployment_status_replicas_unavailable{deployment=~"aws-load-balancer-controller.*"}[{{.window}}])`}}'
+# total number of desired aws-load-balancer-controller pods
+totalQuery: '{{`sum_over_time(kube_deployment_status_replicas{deployment=~"aws-load-balancer-controller.*"}[{{.window}}])`}}'
