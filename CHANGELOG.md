@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix ownership of the `kube-controller-manager` slos from team `phoenix` to team `tenet`.
+- Fix ticket alerts slack channel to `alert-teamName` instead of `team-teamName`.
 
 ## [0.34.3] - 2024-09-05
 

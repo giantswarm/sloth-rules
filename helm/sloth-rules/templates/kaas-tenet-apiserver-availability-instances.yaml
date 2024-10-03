@@ -39,4 +39,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-tenet"
+            slack_channel: {{ include "providerTeam" . | replace "'" "" | printf "#alert-%s" | quote }}

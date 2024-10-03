@@ -38,4 +38,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-shield"
+            slack_channel: "#alert-shield"
