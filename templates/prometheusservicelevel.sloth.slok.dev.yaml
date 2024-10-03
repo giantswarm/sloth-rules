@@ -59,4 +59,8 @@ spec:
           disable: {{ or .ticketAlert.disable "false" }}
           labels:
             severity: "notify"
-            slack_channel: "#team-{{ .team }}"
+            {{- if or (not (eq .area "kaas")) (not .sharedAccrossProviders) }}
+            slack_channel: "#alert-{{ .team }}"
+            {{- else }}
+            slack_channel: {{`{{ include "providerTeam" . | replace "'" "" | printf "#alert-%s" | quote }}`}}
+            {{- end }}
