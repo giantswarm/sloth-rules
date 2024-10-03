@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add aws-load-balancer-controller SLO
 - Adds a new configuration field `sharedAccrossProviders: true` to be able to set the responsible kaas team based on the provider.
+- Add new internal API error rate too high SLO for the kube-scheduler and the controller-manager.
 
 ### Changed
 
