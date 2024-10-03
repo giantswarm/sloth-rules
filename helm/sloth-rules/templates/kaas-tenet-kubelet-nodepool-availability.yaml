@@ -2,14 +2,14 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-kubelet-nodepool-availability
+  name: kaas-tenet-kubelet-nodepool-availability
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: turtles
+    application.giantswarm.io/team: tenet
 spec:
   service: "kubelet"
   labels:
-    owner: "turtles"
+    owner: "tenet"
   slos:
     - name: "nodepool-availability"
       objective: 99
@@ -39,4 +39,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-turtles"
+            slack_channel: "#team-tenet"

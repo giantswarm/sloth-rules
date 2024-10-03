@@ -2,26 +2,26 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-kubelet-pleg-duration
+  name: kaas-tenet-etcd-latency
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: turtles
+    application.giantswarm.io/team: tenet
 spec:
-  service: "kubelet"
+  service: "etcd"
   labels:
-    owner: "turtles"
+    owner: "tenet"
   slos:
-    - name: "pleg-duration"
+    - name: "latency"
       objective: 99
-      description: Kubelet PLEG Duration SLO
+      description: ETCD latency is too high
       sli:
         events:
           errorQuery: |-
-            {{`clamp_min(sum(rate(kubelet_pleg_relist_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(kubelet_pleg_relist_interval_seconds_bucket{le="2.5"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
+            {{`clamp_min(sum(rate(etcd_request_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(etcd_request_duration_seconds_bucket{le="0.5"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
           totalQuery: |-
-            {{`sum(rate(kubelet_pleg_relist_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(etcd_request_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: KubeletPLEGDurationTooHigh
+        name: ETCDLatencyTooHigh
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
@@ -39,4 +39,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-turtles"
+            slack_channel: "#team-tenet"

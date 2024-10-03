@@ -2,14 +2,14 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-vertical-pod-autoscaler-availability
+  name: kaas-tenet-vertical-pod-autoscaler-availability
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: turtles
+    application.giantswarm.io/team: tenet
 spec:
   service: "vertical-pod-autoscaler"
   labels:
-    owner: "turtles"
+    owner: "tenet"
   slos:
     - name: "availability"
       objective: 95
@@ -23,7 +23,7 @@ spec:
       alerting:
         name: VPAComponentUnavailable
         labels:
-          team: turtles
+          team: tenet
           area: kaas
         annotations:
           opsrecipe: vpa-down/
@@ -37,9 +37,9 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: turtles
+            team: tenet
         ticketAlert:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-turtles"
+            slack_channel: "#team-tenet"

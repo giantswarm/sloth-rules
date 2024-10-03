@@ -2,38 +2,35 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-containerd-disk-usage
+  name: kaas-tenet-kubelet-pleg-duration
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: turtles
+    application.giantswarm.io/team: tenet
 spec:
-  service: "containerd"
+  service: "kubelet"
   labels:
-    owner: "turtles"
+    owner: "tenet"
   slos:
-    - name: "disk-usage"
+    - name: "pleg-duration"
       objective: 99
-      description: Containerd Disk Usage
+      description: Kubelet PLEG Duration SLO
       sli:
         events:
           errorQuery: |-
-            {{`clamp_min((sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])/10 - sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])),0)`}}
+            {{`clamp_min(sum(rate(kubelet_pleg_relist_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(kubelet_pleg_relist_interval_seconds_bucket{le="2.5"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
           totalQuery: |-
-            {{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])/10`}}
+            {{`sum(rate(kubelet_pleg_relist_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: ContainerdDiskUsage
+        name: KubeletPLEGDurationTooHigh
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
-        annotations:
-          opsrecipe: low-disk-space/#containerd-volume
         pageAlert:
           disable: false
           labels:
             cancel_if_cluster_status_updating: "true"
             cancel_if_outside_working_hours: "true"
             cancel_if_prometheus_agent_down: "true"
-            silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
@@ -42,4 +39,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-turtles"
+            slack_channel: "#team-tenet"

@@ -11,16 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add aws-load-balancer-controller SLO
 - Adds a new configuration field `sharedAccrossProviders: true` to be able to set the responsible kaas team based on the provider.
-- Add new internal API error rate too high SLO for the kube-scheduler and the controller-manager.
 
 ### Changed
 
-- Replace old kubelet slos with sloth and support them accross all providers.
-- Fix node-exporter alert to page on both cloud and onprem.
-- Add cert-manager slo.
-- Merge bigmac with shield.
-- Add use of `sharedAccrossProviders: true` to all relevant turtles slos.
-- Move ownership of controller-manager slos to turtles.
+- Merge team `bigmac` into team `shield`.
+- Merge team `turtles` into team `tenet`.
+- Replace legacy in-house slos for the `cert-manager`.
+- Replace legacy in-house slos for the `kubelet` and support them accross all providers.
+- Replace legacy in-house slos for the `node-exporter` and support them accross all providers.
+- Replace legacy in-house slos for the `kube-scheduler` and `kube-controller-manager` internal API error rate.
+- Make sure all shared kaas alerts owned by tenet supports all providers using the new `sharedAccrossProviders` field.
+
+### Fixed
+
+- Fix ownership of the `kube-controller-manager` slos from team `phoenix` to team `tenet`.
 
 ## [0.34.3] - 2024-09-05
 

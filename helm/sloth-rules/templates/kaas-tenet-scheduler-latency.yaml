@@ -2,26 +2,26 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-turtles-kubelet-storage-operations
+  name: kaas-tenet-scheduler-latency
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: turtles
+    application.giantswarm.io/team: tenet
 spec:
-  service: "kubelet"
+  service: "scheduler"
   labels:
-    owner: "turtles"
+    owner: "tenet"
   slos:
-    - name: "storage-operations"
-      objective: 99
-      description: Storage Operations SLO
+    - name: "latency"
+      objective: 90
+      description: Pod scheduling duration
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`clamp_min(sum(rate(scheduler_pod_scheduling_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(scheduler_pod_scheduling_duration_seconds_bucket{le="327.68"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
           totalQuery: |-
-            {{`sum(rate(storage_operation_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(scheduler_pod_scheduling_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: StorageOperationsErrorRateTooHigh
+        name: PodSchedulingDurationTooHigh
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
@@ -39,4 +39,4 @@ spec:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-turtles"
+            slack_channel: "#team-tenet"
