@@ -23,7 +23,7 @@ spec:
       alerting:
         name: StorageOperationsErrorRateTooHigh
         labels:
-          team: turtles
+          team: {{ include "providerTeam" . }}
           area: kaas
         pageAlert:
           disable: false
@@ -34,7 +34,7 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: turtles
+            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

@@ -17,13 +17,13 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`clamp_min((sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])/10 - sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])),0)`}}
+            {{`clamp_min((sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])/10 - sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])),0)`}}
           totalQuery: |-
-            {{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])/10`}}
+            {{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])/10`}}
       alerting:
         name: ContainerdDiskUsage
         labels:
-          team: turtles
+          team: {{ include "providerTeam" . }}
           area: kaas
         annotations:
           opsrecipe: low-disk-space/#containerd-volume
@@ -37,7 +37,7 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: turtles
+            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

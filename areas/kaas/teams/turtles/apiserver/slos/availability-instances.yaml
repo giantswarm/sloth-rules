@@ -2,10 +2,11 @@
 description: "API server instance status SLO"
 alertName: "ApiServerInstanceUnavailable"
 objective: 99
+sharedAccrossProviders: true
 # number of APIserver instances that are down (up{job="apiserver"} == 0)
-errorQuery: '{{`count_over_time(up{job="apiserver", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])-(sum_over_time(up{job="apiserver", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}]))`}}'
+errorQuery: '{{`count_over_time(up{job="apiserver"}[{{.window}}])-(sum_over_time(up{job="apiserver"}[{{.window}}]))`}}'
 # total number of APIserver instances
-totalQuery: '{{`count_over_time(up{job="apiserver", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}'
+totalQuery: '{{`count_over_time(up{job="apiserver"}[{{.window}}])`}}'
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_prometheus_agent_down: "true"

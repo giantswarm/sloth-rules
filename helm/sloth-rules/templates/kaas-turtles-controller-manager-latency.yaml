@@ -2,14 +2,14 @@
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: kaas-phoenix-controller-manager-latency
+  name: kaas-turtles-controller-manager-latency
   namespace: monitoring
   labels:
-    application.giantswarm.io/team: phoenix
+    application.giantswarm.io/team: turtles
 spec:
   service: "controller-manager"
   labels:
-    owner: "phoenix"
+    owner: "turtles"
   slos:
     - name: "latency"
       objective: 90
@@ -17,13 +17,13 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`clamp_min(sum(rate(workqueue_queue_duration_seconds_count{job="kube-controller-manager", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(workqueue_queue_duration_seconds_bucket{job="kube-controller-manager", le="10", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
+            {{`clamp_min(sum(rate(workqueue_queue_duration_seconds_count{job="kube-controller-manager"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(workqueue_queue_duration_seconds_bucket{job="kube-controller-manager", le="10"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}
           totalQuery: |-
-            {{`sum(rate(workqueue_queue_duration_seconds_count{job="kube-controller-manager", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            {{`sum(rate(workqueue_queue_duration_seconds_count{job="kube-controller-manager"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: ControllerManagerReconciliationLatencyTooHigh
         labels:
-          team: phoenix
+          team: {{ include "providerTeam" . }}
           area: kaas
         pageAlert:
           disable: false
@@ -35,9 +35,9 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
+            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:
             severity: "notify"
-            slack_channel: "#team-phoenix"
+            slack_channel: "#team-turtles"

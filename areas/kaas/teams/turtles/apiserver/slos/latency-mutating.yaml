@@ -2,8 +2,9 @@
 description: "Mutating API calls latency SLO based on https://github.com/kubernetes/community/blob/master/sig-scalability/slos/api_call_latency.md"
 alertName: "ApiServerMutatingLatencyTooHigh"
 objective: 99
-errorQuery: '{{`clamp_min(sum(rate(apiserver_request_duration_seconds_count{verb=~"POST|PUT|DELETE|PATCH", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(apiserver_request_duration_seconds_bucket{le="1", verb=~"POST|PUT|DELETE|PATCH", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
-totalQuery: '{{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"POST|PUT|DELETE|PATCH", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+sharedAccrossProviders: true
+errorQuery: '{{`clamp_min(sum(rate(apiserver_request_duration_seconds_count{verb=~"POST|PUT|DELETE|PATCH"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(apiserver_request_duration_seconds_bucket{le="1", verb=~"POST|PUT|DELETE|PATCH"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
+totalQuery: '{{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"POST|PUT|DELETE|PATCH"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

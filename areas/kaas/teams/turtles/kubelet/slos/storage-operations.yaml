@@ -2,6 +2,7 @@
 description: "Storage Operations SLO"
 alertName: "StorageOperationsErrorRateTooHigh"
 objective: 99
+sharedAccrossProviders: true
 errorQuery: '{{`sum(rate(storage_operation_duration_seconds_count{status=~"fail-unknown"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 totalQuery: '{{`sum(rate(storage_operation_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:

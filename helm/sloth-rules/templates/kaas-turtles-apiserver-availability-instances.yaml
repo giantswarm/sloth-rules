@@ -17,13 +17,13 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`count_over_time(up{job="apiserver", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])-(sum_over_time(up{job="apiserver", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}]))`}}
+            {{`count_over_time(up{job="apiserver"}[{{.window}}])-(sum_over_time(up{job="apiserver"}[{{.window}}]))`}}
           totalQuery: |-
-            {{`count_over_time(up{job="apiserver", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}
+            {{`count_over_time(up{job="apiserver"}[{{.window}}])`}}
       alerting:
         name: ApiServerInstanceUnavailable
         labels:
-          team: turtles
+          team: {{ include "providerTeam" . }}
           area: kaas
         pageAlert:
           disable: false
@@ -34,7 +34,7 @@ spec:
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: turtles
+            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:
