@@ -10,12 +10,12 @@ spec:
   service: "dns"
   labels:
     owner: "cabbage"
-    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
-    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
     customer: "{{ .Values.managementCluster.customer }}"
     installation: "{{ .Values.managementCluster.name }}"
     pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
     region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "latency-coredns-external"
       objective: 99
@@ -29,19 +29,20 @@ spec:
       alerting:
         name: "CoreDNSExternalDomainsLatencyTooHigh"
         labels:
-          team: cabbage
+          cancel_if_outside_working_hours: "true"
           area: platform
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: cabbage
         annotations:
           dashboard: "Yu9tkufmk/dns"
           opsrecipe: "dns-issue-mitigation"
         pageAlert:
           disable: true
           labels:
-            cancel_if_outside_working_hours: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: cabbage
         ticketAlert:
           disable: false
           labels:

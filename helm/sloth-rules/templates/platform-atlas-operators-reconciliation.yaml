@@ -11,12 +11,12 @@ spec:
   service: "operators"
   labels:
     owner: "atlas"
-    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
-    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
     customer: "{{ .Values.managementCluster.customer }}"
     installation: "{{ .Values.managementCluster.name }}"
     pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
     region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "reconciliation"
       objective: 95
@@ -30,8 +30,14 @@ spec:
       alerting:
         name: "AtlasOperatorsReconciliationError"
         labels:
-          team: atlas
+          cancel_if_any_cluster_control_plane_unhealthy: "true"
+          cancel_if_cluster_has_no_workers: "true"
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
           area: platform
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: atlas
           topic: observability
         annotations:
           dashboard: "kube-builder-operators/kube-builder-operators"
@@ -39,14 +45,9 @@ spec:
         pageAlert:
           disable: false
           labels:
-            cancel_if_any_cluster_control_plane_unhealthy: "true"
-            cancel_if_cluster_has_no_workers: "true"
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: atlas
         ticketAlert:
           disable: false
           labels:

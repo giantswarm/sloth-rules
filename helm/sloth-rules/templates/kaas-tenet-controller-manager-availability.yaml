@@ -10,12 +10,12 @@ spec:
   service: "controller-manager"
   labels:
     owner: "tenet"
-    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
-    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
     customer: "{{ .Values.managementCluster.customer }}"
     installation: "{{ .Values.managementCluster.name }}"
     pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
     region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "availability"
       objective: 99
@@ -29,20 +29,21 @@ spec:
       alerting:
         name: "KubeControllerManagerInternalAPIErrorRateTooHigh"
         labels:
-          team: {{ include "providerTeam" . }}
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: {{ include "providerTeam" . }}
         annotations:
           opsrecipe: "service-level-burn-rate-too-high/"
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

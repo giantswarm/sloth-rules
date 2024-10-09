@@ -13,12 +13,12 @@ spec:
   service: "{{ .service }}"
   labels:
     owner: "{{ .team }}"
-    cluster_id: "{{`{{ printf "{{ .Labels.cluster_id }}" }}`}}"
-    cluster_type: "{{`{{ printf "{{ .Labels.cluster_id }}" }}`}}"
     customer: "{{`{{ .Values.managementCluster.customer }}`}}"
     installation: "{{`{{ .Values.managementCluster.name }}`}}"
     pipeline: "{{`{{ .Values.managementCluster.pipeline }}`}}"
+    {{`{{- if .Values.managementCluster.region }}`}}
     region: "{{`{{ .Values.managementCluster.region }}`}}"
+    {{`{{- end }}`}}
   slos:
     - name: "{{ .slo }}"
       objective: {{ .objective }}
@@ -32,12 +32,17 @@ spec:
       alerting:
         name: "{{ .alertName }}"
         labels:
+          {{ range $key, $val := .alertLabels -}}
+          {{ $key }}: {{ $val }}
+          {{ end -}}
+          area: {{ .area }}
+          cluster_id: "{{`{{ printf "{{ .Labels.cluster_id }}" }}`}}"
+          cluster_type: "{{`{{ printf "{{ .Labels.cluster_id }}" }}`}}"
           {{- if or (not (eq .area "kaas")) (not .sharedAccrossProviders) }}
           team: {{ .team }}
           {{- else }}
           team: {{`{{ include "providerTeam" . }}`}}
           {{- end }}
-          area: {{ .area }}
           {{- if .topic }}
           topic: {{ .topic }}
           {{- end }}
@@ -50,17 +55,9 @@ spec:
         pageAlert:
           disable: {{ or .pageAlert.disable "false" }}
           labels:
-            {{ range $key, $val := .alertLabels -}}
-            {{ $key }}: {{ $val }}
-            {{ end -}}
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            {{- if or (not (eq .area "kaas")) (not .sharedAccrossProviders) }}
-            team: {{ .team }}
-            {{- else }}
-            team: {{`{{ include "providerTeam" . }}`}}
-            {{- end }}
         ticketAlert:
           disable: {{ or .ticketAlert.disable "false" }}
           labels:

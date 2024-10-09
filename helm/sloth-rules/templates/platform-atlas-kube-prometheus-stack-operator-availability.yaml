@@ -10,12 +10,12 @@ spec:
   service: "kube-prometheus-stack"
   labels:
     owner: "atlas"
-    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
-    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
     customer: "{{ .Values.managementCluster.customer }}"
     installation: "{{ .Values.managementCluster.name }}"
     pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
     region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "operator-availability"
       objective: 95
@@ -29,8 +29,14 @@ spec:
       alerting:
         name: "KubePrometheusStackPrometheusOperatorUnavailable"
         labels:
-          team: atlas
+          cancel_if_any_cluster_control_plane_unhealthy: "true"
+          cancel_if_cluster_has_no_workers: "true"
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
           area: platform
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: atlas
           topic: observability
         annotations:
           description: "{{`kube-prometheus-stack prometheus-operator {{$labels.pod}} in namespace {{ $labels.namespace }} is unavailable.`}}"
@@ -38,14 +44,9 @@ spec:
         pageAlert:
           disable: false
           labels:
-            cancel_if_any_cluster_control_plane_unhealthy: "true"
-            cancel_if_cluster_has_no_workers: "true"
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: atlas
         ticketAlert:
           disable: false
           labels:

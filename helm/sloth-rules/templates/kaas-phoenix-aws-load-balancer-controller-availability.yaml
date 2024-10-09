@@ -10,12 +10,12 @@ spec:
   service: "aws-load-balancer-controller"
   labels:
     owner: "phoenix"
-    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
-    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
     customer: "{{ .Values.managementCluster.customer }}"
     installation: "{{ .Values.managementCluster.name }}"
     pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
     region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "availability"
       objective: 95
@@ -29,21 +29,22 @@ spec:
       alerting:
         name: "AWSLoadBalancerControllerUnavailable"
         labels:
-          team: phoenix
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: phoenix
         annotations:
           description: "{{`aws-load-balancer-controller deployment {{$labels.deployment}} in namespace {{ $labels.namespace }} is unavailable.`}}"
           opsrecipe: "service-level-burn-rate-too-high/"
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
         ticketAlert:
           disable: false
           labels:
