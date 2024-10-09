@@ -10,10 +10,16 @@ spec:
   service: "dns"
   labels:
     owner: "cabbage"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "availability"
       objective: 99
-      description: DNS resolution not available
+      description: "DNS resolution not available"
       sli:
         events:
           errorQuery: |-
@@ -21,13 +27,13 @@ spec:
           totalQuery: |-
             {{`avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: DNSResolutionUnavailable
+        name: "DNSResolutionUnavailable"
         labels:
           team: cabbage
           area: platform
         annotations:
-          dashboard: Yu9tkufmk/dns
-          opsrecipe: dns-issue-mitigation
+          dashboard: "Yu9tkufmk/dns"
+          opsrecipe: "dns-issue-mitigation"
         pageAlert:
           disable: false
           labels:

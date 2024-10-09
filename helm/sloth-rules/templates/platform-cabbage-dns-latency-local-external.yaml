@@ -10,10 +10,16 @@ spec:
   service: "dns"
   labels:
     owner: "cabbage"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "latency-local-external"
       objective: 99
-      description: DNS resolution latency for non-local domains from Node Local DNS Cache
+      description: "DNS resolution latency for non-local domains from Node Local DNS Cache"
       sli:
         events:
           errorQuery: |-
@@ -21,13 +27,13 @@ spec:
           totalQuery: |-
             {{`sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: LocalDNSCacheExternalDomainsLatencyTooHigh
+        name: "LocalDNSCacheExternalDomainsLatencyTooHigh"
         labels:
           team: cabbage
           area: platform
         annotations:
-          dashboard: Yu9tkufmk/dns
-          opsrecipe: dns-issue-mitigation
+          dashboard: "Yu9tkufmk/dns"
+          opsrecipe: "dns-issue-mitigation"
         pageAlert:
           disable: true
           labels:

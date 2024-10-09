@@ -10,10 +10,16 @@ spec:
   service: "controller-manager"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "latency"
       objective: 90
-      description: Reconciliation time for each resource controller by controller manager
+      description: "Reconciliation time for each resource controller by controller manager"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`sum(rate(workqueue_queue_duration_seconds_count{job="kube-controller-manager"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: ControllerManagerReconciliationLatencyTooHigh
+        name: "ControllerManagerReconciliationLatencyTooHigh"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas

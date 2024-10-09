@@ -10,10 +10,16 @@ spec:
   service: "node-exporter"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "conntrack"
       objective: 85
-      description: Node Conntrack is almost exhausted
+      description: "Node Conntrack is almost exhausted"
       sli:
         events:
           errorQuery: |-
@@ -21,12 +27,12 @@ spec:
           totalQuery: |-
             {{`sum(count_over_time((node_nf_conntrack_entries)[{{.window}}:{{.window}}]))`}}
       alerting:
-        name: NodeConnTrackAlmostExhausted
+        name: "NodeConnTrackAlmostExhausted"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
         annotations:
-          opsrecipe: node-conntrack-limits/
+          opsrecipe: "node-conntrack-limits/"
         pageAlert:
           disable: false
           labels:

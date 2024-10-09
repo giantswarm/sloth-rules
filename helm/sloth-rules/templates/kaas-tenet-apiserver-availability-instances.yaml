@@ -10,10 +10,16 @@ spec:
   service: "apiserver"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "availability-instances"
       objective: 99
-      description: API server instance status SLO
+      description: "API server instance status SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`count_over_time(up{job="apiserver"}[{{.window}}])`}}
       alerting:
-        name: ApiServerInstanceUnavailable
+        name: "ApiServerInstanceUnavailable"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas

@@ -10,10 +10,16 @@ spec:
   service: "kubelet"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "nodepool-availability"
       objective: 99
-      description: Kubelet Nodepool availability SLO
+      description: "Kubelet Nodepool availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`label_replace(count_over_time(kube_node_labels{nodepool=~".+"}[{{.window}}]), "service", "kubelet nodepool $1", "nodepool", "(.+)")`}}
       alerting:
-        name: KubeletNodepoolAvailability
+        name: "KubeletNodepoolAvailability"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas

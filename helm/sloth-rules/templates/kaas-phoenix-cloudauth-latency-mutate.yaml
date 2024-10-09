@@ -10,10 +10,16 @@ spec:
   service: "cloudauth"
   labels:
     owner: "phoenix"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "latency-mutate"
       objective: 99
-      description: AWS Pod Identity Webhook Mutate Latency
+      description: "AWS Pod Identity Webhook Mutate Latency"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`sum(rate(http_request_latencies_count{app="aws-pod-identity-webhook"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: AWSPodIdentityWebhookLatencyTooHigh
+        name: "AWSPodIdentityWebhookLatencyTooHigh"
         labels:
           team: phoenix
           area: kaas

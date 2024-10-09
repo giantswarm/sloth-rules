@@ -10,10 +10,16 @@ spec:
   service: "etcd"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "latency"
       objective: 99
-      description: ETCD latency is too high
+      description: "ETCD latency is too high"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`sum(rate(etcd_request_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: ETCDLatencyTooHigh
+        name: "ETCDLatencyTooHigh"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas

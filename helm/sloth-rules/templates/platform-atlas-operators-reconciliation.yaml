@@ -11,10 +11,16 @@ spec:
   service: "operators"
   labels:
     owner: "atlas"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "reconciliation"
       objective: 95
-      description: Atlas operators are not able to reconcile resources
+      description: "Atlas operators are not able to reconcile resources"
       sli:
         events:
           errorQuery: |-
@@ -22,14 +28,14 @@ spec:
           totalQuery: |-
             {{`sum(rate(controller_runtime_reconcile_total{app=~"logging-operator|object-storage-operator|observability-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)`}}
       alerting:
-        name: AtlasOperatorsReconciliationError
+        name: "AtlasOperatorsReconciliationError"
         labels:
           team: atlas
           area: platform
           topic: observability
         annotations:
-          dashboard: kube-builder-operators/kube-builder-operators
-          description: {{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}
+          dashboard: "kube-builder-operators/kube-builder-operators"
+          description: "{{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}"
         pageAlert:
           disable: false
           labels:

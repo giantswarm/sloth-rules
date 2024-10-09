@@ -10,10 +10,16 @@ spec:
   service: "kubelet"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "storage-operations"
       objective: 99
-      description: Storage Operations SLO
+      description: "Storage Operations SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`sum(rate(storage_operation_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: StorageOperationsErrorRateTooHigh
+        name: "StorageOperationsErrorRateTooHigh"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas

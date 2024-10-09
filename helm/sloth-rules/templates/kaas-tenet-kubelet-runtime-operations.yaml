@@ -10,10 +10,16 @@ spec:
   service: "kubelet"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "runtime-operations"
       objective: 99
-      description: Kubelet Runtime Operations SLO
+      description: "Kubelet Runtime Operations SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`sum(rate(kubelet_runtime_operations_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: KubeletRuntimeErrorRateTooHigh
+        name: "KubeletRuntimeErrorRateTooHigh"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas

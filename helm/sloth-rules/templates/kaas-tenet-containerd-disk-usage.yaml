@@ -10,10 +10,16 @@ spec:
   service: "containerd"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "disk-usage"
       objective: 99
-      description: Containerd Disk Usage
+      description: "Containerd Disk Usage"
       sli:
         events:
           errorQuery: |-
@@ -21,12 +27,12 @@ spec:
           totalQuery: |-
             {{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])/10`}}
       alerting:
-        name: ContainerdDiskUsage
+        name: "ContainerdDiskUsage"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
         annotations:
-          opsrecipe: low-disk-space/#containerd-volume
+          opsrecipe: "low-disk-space/#containerd-volume"
         pageAlert:
           disable: false
           labels:

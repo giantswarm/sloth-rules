@@ -10,10 +10,16 @@ spec:
   service: "cert-manager"
   labels:
     owner: "shield"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "availability"
       objective: 95
-      description: cert-manager deployment is unavailable
+      description: "cert-manager deployment is unavailable"
       sli:
         events:
           errorQuery: |-
@@ -21,14 +27,14 @@ spec:
           totalQuery: |-
             {{`sum_over_time(kube_deployment_status_replicas{namespace="kube-system", deployment=~"cert-manager.*"}[{{.window}}])`}}
       alerting:
-        name: CertManagerUnavailable
+        name: "CertManagerUnavailable"
         labels:
           team: shield
           area: platform
           topic: security
         annotations:
-          description: {{`cert-manager deployment {{$labels.deployment}} in namespace {{ $labels.namespace }} is unavailable.`}}
-          opsrecipe: cert-manager-down/
+          description: "{{`cert-manager deployment {{$labels.deployment}} in namespace {{ $labels.namespace }} is unavailable.`}}"
+          opsrecipe: "cert-manager-down/"
         pageAlert:
           disable: false
           labels:

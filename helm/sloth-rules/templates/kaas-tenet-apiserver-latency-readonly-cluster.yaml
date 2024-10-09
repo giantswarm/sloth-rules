@@ -10,10 +10,16 @@ spec:
   service: "apiserver"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "latency-readonly-cluster"
       objective: 99
-      description: Read-only cluster level API calls latency SLO based on https://github.com/kubernetes/community/blob/master/sig-scalability/slos/api_call_latency.md
+      description: "Read-only cluster level API calls latency SLO based on https://github.com/kubernetes/community/blob/master/sig-scalability/slos/api_call_latency.md"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"GET|LIST", scope!="resource"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: ApiServerReadonlyLatencyTooHigh
+        name: "ApiServerReadonlyLatencyTooHigh"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas

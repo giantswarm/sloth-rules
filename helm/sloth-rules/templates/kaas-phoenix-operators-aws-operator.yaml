@@ -10,10 +10,16 @@ spec:
   service: "operators"
   labels:
     owner: "phoenix"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "aws-operator"
       objective: 99
-      description: AWSOperator SLO
+      description: "AWSOperator SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`sum(rate(operatorkit_controller_operation_total{container="aws-operator"}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: AWSOperatorErrorRateTooHigh
+        name: "AWSOperatorErrorRateTooHigh"
         labels:
           team: phoenix
           area: kaas

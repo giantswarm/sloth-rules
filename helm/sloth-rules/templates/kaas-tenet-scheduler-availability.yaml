@@ -10,10 +10,16 @@ spec:
   service: "scheduler"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "availability"
       objective: 99
-      description: Kube-scheduler internal API availability
+      description: "Kube-scheduler internal API availability"
       sli:
         events:
           errorQuery: |-
@@ -21,12 +27,12 @@ spec:
           totalQuery: |-
             {{`sum(rate(rest_client_requests_total{job="kube-scheduler"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, job)`}}
       alerting:
-        name: KubeSchedulerInternalAPIErrorRateTooHigh
+        name: "KubeSchedulerInternalAPIErrorRateTooHigh"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
         annotations:
-          opsrecipe: service-level-burn-rate-too-high/
+          opsrecipe: "service-level-burn-rate-too-high/"
         pageAlert:
           disable: false
           labels:

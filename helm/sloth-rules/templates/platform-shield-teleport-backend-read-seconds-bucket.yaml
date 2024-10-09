@@ -10,10 +10,16 @@ spec:
   service: "teleport"
   labels:
     owner: "shield"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "backend-read-seconds-bucket"
       objective: 95
-      description: SLO for Teleport backend batch read operation latencies
+      description: "SLO for Teleport backend batch read operation latencies"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`sum(rate(backend_read_seconds_count{cluster_id="teleportprod", component="backend", job="teleport/teleport-cluster"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: TeleportBackendReadLatencyHigh
+        name: "TeleportBackendReadLatencyHigh"
         labels:
           team: shield
           area: platform

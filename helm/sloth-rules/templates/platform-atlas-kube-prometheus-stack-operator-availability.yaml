@@ -10,10 +10,16 @@ spec:
   service: "kube-prometheus-stack"
   labels:
     owner: "atlas"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "operator-availability"
       objective: 95
-      description: kube-prometheus-stack prometheus-operator is unavailable
+      description: "kube-prometheus-stack prometheus-operator is unavailable"
       sli:
         events:
           errorQuery: |-
@@ -21,14 +27,14 @@ spec:
           totalQuery: |-
             {{`count_over_time(up{job=~"kube-prometheus-stack-operator|prometheus-operator-app-operator"}[{{.window}}])`}}
       alerting:
-        name: KubePrometheusStackPrometheusOperatorUnavailable
+        name: "KubePrometheusStackPrometheusOperatorUnavailable"
         labels:
           team: atlas
           area: platform
           topic: observability
         annotations:
-          description: {{`kube-prometheus-stack prometheus-operator {{$labels.pod}} in namespace {{ $labels.namespace }} is unavailable.`}}
-          opsrecipe: prometheus-operator
+          description: "{{`kube-prometheus-stack prometheus-operator {{$labels.pod}} in namespace {{ $labels.namespace }} is unavailable.`}}"
+          opsrecipe: "prometheus-operator"
         pageAlert:
           disable: false
           labels:

@@ -10,10 +10,16 @@ spec:
   service: "ingress"
   labels:
     owner: "cabbage"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "availability"
       objective: 99
-      description: Ingress availability SLO
+      description: "Ingress availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,12 +27,12 @@ spec:
           totalQuery: |-
             {{`sum(label_replace(count_over_time(probe_success{target=~"ingress-sla-.*-blackbox"}[{{.window}}]), "ingress_class", "$1", "target", "ingress-sla-(.*)-blackbox")) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, ingress_class)`}}
       alerting:
-        name: IngressAvailabilityErrorRateTooHigh
+        name: "IngressAvailabilityErrorRateTooHigh"
         labels:
           team: cabbage
           area: platform
         annotations:
-          opsrecipe: managed-app-nginx-ic/
+          opsrecipe: "managed-app-nginx-ic/"
         pageAlert:
           disable: false
           labels:

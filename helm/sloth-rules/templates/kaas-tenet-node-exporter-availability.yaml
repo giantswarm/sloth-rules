@@ -10,10 +10,16 @@ spec:
   service: "node-exporter"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "availability"
       objective: 90
-      description: Node Exporter availability SLO
+      description: "Node Exporter availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,12 +27,12 @@ spec:
           totalQuery: |-
             {{`sum(count_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: NodeExporterAvailability
+        name: "NodeExporterAvailability"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas
         annotations:
-          opsrecipe: node-exporter-is-down
+          opsrecipe: "node-exporter-is-down"
         pageAlert:
           disable: false
           labels:

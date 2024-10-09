@@ -10,10 +10,16 @@ spec:
   service: "etcd"
   labels:
     owner: "tenet"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "availability"
       objective: 99
-      description: ETCD availability error rate is too high
+      description: "ETCD availability error rate is too high"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`sum(rate(grpc_client_handled_total{job="apiserver",grpc_service=~"etcd.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: ETCDAvailabilityErrorRateTooHigh
+        name: "ETCDAvailabilityErrorRateTooHigh"
         labels:
           team: {{ include "providerTeam" . }}
           area: kaas

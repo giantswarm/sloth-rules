@@ -10,10 +10,16 @@ spec:
   service: "cni"
   labels:
     owner: "cabbage"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "availability"
       objective: 99
-      description: Cilium availability SLO
+      description: "Cilium availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,14 +27,14 @@ spec:
           totalQuery: |-
             {{`sum_over_time(kube_daemonset_status_desired_number_scheduled{namespace="kube-system", daemonset="cilium"}[{{.window}}])`}}
       alerting:
-        name: CiliumAvailability
+        name: "CiliumAvailability"
         labels:
           team: cabbage
           area: platform
         annotations:
-          dashboard: vtuWtdumz/cilium-metrics
-          description: {{`At least one cilium-agent down for more than 10 minutes.`}}
-          opsrecipe: cilium-troubleshooting/
+          dashboard: "vtuWtdumz/cilium-metrics"
+          description: "{{`At least one cilium-agent down for more than 10 minutes.`}}"
+          opsrecipe: "cilium-troubleshooting/"
         pageAlert:
           disable: false
           labels:

@@ -10,10 +10,16 @@ spec:
   service: "cloudapis"
   labels:
     owner: "phoenix"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "availability-aws"
       objective: 99
-      description: AWS APIs requests from core components availability SLO
+      description: "AWS APIs requests from core components availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,7 +27,7 @@ spec:
           totalQuery: |-
             {{`label_replace(sum_over_time(cloudprovider_aws_api_request_duration_seconds_count{job="kube-controller-manager"}[{{.window}}]), "service", "$1", "pod", "(.*)")`}}
       alerting:
-        name: AWSAPIsRequestsAvailability
+        name: "AWSAPIsRequestsAvailability"
         labels:
           team: phoenix
           area: kaas

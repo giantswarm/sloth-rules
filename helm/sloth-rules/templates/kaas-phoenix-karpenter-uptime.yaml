@@ -11,10 +11,16 @@ spec:
   service: "karpenter"
   labels:
     owner: "phoenix"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "uptime"
       objective: 80
-      description: Karpenter SLO
+      description: "Karpenter SLO"
       sli:
         events:
           errorQuery: |-
@@ -22,14 +28,14 @@ spec:
           totalQuery: |-
             {{`sum(avg_over_time(kube_pod_status_ready{namespace="kube-system", pod=~"karpenter.*", pod!~"karpenter-renewer-.*", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: KarpenterServiceDegraded
+        name: "KarpenterServiceDegraded"
         labels:
           team: phoenix
           area: kaas
           topic: kubernetes
         annotations:
-          dashboard: e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter
-          description: {{`Karpenter is experiencing a service degradation in cluster {{$labels.installation}}/{{$labels.cluster_id}}.`}}
+          dashboard: "e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter"
+          description: "{{`Karpenter is experiencing a service degradation in cluster {{$labels.installation}}/{{$labels.cluster_id}}.`}}"
         pageAlert:
           disable: false
           labels:

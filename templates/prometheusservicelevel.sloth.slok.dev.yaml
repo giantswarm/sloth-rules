@@ -13,10 +13,16 @@ spec:
   service: "{{ .service }}"
   labels:
     owner: "{{ .team }}"
+    cluster_id: "{{`{{ printf "{{ .Labels.cluster_id }}" }}`}}"
+    cluster_type: "{{`{{ printf "{{ .Labels.cluster_id }}" }}`}}"
+    customer: "{{`{{ .Values.managementCluster.customer }}`}}"
+    installation: "{{`{{ .Values.managementCluster.name }}`}}"
+    pipeline: "{{`{{ .Values.managementCluster.pipeline }}`}}"
+    region: "{{`{{ .Values.managementCluster.region }}`}}"
   slos:
     - name: "{{ .slo }}"
       objective: {{ .objective }}
-      description: {{ .description }}
+      description: "{{ .description }}"
       sli:
         events:
           errorQuery: |-
@@ -24,7 +30,7 @@ spec:
           totalQuery: |-
             {{ .totalQuery }}
       alerting:
-        name: {{ .alertName }}
+        name: "{{ .alertName }}"
         labels:
           {{- if or (not (eq .area "kaas")) (not .sharedAccrossProviders) }}
           team: {{ .team }}
@@ -38,7 +44,7 @@ spec:
         {{- with .annotations }}
         annotations:
           {{- range $key, $value := . }}
-          {{ $key }}: {{ $value }}
+          {{ $key }}: "{{ $value }}"
           {{- end }}
         {{- end }}
         pageAlert:

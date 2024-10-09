@@ -10,10 +10,16 @@ spec:
   service: "dns"
   labels:
     owner: "cabbage"
+    cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    region: "{{ .Values.managementCluster.region }}"
   slos:
     - name: "latency-coredns"
       objective: 99
-      description: DNS resolution latency from coredns
+      description: "DNS resolution latency from coredns"
       sli:
         events:
           errorQuery: |-
@@ -21,13 +27,13 @@ spec:
           totalQuery: |-
             {{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: CoreDNSLatencyTooHigh
+        name: "CoreDNSLatencyTooHigh"
         labels:
           team: cabbage
           area: platform
         annotations:
-          dashboard: Yu9tkufmk/dns
-          opsrecipe: dns-issue-mitigation
+          dashboard: "Yu9tkufmk/dns"
+          opsrecipe: "dns-issue-mitigation"
         pageAlert:
           disable: false
           labels:
