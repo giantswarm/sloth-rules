@@ -20,7 +20,7 @@ workflows:
               only: /^v.*/
 
       - architect/push-to-app-catalog:
-          name: push-sloth-rules-to-control-plane-catalog-master
+          name: push-sloth-rules-to-control-plane-catalog
           context: "architect"
           executor: app-build-suite
           app_catalog: "control-plane-catalog"
@@ -41,7 +41,7 @@ workflows:
           app_namespace: monitoring
           app_collection_repo: "aws-app-collection"
           requires:
-            - push-sloth-rules-to-control-plane-catalog-master
+            - push-sloth-rules-to-control-plane-catalog
           filters:
             branches:
               ignore: /.*/
@@ -56,7 +56,7 @@ workflows:
           app_namespace: monitoring
           app_collection_repo: "vsphere-app-collection"
           requires:
-            - push-sloth-rules-to-control-plane-catalog-master
+            - push-sloth-rules-to-control-plane-catalog
           filters:
             branches:
               ignore: /.*/
@@ -71,7 +71,7 @@ workflows:
           app_namespace: monitoring
           app_collection_repo: "cloud-director-app-collection"
           requires:
-            - push-sloth-rules-to-control-plane-catalog-master
+            - push-sloth-rules-to-control-plane-catalog
           filters:
             branches:
               ignore: /.*/
@@ -86,7 +86,7 @@ workflows:
           app_namespace: monitoring
           app_collection_repo: "capa-app-collection"
           requires:
-            - push-sloth-rules-to-control-plane-catalog-master
+            - push-sloth-rules-to-control-plane-catalog
           filters:
             branches:
               ignore: /.*/
@@ -101,7 +101,7 @@ workflows:
           app_namespace: monitoring
           app_collection_repo: "capz-app-collection"
           requires:
-            - push-sloth-rules-to-control-plane-catalog-master
+            - push-sloth-rules-to-control-plane-catalog
           filters:
             branches:
               ignore: /.*/

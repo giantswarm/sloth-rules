@@ -10,10 +10,16 @@ spec:
   service: "teleport"
   labels:
     owner: "shield"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "teleport-cache-stale-events-slo"
       objective: 95
-      description: Monitor the rate of stale events in Teleport auth cache
+      description: "Monitor the rate of stale events in Teleport auth cache"
       sli:
         events:
           errorQuery: |-
@@ -21,19 +27,20 @@ spec:
           totalQuery: |-
             {{`sum(rate(teleport_cache_events{cluster_id="teleportprod", cache_component="auth"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: TeleportAuthCacheStaleEventsHigh
+        name: "TeleportAuthCacheStaleEventsHigh"
         labels:
-          team: shield
+          cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
+          silence: "true"
           area: platform
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: shield
         pageAlert:
           disable: false
           labels:
-            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
-            silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: shield
         ticketAlert:
           disable: false
           labels:

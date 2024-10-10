@@ -10,10 +10,16 @@ spec:
   service: "etcd"
   labels:
     owner: "tenet"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "latency"
       objective: 99
-      description: ETCD latency is too high
+      description: "ETCD latency is too high"
       sli:
         events:
           errorQuery: |-
@@ -21,20 +27,21 @@ spec:
           totalQuery: |-
             {{`sum(rate(etcd_request_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: ETCDLatencyTooHigh
+        name: "ETCDLatencyTooHigh"
         labels:
-          team: {{ include "providerTeam" . }}
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: {{ include "providerTeam" . }}
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

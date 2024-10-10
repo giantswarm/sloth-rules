@@ -11,10 +11,16 @@ spec:
   service: "karpenter"
   labels:
     owner: "phoenix"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "uptime"
       objective: 80
-      description: Karpenter SLO
+      description: "Karpenter SLO"
       sli:
         events:
           errorQuery: |-
@@ -22,26 +28,27 @@ spec:
           totalQuery: |-
             {{`sum(avg_over_time(kube_pod_status_ready{namespace="kube-system", pod=~"karpenter.*", pod!~"karpenter-renewer-.*", provider=~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: KarpenterServiceDegraded
+        name: "KarpenterServiceDegraded"
         labels:
-          team: phoenix
+          cancel_if_any_cluster_control_plane_unhealthy: "true"
+          cancel_if_cluster_has_no_workers: "true"
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: phoenix
           topic: kubernetes
         annotations:
-          dashboard: e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter
-          description: {{`Karpenter is experiencing a service degradation in cluster {{$labels.installation}}/{{$labels.cluster_id}}.`}}
+          dashboard: "e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter"
+          description: "{{`Karpenter is experiencing a service degradation in cluster {{$labels.installation}}/{{$labels.cluster_id}}.`}}"
         pageAlert:
           disable: false
           labels:
-            cancel_if_any_cluster_control_plane_unhealthy: "true"
-            cancel_if_cluster_has_no_workers: "true"
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
         ticketAlert:
           disable: false
           labels:

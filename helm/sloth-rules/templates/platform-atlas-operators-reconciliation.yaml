@@ -11,10 +11,16 @@ spec:
   service: "operators"
   labels:
     owner: "atlas"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "reconciliation"
       objective: 95
-      description: Atlas operators are not able to reconcile resources
+      description: "Atlas operators are not able to reconcile resources"
       sli:
         events:
           errorQuery: |-
@@ -22,25 +28,26 @@ spec:
           totalQuery: |-
             {{`sum(rate(controller_runtime_reconcile_total{app=~"logging-operator|object-storage-operator|observability-operator"}[{{.window}}])) by (app, controller, pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region, team)`}}
       alerting:
-        name: AtlasOperatorsReconciliationError
+        name: "AtlasOperatorsReconciliationError"
         labels:
-          team: atlas
+          cancel_if_any_cluster_control_plane_unhealthy: "true"
+          cancel_if_cluster_has_no_workers: "true"
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
           area: platform
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: atlas
           topic: observability
         annotations:
-          dashboard: kube-builder-operators/kube-builder-operators
-          description: {{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}
+          dashboard: "kube-builder-operators/kube-builder-operators"
+          description: "{{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}"
         pageAlert:
           disable: false
           labels:
-            cancel_if_any_cluster_control_plane_unhealthy: "true"
-            cancel_if_cluster_has_no_workers: "true"
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: atlas
         ticketAlert:
           disable: false
           labels:

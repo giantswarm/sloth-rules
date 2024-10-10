@@ -1,2 +1,7 @@
 managementCluster:
-  pipeline: ""
+  customer: "giantswarm"
+  name: "grizzly"
+  pipeline: "stable-testing"
+  provider:
+    kind: "capa"
+    flavor: "capi"

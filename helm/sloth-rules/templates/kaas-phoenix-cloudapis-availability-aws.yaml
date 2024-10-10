@@ -10,10 +10,16 @@ spec:
   service: "cloudapis"
   labels:
     owner: "phoenix"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "availability-aws"
       objective: 99
-      description: AWS APIs requests from core components availability SLO
+      description: "AWS APIs requests from core components availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,20 +27,21 @@ spec:
           totalQuery: |-
             {{`label_replace(sum_over_time(cloudprovider_aws_api_request_duration_seconds_count{job="kube-controller-manager"}[{{.window}}]), "service", "$1", "pod", "(.*)")`}}
       alerting:
-        name: AWSAPIsRequestsAvailability
+        name: "AWSAPIsRequestsAvailability"
         labels:
-          team: phoenix
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: phoenix
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: phoenix
         ticketAlert:
           disable: false
           labels:

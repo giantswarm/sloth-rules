@@ -10,10 +10,16 @@ spec:
   service: "cni"
   labels:
     owner: "cabbage"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "availability"
       objective: 99
-      description: Cilium availability SLO
+      description: "Cilium availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,24 +27,25 @@ spec:
           totalQuery: |-
             {{`sum_over_time(kube_daemonset_status_desired_number_scheduled{namespace="kube-system", daemonset="cilium"}[{{.window}}])`}}
       alerting:
-        name: CiliumAvailability
+        name: "CiliumAvailability"
         labels:
-          team: cabbage
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
+          cancel_if_prometheus_agent_down: "true"
           area: platform
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: cabbage
         annotations:
-          dashboard: vtuWtdumz/cilium-metrics
-          description: {{`At least one cilium-agent down for more than 10 minutes.`}}
-          opsrecipe: cilium-troubleshooting/
+          dashboard: "vtuWtdumz/cilium-metrics"
+          description: "{{`At least one cilium-agent down for more than 10 minutes.`}}"
+          opsrecipe: "cilium-troubleshooting/"
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: cabbage
         ticketAlert:
           disable: false
           labels:

@@ -10,10 +10,16 @@ spec:
   service: "controller-manager"
   labels:
     owner: "tenet"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "availability"
       objective: 99
-      description: Kube-controller-manager internal API availability
+      description: "Kube-controller-manager internal API availability"
       sli:
         events:
           errorQuery: |-
@@ -21,22 +27,23 @@ spec:
           totalQuery: |-
             {{`sum(rate(rest_client_requests_total{job="kube-controller-manager"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, job)`}}
       alerting:
-        name: KubeControllerManagerInternalAPIErrorRateTooHigh
+        name: "KubeControllerManagerInternalAPIErrorRateTooHigh"
         labels:
-          team: {{ include "providerTeam" . }}
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: {{ include "providerTeam" . }}
         annotations:
-          opsrecipe: service-level-burn-rate-too-high/
+          opsrecipe: "service-level-burn-rate-too-high/"
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

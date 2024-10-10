@@ -10,10 +10,16 @@ spec:
   service: "node-exporter"
   labels:
     owner: "tenet"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "availability"
       objective: 90
-      description: Node Exporter availability SLO
+      description: "Node Exporter availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,22 +27,23 @@ spec:
           totalQuery: |-
             {{`sum(count_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: NodeExporterAvailability
+        name: "NodeExporterAvailability"
         labels:
-          team: {{ include "providerTeam" . }}
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: {{ include "providerTeam" . }}
         annotations:
-          opsrecipe: node-exporter-is-down
+          opsrecipe: "node-exporter-is-down"
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

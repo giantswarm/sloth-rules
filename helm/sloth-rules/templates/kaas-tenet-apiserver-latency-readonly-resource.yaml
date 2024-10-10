@@ -10,10 +10,16 @@ spec:
   service: "apiserver"
   labels:
     owner: "tenet"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "latency-readonly-resource"
       objective: 99
-      description: Read-only API calls latency SLO based on https://github.com/kubernetes/community/blob/master/sig-scalability/slos/api_call_latency.md
+      description: "Read-only API calls latency SLO based on https://github.com/kubernetes/community/blob/master/sig-scalability/slos/api_call_latency.md"
       sli:
         events:
           errorQuery: |-
@@ -21,20 +27,21 @@ spec:
           totalQuery: |-
             {{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"GET|LIST", scope="resource"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: ApiServerReadonlyLatencyTooHigh
+        name: "ApiServerReadonlyLatencyTooHigh"
         labels:
-          team: {{ include "providerTeam" . }}
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: {{ include "providerTeam" . }}
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

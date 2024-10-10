@@ -10,10 +10,16 @@ spec:
   service: "kubelet"
   labels:
     owner: "tenet"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "nodepool-availability"
       objective: 99
-      description: Kubelet Nodepool availability SLO
+      description: "Kubelet Nodepool availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,20 +27,21 @@ spec:
           totalQuery: |-
             {{`label_replace(count_over_time(kube_node_labels{nodepool=~".+"}[{{.window}}]), "service", "kubelet nodepool $1", "nodepool", "(.+)")`}}
       alerting:
-        name: KubeletNodepoolAvailability
+        name: "KubeletNodepoolAvailability"
         labels:
-          team: {{ include "providerTeam" . }}
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: {{ include "providerTeam" . }}
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: {{ include "providerTeam" . }}
         ticketAlert:
           disable: false
           labels:

@@ -10,10 +10,16 @@ spec:
   service: "onprem-daemonsets"
   labels:
     owner: "rocket"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "availability"
       objective: 90
-      description: Onprem DaemonSet availability SLO
+      description: "Onprem DaemonSet availability SLO"
       sli:
         events:
           errorQuery: |-
@@ -21,20 +27,21 @@ spec:
           totalQuery: |-
             {{`sum_over_time(kube_daemonset_status_desired_number_scheduled{namespace=~"giantswarm|kube-system", daemonset=~"cert-exporter|kube-proxy|net-exporter|node-exporter", provider!~`}}{{ include "cloud.providers" .}}{{`}[{{.window}}])`}}
       alerting:
-        name: OnpremDaemonSetAvailability
+        name: "OnpremDaemonSetAvailability"
         labels:
-          team: rocket
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: "true"
+          cancel_if_prometheus_agent_down: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: rocket
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: "true"
-            cancel_if_prometheus_agent_down: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: rocket
         ticketAlert:
           disable: false
           labels:

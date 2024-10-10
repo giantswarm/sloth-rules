@@ -10,10 +10,16 @@ spec:
   service: "dns"
   labels:
     owner: "cabbage"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "dns-service-availability"
       objective: 99
-      description: DNS service not available
+      description: "DNS service not available"
       sli:
         events:
           errorQuery: |-
@@ -21,21 +27,22 @@ spec:
           totalQuery: |-
             {{`sum(rate(coredns_dns_responses_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region, app)`}}
       alerting:
-        name: DNSServiceUnavailable
+        name: "DNSServiceUnavailable"
         labels:
-          team: cabbage
+          cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
           area: platform
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: cabbage
         annotations:
-          dashboard: Yu9tkufmk/dns
-          opsrecipe: dns-issue-mitigation
+          dashboard: "Yu9tkufmk/dns"
+          opsrecipe: "dns-issue-mitigation"
         pageAlert:
           disable: false
           labels:
-            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: cabbage
         ticketAlert:
           disable: false
           labels:

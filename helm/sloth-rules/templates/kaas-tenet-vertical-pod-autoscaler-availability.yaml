@@ -10,10 +10,16 @@ spec:
   service: "vertical-pod-autoscaler"
   labels:
     owner: "tenet"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "availability"
       objective: 95
-      description: VPA's component(s) is/are unavailable
+      description: "VPA's component(s) is/are unavailable"
       sli:
         events:
           errorQuery: |-
@@ -21,23 +27,24 @@ spec:
           totalQuery: |-
             {{`sum(label_replace(avg_over_time(kube_pod_container_info{container=~"recommender|admission-controller|updater|vertical-pod-autoscaler-app",cluster_id=~"^.*"}[{{.window}}]), "pod", "$1", "cluster_id", "$2")) by (pod, cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: VPAComponentUnavailable
+        name: "VPAComponentUnavailable"
         labels:
-          team: tenet
+          cancel_if_cluster_status_updating: "true"
+          cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
+          cancel_if_prometheus_agent_down: "true"
+          silence: "true"
           area: kaas
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: tenet
         annotations:
-          opsrecipe: vpa-down/
+          opsrecipe: "vpa-down/"
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_updating: "true"
-            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
-            cancel_if_prometheus_agent_down: "true"
-            silence: "true"
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: tenet
         ticketAlert:
           disable: false
           labels:

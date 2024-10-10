@@ -10,10 +10,16 @@ spec:
   service: "cni"
   labels:
     owner: "cabbage"
+    customer: "{{ .Values.managementCluster.customer }}"
+    installation: "{{ .Values.managementCluster.name }}"
+    pipeline: "{{ .Values.managementCluster.pipeline }}"
+    {{- if .Values.managementCluster.region }}
+    region: "{{ .Values.managementCluster.region }}"
+    {{- end }}
   slos:
     - name: "latency-endpoint"
       objective: 99
-      description: Cilium endpoint regeneration latency
+      description: "Cilium endpoint regeneration latency"
       sli:
         events:
           errorQuery: |-
@@ -21,18 +27,19 @@ spec:
           totalQuery: |-
             {{`sum(rate(cilium_endpoint_regeneration_time_stats_seconds_count{scope="total"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
-        name: CiliumEndpointRegenerationLatencyTooHigh
+        name: "CiliumEndpointRegenerationLatencyTooHigh"
         labels:
-          team: cabbage
+          cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
           area: platform
+          cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
+          team: cabbage
         pageAlert:
           disable: true
           labels:
-            cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
             cancel_if_cluster_status_creating: "true"
             cancel_if_cluster_status_deleting: "true"
             severity: page
-            team: cabbage
         ticketAlert:
           disable: true
           labels:
