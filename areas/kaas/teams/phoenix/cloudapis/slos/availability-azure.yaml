@@ -6,5 +6,5 @@ errorQuery: '{{`label_replace(sum_over_time(cloudprovider_azure_api_request_erro
 totalQuery: '{{`label_replace(sum_over_time(cloudprovider_azure_api_request_duration_seconds_count{job="kube-controller-manager"}[{{.window}}]), "service", "$1", "pod", "(.*)")`}}'
 alertLabels:
   cancel_if_cluster_status_updating: "true"
-  cancel_if_prometheus_agent_down: "true"
+  cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: "true"
