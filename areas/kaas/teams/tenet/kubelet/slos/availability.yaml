@@ -7,5 +7,5 @@ errorQuery: '{{`(sum_over_time(kube_node_status_condition{condition="Ready", sta
 totalQuery: '{{`count_over_time(kube_node_status_condition{condition="Ready", status="true"}[{{.window}}])`}}'
 alertLabels:
   cancel_if_cluster_status_updating: "true"
-  cancel_if_prometheus_agent_down: "true"
+  cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: "true"

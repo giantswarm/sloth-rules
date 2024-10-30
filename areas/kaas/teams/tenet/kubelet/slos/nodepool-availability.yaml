@@ -7,5 +7,5 @@ errorQuery: '{{`label_replace(sum_over_time(kube_node_status_condition{condition
 totalQuery: '{{`label_replace(count_over_time(kube_node_labels{nodepool=~".+"}[{{.window}}]), "service", "kubelet nodepool $1", "nodepool", "(.+)")`}}'
 alertLabels:
   cancel_if_cluster_status_updating: "true"
-  cancel_if_prometheus_agent_down: "true"
+  cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: "true"
