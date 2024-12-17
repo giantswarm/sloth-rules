@@ -5,7 +5,7 @@ type: application
 home: https://github.com/giantswarm/sloth-rules
 icon: https://s.giantswarm.io/app-icons/giantswarm/1/light.svg
 kubeVersion: ">= 1.19.0-0"
-version: 0.37.0
+version: 0.38.0
 annotations:
   application.giantswarm.io/team: atlas
   config.giantswarm.io/version: 1.x.x
