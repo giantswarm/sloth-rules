@@ -19,7 +19,7 @@ spec:
     {{- end }}
   slos:
     - name: "reconciliation"
-      objective: 95
+      objective: 90
       description: "Atlas operators are not able to reconcile resources"
       sli:
         events:
