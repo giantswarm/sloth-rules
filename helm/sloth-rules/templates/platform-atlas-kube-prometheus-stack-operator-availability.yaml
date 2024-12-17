@@ -18,7 +18,7 @@ spec:
     {{- end }}
   slos:
     - name: "operator-availability"
-      objective: 95
+      objective: 90
       description: "kube-prometheus-stack prometheus-operator is unavailable"
       sli:
         events:

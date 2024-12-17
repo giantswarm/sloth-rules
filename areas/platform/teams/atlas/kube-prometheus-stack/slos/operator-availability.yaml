@@ -1,7 +1,7 @@
 ---
 description: "kube-prometheus-stack prometheus-operator is unavailable"
 alertName: "KubePrometheusStackPrometheusOperatorUnavailable"
-objective: 95
+objective: 90
 topic: observability
 alertLabels:
   cancel_if_any_cluster_control_plane_unhealthy: "true"
