@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Lower `AtlasOperatorsReconciliationError` alert goal from 90 to 85.
+
 ## [0.39.0] - 2025-01-13
 
 ### Changed
