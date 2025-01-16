@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Update bucket for `LocalDNSCacheLatencyTooHigh` to match CoreDNS latency.
+
 ## [0.39.0] - 2025-01-13
 
 ### Changed
