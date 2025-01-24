@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Opsrecipe for Storage Operations SLO
+
+### Removed
+
+- Drop Kubelet Runtime Operations due to unclear action steps and overlapping alerts.
+
 ## [0.41.0] - 2025-01-16
 
 ### Changed
