@@ -12,7 +12,6 @@ Kubelet is the primary "node agent" that runs on each node.
 |---------|:---|---:|
 | Availability | The percentage of available kubelet in the cluster. | 99% success  |
 | Node Pool Availability | The percentage of available kubelet in a node pool. | 99% success  |
-| Runtime Operations        | The percentage of successful runtime operations by operation type, measured from the Kubelet. | 99% success  |
 | PLEG Duration        | The proportion of sufficiently fast PLEG relist calls, as measured from Kubelet. | 99% success  |
 | Storage Operations        | The percentage of successful storage operations per volume plugin, measured from Kubelet.<br>The status "fail-unknown" is considered as an error. | 99% success  |
 
