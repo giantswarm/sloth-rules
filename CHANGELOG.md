@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update and addes missing recipes for tenet SLO's.
+
 ## [0.42.0] - 2025-01-28
 
 ### Added
