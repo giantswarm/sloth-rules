@@ -8,3 +8,5 @@ totalQuery: '{{`sum(rate(grpc_client_handled_total{job="apiserver",grpc_service=
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+annotations:
+  opsrecipe: service-level-burn-rate-too-high/

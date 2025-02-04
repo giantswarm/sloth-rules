@@ -8,3 +8,5 @@ totalQuery: '{{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"POST|P
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+annotations:
+  opsrecipe: latency-too-high/
