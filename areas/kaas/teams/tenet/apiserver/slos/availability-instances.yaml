@@ -1,7 +1,7 @@
 ---
 description: "API server instance status SLO"
 alertName: "ApiServerInstanceUnavailable"
-objective: 99 # We want to maintain 95% availability, allowing for 1 out of 3 control planes to go down for brief periods without triggering an alert.
+objective: 95 # We want to maintain 95% availability, allowing for 1 out of 3 control planes to go down for brief periods without triggering an alert.
 sharedAccrossProviders: true
 # Error Query: We calculate downtime (1 - avg uptime) over a certain time window and consider the control plane unhealthy if it's down more than 33% of the time.
 # The sum is used to count how many control planes exceed this threshold of downtime.

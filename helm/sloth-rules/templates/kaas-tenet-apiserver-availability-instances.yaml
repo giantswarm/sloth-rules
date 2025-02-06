@@ -18,7 +18,7 @@ spec:
     {{- end }}
   slos:
     - name: "availability-instances"
-      objective: 99
+      objective: 95
       description: "API server instance status SLO"
       sli:
         events:
