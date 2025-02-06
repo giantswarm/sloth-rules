@@ -19,7 +19,7 @@ spec:
   slos:
     - name: "availability-instances"
       objective: 99
-      description: "<no value>"
+      description: "API server instance status SLO"
       sli:
         events:
           errorQuery: |-

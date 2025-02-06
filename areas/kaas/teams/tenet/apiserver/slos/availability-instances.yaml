@@ -1,4 +1,5 @@
 ---
+description: "API server instance status SLO"
 alertName: "ApiServerInstanceUnavailable"
 objective: 99 # We want to maintain 95% availability, allowing for 1 out of 3 control planes to go down for brief periods without triggering an alert.
 sharedAccrossProviders: true
