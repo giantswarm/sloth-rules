@@ -3,8 +3,39 @@ description: "ETCD availability error rate is too high"
 alertName: "ETCDAvailabilityErrorRateTooHigh"
 objective: 99
 sharedAccrossProviders: true
-errorQuery: '{{`sum(rate(grpc_client_handled_total{job="apiserver",grpc_service=~"etcd.*",grpc_code!="OK"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
-totalQuery: '{{`sum(rate(grpc_client_handled_total{job="apiserver",grpc_service=~"etcd.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
+# Error Query: Tracks non-OK gRPC responses while filtering out transient, retryable errors (e.g., UNAVAILABLE).
+# Uses burn rate logic to detect if the error budget is consumed too quickly over short and long windows.
+errorQuery: |
+  '{{`
+    (
+      sum(rate(grpc_client_handled_total{
+        job="apiserver",
+        grpc_service=~"etcd.*",
+        grpc_code!~"OK|UNAVAILABLE"  # Exclude retryable transient errors
+      }[{{.window}}]))
+      by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+    )
+    / 
+    (
+      sum(rate(grpc_client_handled_total{
+        job="apiserver",
+        grpc_service=~"etcd.*"
+      }[{{.window}}]))
+      by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+    ) 
+    > 0.01  # Triggers if error rate exceeds 1% (aligned with 99% SLO)
+  `}}'
+
+# Total Query: Measures the total number of gRPC requests to ETCD for normalization.
+totalQuery: |
+  '{{`
+    sum(rate(grpc_client_handled_total{
+      job="apiserver",
+      grpc_service=~"etcd.*"
+    }[{{.window}}]))
+    by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+  `}}'
+
 alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

@@ -23,9 +23,35 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum(rate(grpc_client_handled_total{job="apiserver",grpc_service=~"etcd.*",grpc_code!="OK"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            '{{`
+  (
+    sum(rate(grpc_client_handled_total{
+      job="apiserver",
+      grpc_service=~"etcd.*",
+      grpc_code!~"OK|UNAVAILABLE"  # Exclude retryable transient errors
+    }[{{.window}}]))
+    by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+  )
+  / 
+  (
+    sum(rate(grpc_client_handled_total{
+      job="apiserver",
+      grpc_service=~"etcd.*"
+    }[{{.window}}]))
+    by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+  ) 
+  > 0.01  # Triggers if error rate exceeds 1% (aligned with 99% SLO)
+`}}'
+
           totalQuery: |-
-            {{`sum(rate(grpc_client_handled_total{job="apiserver",grpc_service=~"etcd.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
+            '{{`
+  sum(rate(grpc_client_handled_total{
+    job="apiserver",
+    grpc_service=~"etcd.*"
+  }[{{.window}}]))
+  by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)
+`}}'
+
       alerting:
         name: "ETCDAvailabilityErrorRateTooHigh"
         labels:
