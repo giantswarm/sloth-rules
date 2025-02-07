@@ -3,10 +3,12 @@ description: "API availability SLO"
 alertName: "ApiServerAvailabilityErrorRateTooHigh"
 objective: 99
 sharedAccrossProviders: true
-# count the errors in the last period, or consider 100% error rate if the apiserver is down.
-errorQuery: '{{`(sum(rate(apiserver_request_total{code=~"(5..|429)"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0))`}}'
-# on the totalQuery we are clamping to 1 - 0.01 to avoid dividing by zero (well, 0/0) in case of single-master clusters.
-totalQuery: '{{`(sum(rate(apiserver_request_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0.01))`}}'
+# Counts 5xx and 429 errors as failures. 
+# If the API server is completely down (up = 0), we consider it a 100% error rate.
+errorQuery: '{{`sum(rate(apiserver_request_total{code=~"(5..|429)"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) or clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
+# Counts all API server requests as the baseline. 
+# Uses clamp_min to prevent divide-by-zero, especially for single-master clusters.
+totalQuery: '{{`sum(rate(apiserver_request_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) or clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0.01)`}}'
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_monitoring_agent_down: "true"
