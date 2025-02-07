@@ -18,14 +18,14 @@ spec:
     {{- end }}
   slos:
     - name: "availability-instances"
-      objective: 99
+      objective: 95
       description: "API server instance status SLO"
       sli:
         events:
           errorQuery: |-
-            {{`count_over_time(up{job="apiserver"}[{{.window}}])-(sum_over_time(up{job="apiserver"}[{{.window}}]))`}}
+            {{`sum((1 - avg_over_time(up{job="apiserver"}[{{.window}}])) > 0.33)`}}
           totalQuery: |-
-            {{`count_over_time(up{job="apiserver"}[{{.window}}])`}}
+            {{`count(avg_over_time(up{job="apiserver"}[{{.window}}]))`}}
       alerting:
         name: "ApiServerInstanceUnavailable"
         labels:

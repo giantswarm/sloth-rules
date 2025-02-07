@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update and addes missing recipes for tenet SLO's.
+- Improve ETCD availability alert with burn rate logic and smarter error filtering.
+- Tweak `ApiServerInstanceUnavailable` alert paging not too much.
+- Update and adds missing recipes for tenet SLO's.
 
 ## [0.42.0] - 2025-01-28
 
