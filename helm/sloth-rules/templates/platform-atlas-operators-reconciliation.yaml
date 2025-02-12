@@ -40,7 +40,7 @@ spec:
           team: atlas
           topic: observability
         annotations:
-          dashboard: "kube-builder-operators/kube-builder-operators"
+          dashboard: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"kube-builder-operators/kube-builder-operators?orgId=2"{{ else }}{{ "kube-builder-operators/kube-builder-operators?orgId=2" | trimSuffix "?orgId=1" | trimSuffix "?orgId=2" | quote }}{{end}}
           description: "{{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}"
         pageAlert:
           disable: false

@@ -49,7 +49,11 @@ spec:
         {{- with .annotations }}
         annotations:
           {{- range $key, $value := . }}
+          {{- if eq $key "dashboard" }}
+          {{ $key }}: {{ printf "{{ if eq .Values.managementCluster.provider.flavor \"capi\" }}\"%s\"{{ else }}{{ \"%s\" | trimSuffix \"?orgId=1\" | trimSuffix \"?orgId=2\" | quote }}{{end}}" $value $value }}
+          {{- else }}
           {{ $key }}: "{{ $value }}"
+          {{- end }}
           {{- end }}
         {{- end }}
         pageAlert:

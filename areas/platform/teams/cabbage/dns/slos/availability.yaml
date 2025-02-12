@@ -6,6 +6,6 @@ errorQuery: '{{`avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}]
 totalQuery: '{{`avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
   opsrecipe: dns-issue-mitigation
-  dashboard: Yu9tkufmk/dns
+  dashboard: Yu9tkufmk/dns?orgId=1
 alertLabels:
   cancel_if_outside_working_hours: "true"
