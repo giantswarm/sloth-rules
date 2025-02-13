@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improve ETCD availability alert with burn rate logic and smarter error filtering.
 - Tweak `ApiServerInstanceUnavailable` alert paging not too much.
 - Update and adds missing recipes for tenet SLO's.
+- Add the necessary orgIds to public and private dashboards (https://github.com/giantswarm/roadmap/issues/3826)
 
 ## [0.42.0] - 2025-01-28
 

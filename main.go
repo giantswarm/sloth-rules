@@ -12,6 +12,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/Masterminds/sprig/v3"
 	"gopkg.in/yaml.v3"
 )
 
@@ -21,7 +22,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	tmpl, err := template.New("prometheusservicelevel.sloth.slok.dev.yaml").ParseFiles(path.Join(currentDirectory, "templates", "prometheusservicelevel.sloth.slok.dev.yaml"))
+	tmpl, err := template.New("prometheusservicelevel.sloth.slok.dev.yaml").
+		Funcs(sprig.FuncMap()).
+		ParseFiles(path.Join(currentDirectory, "templates", "prometheusservicelevel.sloth.slok.dev.yaml"))
 	if err != nil {
 		log.Fatal(err)
 	}
