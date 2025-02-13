@@ -35,7 +35,7 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: cabbage
         annotations:
-          dashboard: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"Yu9tkufmk/dns?orgId=1"{{ else }}{{ "Yu9tkufmk/dns?orgId=1" | trimSuffix "?orgId=1" | trimSuffix "?orgId=2" | quote }}{{end}}
+          dashboard: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"Yu9tkufmk/dns?orgId=1"{{ else }}"Yu9tkufmk/dns"{{end}}
           opsrecipe: "dns-issue-mitigation"
         pageAlert:
           disable: false
