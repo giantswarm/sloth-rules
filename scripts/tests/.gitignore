@@ -4,4 +4,4 @@
 !.gitignore
 !install-tools.sh
 !template-chart.sh
-!check-opsrecipes.sh
+!check-runbooks.sh

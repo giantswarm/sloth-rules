@@ -40,7 +40,7 @@ spec:
           team: atlas
           topic: observability
         annotations:
-          dashboard: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"kube-builder-operators/kube-builder-operators?orgId=2"{{ else }}"kube-builder-operators/kube-builder-operators"{{end}}
+          dashboardUid: "kube-builder-operators/kube-builder-operators?orgId=2"
           description: "{{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}"
         pageAlert:
           disable: false

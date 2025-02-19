@@ -6,7 +6,7 @@ sharedAccrossProviders: true
 errorQuery: '{{`sum(count_over_time(up{job="node-exporter"}[{{.window}}]) - sum_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 totalQuery: '{{`sum(count_over_time(up{job="node-exporter"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
-  opsrecipe: node-exporter-is-down
+  runbook_url: node-exporter-is-down
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_monitoring_agent_down: "true"

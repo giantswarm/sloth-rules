@@ -36,7 +36,7 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: {{ include "providerTeam" . }}
         annotations:
-          opsrecipe: "service-level-burn-rate-too-high/"
+          runbook_url: "service-level-burn-rate-too-high/"
         pageAlert:
           disable: false
           labels:

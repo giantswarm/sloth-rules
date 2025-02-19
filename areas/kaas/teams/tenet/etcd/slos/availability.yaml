@@ -13,4 +13,4 @@ alertLabels:
   silence: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
 annotations:
-  opsrecipe: service-level-burn-rate-too-high/
+  runbook_url: service-level-burn-rate-too-high/

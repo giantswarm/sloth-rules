@@ -12,5 +12,5 @@ alertLabels:
   cancel_if_cluster_has_no_workers: "true"
   cancel_if_outside_working_hours: "true"
 annotations:
-  dashboard: kube-builder-operators/kube-builder-operators?orgId=2
+  dashboardUid: kube-builder-operators/kube-builder-operators?orgId=2
   description: '{{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}'

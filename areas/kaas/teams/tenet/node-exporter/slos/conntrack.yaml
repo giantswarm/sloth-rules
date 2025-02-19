@@ -6,7 +6,7 @@ sharedAccrossProviders: true
 errorQuery: '{{`sum(count_over_time((node_nf_conntrack_entries / node_nf_conntrack_entries_limit >= 0.7)[{{.window}}:{{.window}}]))`}}'
 totalQuery: '{{`sum(count_over_time((node_nf_conntrack_entries)[{{.window}}:{{.window}}]))`}}'
 annotations:
-  opsrecipe: node-conntrack-limits/
+  runbook_url: node-conntrack-limits/
 alertLabels:
   cancel_if_cluster_status_updating: "true"
   cancel_if_monitoring_agent_down: "true"

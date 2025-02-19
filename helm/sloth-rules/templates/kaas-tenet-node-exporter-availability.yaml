@@ -37,7 +37,7 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: {{ include "providerTeam" . }}
         annotations:
-          opsrecipe: "node-exporter-is-down"
+          runbook_url: "node-exporter-is-down"
         pageAlert:
           disable: false
           labels:

@@ -37,9 +37,9 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: cabbage
         annotations:
-          dashboard: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"vtuWtdumz/cilium-metrics?orgId=1"{{ else }}"vtuWtdumz/cilium-metrics"{{end}}
+          dashboardUid: "vtuWtdumz/cilium-metrics?orgId=1"
           description: "{{`At least one cilium-agent down for more than 10 minutes.`}}"
-          opsrecipe: "cilium-troubleshooting/"
+          runbook_url: "cilium-troubleshooting/"
         pageAlert:
           disable: false
           labels:
