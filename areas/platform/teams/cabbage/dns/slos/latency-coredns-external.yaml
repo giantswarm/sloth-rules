@@ -5,8 +5,8 @@ objective: 99
 errorQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="1.024", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 totalQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone="."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
-  opsrecipe: dns-issue-mitigation
-  dashboard: Yu9tkufmk/dns?orgId=1
+  runbook_url: dns-issue-mitigation
+  dashboardUid: Yu9tkufmk/dns?orgId=1
 alertLabels:
   cancel_if_outside_working_hours: "true"
 pageAlert:

@@ -35,8 +35,8 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: cabbage
         annotations:
-          dashboard: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"Yu9tkufmk/dns?orgId=1"{{ else }}"Yu9tkufmk/dns"{{end}}
-          opsrecipe: "dns-issue-mitigation"
+          dashboardUid: "Yu9tkufmk/dns?orgId=1"
+          runbook_url: "dns-issue-mitigation"
         pageAlert:
           disable: true
           labels:

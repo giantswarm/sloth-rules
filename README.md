@@ -22,7 +22,7 @@ totalQuery: rate(vector(0)[{{.window}}]) by (cluster_id) # query that returns th
 alertLabels:
   cancel_if_wathever: "true"
 annotations:
-  opsrecipe: whatever/
+  runbook_url: whatever/
 # To deploy and run the rules only on some specific clusters (can also be set to workload_cluster)
 cluster_type: management_cluster
 ```
@@ -31,7 +31,7 @@ cluster_type: management_cluster
 
 Finally run `make generate` to generate your SLO CRs. Output will be in the `output` directory.
 
-### Limtiations
+### Limitations
 
 - Labels cannot be changed currently, as this will heavily disrupt all SLO rules evaluation (see https://github.com/giantswarm/roadmap/issues/2579).
   You should rename the alert when you need to change labels for one.
@@ -43,7 +43,7 @@ Finally run `make generate` to generate your SLO CRs. Output will be in the `out
 - The resulting prometheusRules generated from your SLO will use the following query : `errorQuery/totalQuery` so keep in mind that **the result of your errorQuery divided by your totalQuery must be a decimal value comprised between 0 and 1**.
 - Both `errorQuery` and `totalQuery` must use the `[{{.window}}]` interval. This means that if you need your `totalQuery` to return a static value (e.g 1), you will have to create a query based on a metric returning a static value.
 Instead of having `vector(1)` you can for example use `sum(rate(kube_pod_container_info{container=~"whatever"}[{{.window}}]))`
-- You can and should **add an opsrecipe annotation** to your SLO.
+- You can and should **add an runbook annotation** to your SLO.
 - Always test your SLO on a testing installation before creating a new repo release to make sure it pages right when the conditions are met.
 - You can create a SLO withouth alerts by setting `pageAlert.disable` and/or `ticketAlert.disable` as `true`. By default, both alerts are created.
 

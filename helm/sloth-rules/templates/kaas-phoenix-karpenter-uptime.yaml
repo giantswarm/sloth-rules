@@ -41,7 +41,7 @@ spec:
           team: phoenix
           topic: kubernetes
         annotations:
-          dashboard: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter?orgId=1"{{ else }}"e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter"{{end}}
+          dashboardUid: "e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter?orgId=1"
           description: "{{`Karpenter is experiencing a service degradation in cluster {{$labels.installation}}/{{$labels.cluster_id}}.`}}"
         pageAlert:
           disable: false

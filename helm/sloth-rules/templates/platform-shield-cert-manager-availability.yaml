@@ -40,7 +40,7 @@ spec:
           topic: security
         annotations:
           description: "{{`cert-manager deployment {{$labels.deployment}} in namespace {{ $labels.namespace }} is unavailable.`}}"
-          opsrecipe: "cert-manager-down/"
+          runbook_url: "cert-manager-down/"
         pageAlert:
           disable: false
           labels:
