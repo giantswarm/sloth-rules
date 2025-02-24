@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix missing labels on the apiserver availability slo.
+
 ## [0.44.0] - 2025-02-20
 
 ### Changed
