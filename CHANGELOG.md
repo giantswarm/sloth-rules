@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.44.1] - 2025-02-24
+
 ### Fixed
 
 - Fix missing labels on the apiserver availability slo.
@@ -599,7 +601,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.44.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.44.1...HEAD
+[0.44.1]: https://github.com/giantswarm/sloth-rules/compare/v0.44.0...v0.44.1
 [0.44.0]: https://github.com/giantswarm/sloth-rules/compare/v0.43.0...v0.44.0
 [0.43.0]: https://github.com/giantswarm/sloth-rules/compare/v0.42.0...v0.43.0
 [0.42.0]: https://github.com/giantswarm/sloth-rules/compare/v0.41.0...v0.42.0
