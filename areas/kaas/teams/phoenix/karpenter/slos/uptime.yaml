@@ -7,7 +7,8 @@ alertLabels:
   cancel_if_monitoring_agent_down: "true"
 alertName: "KarpenterServiceDegraded"
 annotations:
-  dashboardUid: e8ea41bb-55a8-48c5-a070-262551ad3722/karpenter?orgId=1
+  __dashboardUid__: e8ea41bb-55a8-48c5-a070-262551ad3722
+  dashboardQueryParams: orgId=1
   description: '{{`Karpenter is experiencing a service degradation in cluster {{$labels.installation}}/{{$labels.cluster_id}}.`}}'
 cluster_type: workload_cluster
 description: "Karpenter SLO"

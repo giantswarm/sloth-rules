@@ -37,7 +37,7 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: {{ include "providerTeam" . }}
         annotations:
-          runbook_url: "storage-operations-error-rate-too-high"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/storage-operations-error-rate-too-high"
         pageAlert:
           disable: false
           labels:

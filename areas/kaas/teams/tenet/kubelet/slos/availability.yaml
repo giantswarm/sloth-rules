@@ -10,5 +10,5 @@ alertLabels:
   cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: "true"
 annotations:
-  runbook_url: service-level-burn-rate-too-high/
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/service-level-burn-rate-too-high/
   description: '{{`kubelet on node {{$labels.node}} is unavailable in cluster {{$labels.installation}}/{{$labels.cluster_id}}.`}}'

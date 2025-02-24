@@ -5,7 +5,8 @@ objective: 99
 errorQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="k8s-dns-node-cache",le="0.032", zone=~".+local."}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 totalQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="k8s-dns-node-cache", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
-  runbook_url: dns-issue-mitigation
-  dashboardUid: Yu9tkufmk/dns?orgId=1
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/dns-issue-mitigation
+  __dashboardUid__: Yu9tkufmk
+  dashboardQueryParams: orgId=1
 alertLabels:
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'

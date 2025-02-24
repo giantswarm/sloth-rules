@@ -37,7 +37,7 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: cabbage
         annotations:
-          runbook_url: "managed-app-nginx-ic/"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/managed-app-nginx-ic/"
         pageAlert:
           disable: false
           labels:

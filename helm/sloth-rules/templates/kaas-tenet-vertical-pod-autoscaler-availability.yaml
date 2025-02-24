@@ -38,7 +38,7 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: tenet
         annotations:
-          runbook_url: "vpa-down/"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/vpa-down/"
         pageAlert:
           disable: false
           labels:

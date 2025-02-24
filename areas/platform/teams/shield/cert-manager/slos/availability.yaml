@@ -9,7 +9,7 @@ alertLabels:
   cancel_if_cluster_has_no_workers: "true"
   cancel_if_outside_working_hours: "true"
 annotations:
-  runbook_url: cert-manager-down/
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/cert-manager-down/
   description: '{{`cert-manager deployment {{$labels.deployment}} in namespace {{ $labels.namespace }} is unavailable.`}}'
 # number of desired cert-manager pods that are down (kube_deployment_status_replicas_unavailable > 0)
 errorQuery:  '{{`sum_over_time(kube_deployment_status_replicas_unavailable{namespace="kube-system", deployment=~"cert-manager.*"}[{{.window}}])`}}'

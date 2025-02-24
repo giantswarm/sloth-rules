@@ -7,8 +7,9 @@ errorQuery: '{{`((last_over_time(kube_daemonset_status_number_unavailable{namesp
 # total number of desired daemonsets pods
 totalQuery: '{{`sum_over_time(kube_daemonset_status_desired_number_scheduled{namespace="kube-system", daemonset="cilium"}[{{.window}}])`}}'
 annotations:
-  runbook_url: cilium-troubleshooting/
-  dashboardUid: vtuWtdumz/cilium-metrics?orgId=1
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/cilium-troubleshooting/
+  __dashboardUid__: vtuWtdumz
+  dashboardQueryParams: orgId=1
   description: '{{`At least one cilium-agent down for more than 10 minutes.`}}'
 alertLabels:
   cancel_if_cluster_status_updating: "true"
