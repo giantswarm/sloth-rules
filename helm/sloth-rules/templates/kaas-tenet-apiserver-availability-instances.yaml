@@ -23,7 +23,7 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum((1 - avg_over_time(up{job="apiserver"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) > 0.33)`}}
+            {{`sum((1 - avg_over_time(up{job="apiserver"}[{{.window}}])) > 0.33) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) `}}
           totalQuery: |-
             {{`count(avg_over_time(up{job="apiserver"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
