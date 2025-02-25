@@ -9,4 +9,4 @@ alertLabels:
   cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
 annotations:
-  runbook_url: managed-app-nginx-ic/
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/managed-app-nginx-ic/

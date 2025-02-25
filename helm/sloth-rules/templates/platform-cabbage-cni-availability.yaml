@@ -37,9 +37,10 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: cabbage
         annotations:
-          dashboardUid: "vtuWtdumz/cilium-metrics?orgId=1"
+          __dashboardUid__: "vtuWtdumz"
+          dashboardQueryParams: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"orgId=1"{{ else }}""{{end}}
           description: "{{`At least one cilium-agent down for more than 10 minutes.`}}"
-          runbook_url: "cilium-troubleshooting/"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/cilium-troubleshooting/"
         pageAlert:
           disable: false
           labels:

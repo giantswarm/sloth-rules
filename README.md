@@ -22,7 +22,7 @@ totalQuery: rate(vector(0)[{{.window}}]) by (cluster_id) # query that returns th
 alertLabels:
   cancel_if_wathever: "true"
 annotations:
-  runbook_url: whatever/
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/whatever/
 # To deploy and run the rules only on some specific clusters (can also be set to workload_cluster)
 cluster_type: management_cluster
 ```

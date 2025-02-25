@@ -40,7 +40,7 @@ spec:
           topic: observability
         annotations:
           description: "{{`kube-prometheus-stack prometheus-operator {{$labels.pod}} in namespace {{ $labels.namespace }} is unavailable.`}}"
-          runbook_url: "prometheus-operator"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/prometheus-operator"
         pageAlert:
           disable: false
           labels:

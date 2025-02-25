@@ -38,7 +38,7 @@ spec:
           team: {{ include "providerTeam" . }}
         annotations:
           description: "{{`kubelet on node {{$labels.node}} is unavailable in cluster {{$labels.installation}}/{{$labels.cluster_id}}.`}}"
-          runbook_url: "service-level-burn-rate-too-high/"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/service-level-burn-rate-too-high/"
         pageAlert:
           disable: false
           labels:

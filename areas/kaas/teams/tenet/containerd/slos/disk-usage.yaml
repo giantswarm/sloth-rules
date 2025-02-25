@@ -10,7 +10,7 @@ sharedAccrossProviders: true
 errorQuery: '{{`clamp_min((sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])/10 - sum_over_time(node_filesystem_free_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])),0)`}}'
 totalQuery: '{{`sum_over_time(node_filesystem_size_bytes{mountpoint=~"(/rootfs)?/var/lib/containerd"}[{{.window}}])/10`}}'
 annotations:
-  runbook_url: low-disk-space/#containerd-volume
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/low-disk-space/#containerd-volume
 alertLabels:
   silence: "true"
   cancel_if_cluster_status_updating: "true"

@@ -38,7 +38,7 @@ spec:
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
           team: {{ include "providerTeam" . }}
         annotations:
-          runbook_url: "latency-too-high/"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/latency-too-high/"
         pageAlert:
           disable: false
           labels:

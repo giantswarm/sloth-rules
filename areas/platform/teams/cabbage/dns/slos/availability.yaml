@@ -5,7 +5,8 @@ objective: 99
 errorQuery: '{{`avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - avg(sum_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 totalQuery: '{{`avg(count_over_time(probe_success{target=~"dns-.*"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
-  runbook_url: dns-issue-mitigation
-  dashboardUid: Yu9tkufmk/dns?orgId=1
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/dns-issue-mitigation
+  __dashboardUid__: Yu9tkufmk
+  dashboardQueryParams: orgId=1
 alertLabels:
   cancel_if_outside_working_hours: "true"

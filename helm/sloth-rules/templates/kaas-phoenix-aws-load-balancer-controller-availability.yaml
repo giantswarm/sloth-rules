@@ -38,7 +38,7 @@ spec:
           team: phoenix
         annotations:
           description: "{{`aws-load-balancer-controller deployment {{$labels.deployment}} in namespace {{ $labels.namespace }} is unavailable.`}}"
-          runbook_url: "service-level-burn-rate-too-high/"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/service-level-burn-rate-too-high/"
         pageAlert:
           disable: false
           labels:
