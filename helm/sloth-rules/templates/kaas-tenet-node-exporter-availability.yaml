@@ -6,6 +6,7 @@ metadata:
   namespace: monitoring
   labels:
     application.giantswarm.io/team: tenet
+    observability.giantswarm.io/tenant: giantswarm
 spec:
   service: "node-exporter"
   labels:

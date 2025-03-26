@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+###
+
+- Label all our alerts with the giantswarm tenant towards https://github.com/giantswarm/roadmap/issues/3949
+
 ## [0.45.0] - 2025-02-25
 
 ## [0.44.1] - 2025-02-24
