@@ -9,6 +9,7 @@ metadata:
     {{- if .cluster_type }}
     cluster_type: {{ .cluster_type }}
     {{- end }}
+    observability.giantswarm.io/tenant: giantswarm
 spec:
   service: "{{ .service }}"
   labels:
