@@ -24,9 +24,9 @@ spec:
       sli:
         events:
           errorQuery: |-
-            {{`sum(count_over_time((node_nf_conntrack_entries / node_nf_conntrack_entries_limit >= 0.7)[{{.window}}:{{.window}}]))`}}
+            {{`sum(count_over_time((node_nf_conntrack_entries / node_nf_conntrack_entries_limit >= 0.7)[{{.window}}:{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
           totalQuery: |-
-            {{`sum(count_over_time((node_nf_conntrack_entries)[{{.window}}:{{.window}}]))`}}
+            {{`sum(count_over_time((node_nf_conntrack_entries)[{{.window}}:{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}
       alerting:
         name: "NodeConnTrackAlmostExhausted"
         labels:
