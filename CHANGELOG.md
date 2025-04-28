@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix missing aggregations to the nodeexporter conntrack slo.
+
 ## [0.46.0] - 2025-03-31
 
-###
+### Changed
 
 - Label all our alerts with the giantswarm tenant towards https://github.com/giantswarm/roadmap/issues/3949
 
