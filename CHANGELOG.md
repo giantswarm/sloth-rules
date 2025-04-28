@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.46.1] - 2025-04-28
+
 ### Fixed
 
 - Fix missing aggregations to the nodeexporter conntrack slo.
@@ -613,7 +615,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.46.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.46.1...HEAD
+[0.46.1]: https://github.com/giantswarm/sloth-rules/compare/v0.46.0...v0.46.1
 [0.46.0]: https://github.com/giantswarm/sloth-rules/compare/v0.45.0...v0.46.0
 [0.45.0]: https://github.com/giantswarm/sloth-rules/compare/v0.44.1...v0.45.0
 [0.44.1]: https://github.com/giantswarm/sloth-rules/compare/v0.44.0...v0.44.1
