@@ -6,7 +6,6 @@ sharedAccrossProviders: true
 errorQuery: '{{`clamp_min(sum(rate(kubelet_pleg_relist_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(kubelet_pleg_relist_interval_seconds_bucket{le="2.5"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0)`}}'
 totalQuery: '{{`sum(rate(kubelet_pleg_relist_duration_seconds_count[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
-  cancel_if_cluster_status_updating: "true"
   cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: "true"
 annotations:

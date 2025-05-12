@@ -3,7 +3,6 @@ description: "aws-load-balancer-controller deployment is unavailable"
 alertName: "AWSLoadBalancerControllerUnavailable"
 objective: 95
 alertLabels:
-  cancel_if_cluster_status_updating: "true"
   cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: "true"
 annotations:

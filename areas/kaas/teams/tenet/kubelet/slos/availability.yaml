@@ -6,7 +6,6 @@ sharedAccrossProviders: true
 errorQuery: '{{`(sum_over_time(kube_node_status_condition{condition="Ready", status!="true"}[{{.window}}]) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) kube_node_spec_unschedulable == 0) and on (cluster_id, cluster_type, customer, installation, pipeline, provider, region, node) time() - kube_node_created > 10 * 60`}}'
 totalQuery: '{{`count_over_time(kube_node_status_condition{condition="Ready", status="true"}[{{.window}}])`}}'
 alertLabels:
-  cancel_if_cluster_status_updating: "true"
   cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: "true"
 annotations:

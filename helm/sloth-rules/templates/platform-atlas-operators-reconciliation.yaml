@@ -33,7 +33,6 @@ spec:
         labels:
           cancel_if_any_cluster_control_plane_unhealthy: "true"
           cancel_if_cluster_has_no_workers: "true"
-          cancel_if_cluster_status_updating: "true"
           cancel_if_outside_working_hours: "true"
           area: platform
           cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
@@ -42,13 +41,11 @@ spec:
           topic: observability
         annotations:
           __dashboardUid__: "kube-builder-operators"
-          dashboardQueryParams: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"orgId=2"{{ else }}""{{end}}
+          dashboardQueryParams: "orgId=2"
           description: "{{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}"
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_creating: "true"
-            cancel_if_cluster_status_deleting: "true"
             severity: page
         ticketAlert:
           disable: false

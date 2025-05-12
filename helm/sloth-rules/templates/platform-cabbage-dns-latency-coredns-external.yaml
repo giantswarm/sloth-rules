@@ -37,13 +37,11 @@ spec:
           team: cabbage
         annotations:
           __dashboardUid__: "Yu9tkufmk"
-          dashboardQueryParams: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"orgId=1"{{ else }}""{{end}}
+          dashboardQueryParams: "orgId=1"
           runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/dns-issue-mitigation"
         pageAlert:
           disable: true
           labels:
-            cancel_if_cluster_status_creating: "true"
-            cancel_if_cluster_status_deleting: "true"
             severity: page
         ticketAlert:
           disable: false

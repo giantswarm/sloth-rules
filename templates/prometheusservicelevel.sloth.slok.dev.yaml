@@ -50,18 +50,12 @@ spec:
         {{- with .annotations }}
         annotations:
           {{- range $key, $value := . }}
-          {{- if eq $key "dashboardQueryParams" }}
-          {{ $key }}: {{ printf "{{ if eq .Values.managementCluster.provider.flavor \"capi\" }}\"%s\"{{ else }}\"%s\"{{end}}" $value ($value | trimPrefix "orgId=1" | trimPrefix "orgId=2") }}
-          {{- else }}
           {{ $key }}: "{{ $value }}"
-          {{- end }}
           {{- end }}
         {{- end }}
         pageAlert:
           disable: {{ or .pageAlert.disable "false" }}
           labels:
-            cancel_if_cluster_status_creating: "true"
-            cancel_if_cluster_status_deleting: "true"
             severity: page
         ticketAlert:
           disable: {{ or .ticketAlert.disable "false" }}

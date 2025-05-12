@@ -30,7 +30,6 @@ spec:
       alerting:
         name: "CiliumAvailability"
         labels:
-          cancel_if_cluster_status_updating: "true"
           cancel_if_monitoring_agent_down: "true"
           cancel_if_outside_working_hours: "true"
           area: platform
@@ -39,14 +38,12 @@ spec:
           team: cabbage
         annotations:
           __dashboardUid__: "vtuWtdumz"
-          dashboardQueryParams: {{ if eq .Values.managementCluster.provider.flavor "capi" }}"orgId=1"{{ else }}""{{end}}
+          dashboardQueryParams: "orgId=1"
           description: "{{`At least one cilium-agent down for more than 10 minutes.`}}"
           runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/cilium-troubleshooting/"
         pageAlert:
           disable: false
           labels:
-            cancel_if_cluster_status_creating: "true"
-            cancel_if_cluster_status_deleting: "true"
             severity: page
         ticketAlert:
           disable: false
