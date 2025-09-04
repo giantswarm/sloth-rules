@@ -2,7 +2,7 @@ module github.com/giantswarm/sloth-rules
 
 go 1.21
 
-toolchain go1.25.0
+toolchain go1.25.1
 
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0
