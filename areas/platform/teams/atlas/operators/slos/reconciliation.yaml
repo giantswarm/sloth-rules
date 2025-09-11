@@ -11,6 +11,7 @@ alertLabels:
   cancel_if_cluster_has_no_workers: "true"
   cancel_if_outside_working_hours: "true"
 annotations:
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/atlas-operators
   __dashboardUid__: kube-builder-operators
   dashboardQueryParams: orgId=2
   description: '{{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}'

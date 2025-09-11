@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Cleanup vintage-related stuff
+- Added runbook for atlas-operator-reconciliation SLO
 
 ## [0.46.1] - 2025-04-28
 
