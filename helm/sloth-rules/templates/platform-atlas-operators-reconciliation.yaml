@@ -43,6 +43,7 @@ spec:
           __dashboardUid__: "kube-builder-operators"
           dashboardQueryParams: "orgId=2"
           description: "{{`Controller {{$labels.controller}} of operator {{ $labels.app }} is not able reconcile the resource.`}}"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/atlas-operators"
         pageAlert:
           disable: false
           labels:
