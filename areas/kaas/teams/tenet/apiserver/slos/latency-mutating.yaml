@@ -7,9 +7,8 @@ errorQuery: '{{`clamp_min(sum(rate(apiserver_request_duration_seconds_count{verb
 totalQuery: '{{`sum(rate(apiserver_request_duration_seconds_count{ verb=~"POST|PUT|DELETE|PATCH"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 alertLabels:
   silence: "true"
-  cancel_if_cluster_status_creating: "true"
-  cancel_if_cluster_status_deleting: "true"
-  cancel_if_cluster_status_updating: "true"
+  cancel_if_control_plane_node_down: "true"
+  cancel_if_node_unschedulable: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
 annotations:
   runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/latency-too-high/
