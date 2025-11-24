@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Change `WorkloadClusterAPIServerLatencyTooHigh` alert to only trigger if cluster is not in an upgrading/creating/deleting state.
+
 ## [0.46.2] - 2025-11-12
 
 ### Changed

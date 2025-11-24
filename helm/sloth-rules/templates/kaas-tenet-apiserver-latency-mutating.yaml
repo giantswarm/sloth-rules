@@ -30,6 +30,8 @@ spec:
       alerting:
         name: "ApiServerMutatingLatencyTooHigh"
         labels:
+          cancel_if_control_plane_node_down: "true"
+          cancel_if_node_unschedulable: "true"
           cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
           silence: "true"
           area: kaas
