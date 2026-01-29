@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.47.0] - 2026-01-21
 
 ### Remove
+
+- Remove `logging-operator` from the `AtlasOperatorsReconciliationError` alert
 - Removed `WorkloadClusterAPIServerLatencyTooHigh` alert as it ended up causing undue noise during cluster upgrades.
 
 ## [0.46.2] - 2025-11-12
