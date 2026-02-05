@@ -40,7 +40,7 @@ spec:
           __dashboardUid__: "vtuWtdumz"
           dashboardQueryParams: "orgId=1"
           description: "{{`At least one cilium-agent down for more than 10 minutes.`}}"
-          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/cilium-troubleshooting/"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/runbooks/cilium-troubleshooting/"
         pageAlert:
           disable: false
           labels:
