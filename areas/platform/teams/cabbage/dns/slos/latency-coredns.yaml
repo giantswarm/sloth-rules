@@ -5,7 +5,7 @@ objective: 99
 errorQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region) - sum(rate(coredns_dns_request_duration_seconds_bucket{app="coredns",le="0.032", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 totalQuery: '{{`sum(rate(coredns_dns_request_duration_seconds_count{app="coredns", zone=~".+local\\.$"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
-  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/dns-issue-mitigation
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/runbooks/dns-issue-mitigation/
   __dashboardUid__: Yu9tkufmk
   dashboardQueryParams: orgId=1
 alertLabels:

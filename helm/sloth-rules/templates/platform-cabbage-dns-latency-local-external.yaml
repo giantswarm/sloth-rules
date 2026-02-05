@@ -38,7 +38,7 @@ spec:
         annotations:
           __dashboardUid__: "Yu9tkufmk"
           dashboardQueryParams: "orgId=1"
-          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/dns-issue-mitigation"
+          runbook_url: "https://intranet.giantswarm.io/docs/support-and-ops/runbooks/dns-issue-mitigation/"
         pageAlert:
           disable: true
           labels:
