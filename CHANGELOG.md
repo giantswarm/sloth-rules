@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Use `Chart.AppVersion` instead of `Chart.Version` for `app.kubernetes.io/version` label.
+- Update team annotation in `Chart.yaml` to OpenContainers format.
+
 ## [0.47.0] - 2026-01-21
 
 ### Remove

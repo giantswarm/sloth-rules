@@ -27,11 +27,11 @@ Common labels
 {{- define "labels.common" -}}
 {{ include "labels.selector" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
-app.kubernetes.io/version: {{ .Chart.Version | quote }}
-application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+application.giantswarm.io/team: {{ index .Chart.Annotations "io.giantswarm.application.team" | quote }}
 giantswarm.io/managed-by: {{ .Release.Name | quote }}
 helm.sh/chart: {{ include "chart" . | quote }}
-owner: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
+owner: {{ index .Chart.Annotations "io.giantswarm.application.team" | quote }}
 {{- end -}}
 
 {{- define "workingHoursOnly" -}}
