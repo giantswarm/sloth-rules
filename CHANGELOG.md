@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.47.2] - 2026-02-13
+
+### Changed
+
+- Repository is now public.
+
 ## [0.47.1] - 2026-02-12
 
 ### Changed
@@ -636,7 +642,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.47.1...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.47.2...HEAD
+[0.47.2]: https://github.com/giantswarm/sloth-rules/compare/v0.47.1...v0.47.2
 [0.47.1]: https://github.com/giantswarm/sloth-rules/compare/v0.47.0...v0.47.1
 [0.47.0]: https://github.com/giantswarm/sloth-rules/compare/v0.46.2...v0.47.0
 [0.46.2]: https://github.com/giantswarm/sloth-rules/compare/v0.46.1...v0.46.2
