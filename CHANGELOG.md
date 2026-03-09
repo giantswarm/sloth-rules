@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove `object-storage-operator` from the `AtlasOperatorsReconciliationError` alert
+
 ## [0.47.2] - 2026-02-13
 
 ### Changed
