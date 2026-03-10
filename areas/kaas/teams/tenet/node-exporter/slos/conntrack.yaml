@@ -6,7 +6,7 @@ sharedAccrossProviders: true
 errorQuery: '{{`sum(count_over_time((node_nf_conntrack_entries / node_nf_conntrack_entries_limit >= 0.7)[{{.window}}:{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 totalQuery: '{{`sum(count_over_time((node_nf_conntrack_entries)[{{.window}}:{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)`}}'
 annotations:
-  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/ops-recipes/node-conntrack-limits/
+  runbook_url: https://intranet.giantswarm.io/docs/support-and-ops/runbooks/node-conntrack-limits/
 alertLabels:
   cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: "true"
