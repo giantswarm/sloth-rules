@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update runbook URLs from ops-recipes to runbooks for migrated content.
+
 ### Removed
 
 - Remove `object-storage-operator` from the `AtlasOperatorsReconciliationError` alert
