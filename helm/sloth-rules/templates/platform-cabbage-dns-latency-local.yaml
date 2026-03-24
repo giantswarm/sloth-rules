@@ -30,7 +30,7 @@ spec:
       alerting:
         name: "LocalDNSCacheLatencyTooHigh"
         labels:
-          cancel_if_outside_working_hours: {{ include "workingHoursOnly" . }}
+          cancel_if_outside_working_hours: "true"
           area: platform
           cluster_id: "{{ printf "{{ .Labels.cluster_id }}" }}"
           cluster_type: "{{ printf "{{ .Labels.cluster_id }}" }}"
