@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.49.0] - 2026-03-24
+
 ### Changed
 
 - Migrate Team Shield ops recipes to runbooks.
+- Switch DNS alerts to working hours only.
 
 ## [0.48.0] - 2026-03-10
 
@@ -656,7 +659,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.48.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.49.0...HEAD
+[0.49.0]: https://github.com/giantswarm/sloth-rules/compare/v0.49.0...v0.49.0
+[0.49.0]: https://github.com/giantswarm/sloth-rules/compare/v0.48.0...v0.49.0
 [0.48.0]: https://github.com/giantswarm/sloth-rules/compare/v0.47.2...v0.48.0
 [0.47.2]: https://github.com/giantswarm/sloth-rules/compare/v0.47.1...v0.47.2
 [0.47.1]: https://github.com/giantswarm/sloth-rules/compare/v0.47.0...v0.47.1
