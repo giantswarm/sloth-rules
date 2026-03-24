@@ -9,11 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.49.0] - 2026-03-24
 
-## [0.49.0] - 2026-03-24
-
 ### Changed
 
 - Migrate Team Shield ops recipes to runbooks.
+- Switch DNS alerts to working hours only.
 
 ## [0.48.0] - 2026-03-10
 
