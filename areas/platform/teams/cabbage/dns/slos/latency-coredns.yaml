@@ -9,4 +9,4 @@ annotations:
   __dashboardUid__: Yu9tkufmk
   dashboardQueryParams: orgId=1
 alertLabels:
-  cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
+  cancel_if_outside_working_hours: 'true'
