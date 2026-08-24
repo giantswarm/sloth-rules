@@ -4,9 +4,11 @@ alertName: "ApiServerAvailabilityErrorRateTooHigh"
 objective: 99
 sharedAccrossProviders: true
 # count the errors in the last period, or consider 100% error rate if the apiserver is down.
-errorQuery: '{{`(sum(rate(apiserver_request_total{code=~"(5..|429)"}[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0))`}}'
+# The rates come from the pre-aggregated recording rules in giantswarm/prometheus-rules
+# (kaas/tenet/recording-rules/apiserver-slo.rules.yml) rather than raw apiserver_request_total.
+errorQuery: '{{`(sum(avg_over_time(gs_slo:apiserver_request_errors:rate5m[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0))`}}'
 # on the totalQuery we are clamping to 1 - 0.01 to avoid dividing by zero (well, 0/0) in case of single-master clusters.
-totalQuery: '{{`(sum(rate(apiserver_request_total[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0.01))`}}'
+totalQuery: '{{`(sum(avg_over_time(gs_slo:apiserver_request_total:rate5m[{{.window}}])) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region)) or (clamp_min(1 - sum(up{job="apiserver"}) by (cluster_id, cluster_type, customer, installation, pipeline, provider, region), 0.01))`}}'
 alertLabels:
   cancel_if_monitoring_agent_down: "true"
   cancel_if_outside_working_hours: '{{ include "workingHoursOnly" . }}'
