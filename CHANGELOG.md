@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Compute the apiserver-availability SLI from the pre-aggregated `gs_slo:apiserver_request_*:rate5m` recording rules instead of raw `apiserver_request_total`.
+
 ### Fixed
 
 - Fix the etcd availability SLI (`ETCDAvailabilityErrorRateTooHigh`) so the `errorQuery` returns the error event rate (numerator) only, letting Sloth compute the error ratio and burn rate correctly. The previous query pre-divided by the total and gated with `> 0.01`, which broke the burn-rate math. The page alert remains silenced for now; the notify tier will be observed before promoting to page.
