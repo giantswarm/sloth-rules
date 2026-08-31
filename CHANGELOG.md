@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.50.0] - 2026-08-31
+
 ### Changed
 
 - Compute the apiserver-availability SLI from the pre-aggregated `gs_slo:apiserver_request_*:rate5m` recording rules instead of raw `apiserver_request_total`.
@@ -667,7 +669,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add DNS SLO.
 - Add Scheduler SLO.
 
-[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.49.0...HEAD
+[Unreleased]: https://github.com/giantswarm/sloth-rules/compare/v0.50.0...HEAD
+[0.50.0]: https://github.com/giantswarm/sloth-rules/compare/v0.49.0...v0.50.0
 [0.49.0]: https://github.com/giantswarm/sloth-rules/compare/v0.49.0...v0.49.0
 [0.49.0]: https://github.com/giantswarm/sloth-rules/compare/v0.48.0...v0.49.0
 [0.48.0]: https://github.com/giantswarm/sloth-rules/compare/v0.47.2...v0.48.0
