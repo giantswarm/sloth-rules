@@ -17,7 +17,8 @@ jobs:
           client-id: ${{ secrets.RELEASE_BOT_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
           owner: giantswarm
-          repositories: giantswarm,handbook
+          # Only the private giantswarm repo needs the token, handbook is public.
+          repositories: giantswarm
           permission-contents: read
       - name: Clone giantswarm runbook repo
         env:
@@ -25,10 +26,8 @@ jobs:
         run: |
           git clone --depth 1 --single-branch -b main -q "https://x-access-token:${TOKEN}@github.com/giantswarm/giantswarm.git"
       - name: Clone handbook runbook repo
-        env:
-          TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          git clone --depth 1 --single-branch -b main -q "https://x-access-token:${TOKEN}@github.com/giantswarm/handbook.git"
+          git clone --depth 1 --single-branch -b main -q https://github.com/giantswarm/handbook.git
       - name: run runbook tests
         run: make test-ci-runbooks
       - name: validate sloth rules
