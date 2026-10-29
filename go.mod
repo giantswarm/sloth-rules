@@ -1,6 +1,6 @@
 module github.com/giantswarm/sloth-rules
 
-go 1.21
+go 1.26.0
 
 toolchain go1.27.3
 
@@ -19,6 +19,6 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spf13/cast v1.7.1 // indirect
-	golang.org/x/crypto v0.33.0 // indirect
+	golang.org/x/crypto v0.58.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 )
