@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Update architect to v10.18.0 (giantswarm/sloth-rules#472)
+- Update actions/create-github-app-token to v3.4.0 (giantswarm/sloth-rules#473)
 
 ## [0.50.0] - 2026-08-31
 
